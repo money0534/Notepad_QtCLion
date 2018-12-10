@@ -1,0 +1,1 @@
+# Qt5 Notepad project convert to CLion project.
