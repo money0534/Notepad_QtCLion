@@ -67,9 +67,7 @@
 #include "include/notepad.h"
 #include "ui_notepad.h"
 
-Notepad::Notepad(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::Notepad)
+Notepad::Notepad(QWidget *parent) : QMainWindow(parent),ui(new Ui::Notepad)
 {
     ui->setupUi(this);
     this->setCentralWidget(ui->textEdit);
@@ -97,6 +95,9 @@ void Notepad::on_actionNew_triggered()
     ui->textEdit->setText(QString());
 }
 
+/**
+ * 打开一个本地文件
+ */
 void Notepad::on_actionOpen_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");

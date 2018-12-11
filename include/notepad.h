@@ -78,6 +78,7 @@ public:
     ~Notepad();
 //! [5]
 
+//slots可以看做事件 http://doc.qt.io/qt-5/signalsandslots.html
 private slots:
     void on_actionNew_triggered();
 
