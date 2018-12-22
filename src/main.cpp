@@ -48,17 +48,18 @@
 **
 ****************************************************************************/
 
-#include "include/notepad.h"
 #include <QApplication>
+#include <iostream>
+#include "include/mynotepad.h"
 
-//不显示控制台
-//#pragma comment( linker, "/subsystem:windows /entry:mainCRTStartup" )
 
 int main(int argc, char *argv[])
 {
-    QApplication EditorApp(argc, argv);
-    Notepad Editor;
-    Editor.show();
+    std::cout<<"qt study"<<std::endl;
 
-    return EditorApp.exec();
+    //创建QApplication对象
+    QApplication app(argc,argv);
+    Notepad notepad();
+
+    return app.exec();
 }

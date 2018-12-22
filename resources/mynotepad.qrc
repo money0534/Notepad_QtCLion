@@ -1,4 +1,11 @@
-<RCC>
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <!--音频文件-->
+    <qresource prefix="/">
+        <file>bi.mp3</file>
+    </qresource>
+
+    <!--图片资源-->
     <qresource prefix="/">
         <file>images/info.png</file>
         <file>images/new.png</file>
