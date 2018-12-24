@@ -67,8 +67,17 @@
 #include "include/notepad.h"
 #include "ui_notepad.h"
 
+/**
+ * Notepad控制器。Notepad构造方法实现。
+ * 这里调用了父类QMainWindow的构造方法，并实例化Ui::Notepad。
+ * 各种事件方法在与组件交互时，从ui中访问所需对象即可。
+ * @param parent
+ */
 Notepad::Notepad(QWidget *parent) : QMainWindow(parent),ui(new Ui::Notepad)
 {
+    /**
+     * 同时Ui::Notepad接收一个QMainWindow对象，这里将this（Notepad本身继承了QMainWindow）传入
+     */
     ui->setupUi(this);
     this->setCentralWidget(ui->textEdit);
 

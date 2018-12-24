@@ -72,6 +72,10 @@ class Notepad : public QMainWindow
 
 //! [4]
 public:
+    /**
+     * 定义构造方法，Note notepad.app中其实现
+     * @param parent
+     */
     explicit Notepad(QWidget *parent = 0);
 //! [4]
 //! [5]
@@ -114,6 +118,11 @@ private slots:
 
 //! [6]
 private:
+    /**
+     * 维护一个Ui::Notepad对象，界面类
+     * 该类是从notepad.ui自动生成的界面实现类。负责维护UI：如实例化所有组件（可看做查找并实例化），维护父子关系，实现各种样式等。
+     * Notepad本身可以从该类中访问所有组件，各种事件方法在与组件交互时，从ui对象中访问即可。
+     */
     Ui::Notepad *ui;
     QString currentFile;
 //! [6]
