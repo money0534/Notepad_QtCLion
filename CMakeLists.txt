@@ -18,7 +18,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(SOURCE_FILES src/main.cpp src/notepad.cpp src/notepad.h src/notepad.ui
         src/calculator.cpp src/calculator.h src/calculator.ui)
 #resources 1、.qrc文件 2、存放图片资源文件等
-set(RESOURCE_FILES resources/notepad.qrc)
+set(RESOURCE_FILES resources/notepad.qrc src/Model.cpp src/Model.h)
 
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)

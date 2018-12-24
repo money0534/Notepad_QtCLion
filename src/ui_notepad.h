@@ -61,6 +61,7 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout_2 = new QVBoxLayout(centralwidget);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setSizeConstraint(QLayout::SetNoConstraint);
         title = new QLabel(centralwidget);
         title->setObjectName(QString::fromUtf8("title"));
         title->setEnabled(true);
