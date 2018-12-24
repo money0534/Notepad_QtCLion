@@ -15,6 +15,12 @@ public:
     explicit Notepad(QWidget *parent = nullptr);
     ~Notepad();
 
+    //定义槽函数
+private slots:
+
+    void login();
+    void closeSelf();
+
 private:
     Ui::Notepad *ui;
 };
