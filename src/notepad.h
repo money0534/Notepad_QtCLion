@@ -1,5 +1,5 @@
-#ifndef MYNOTEPAD_H
-#define MYNOTEPAD_H
+#ifndef NOTEPAD_H
+#define NOTEPAD_H
 
 #include <QMainWindow>
 
@@ -19,4 +19,4 @@ private:
     Ui::Notepad *ui;
 };
 
-#endif // MYNOTEPAD_H
+#endif // NOTEPAD_H

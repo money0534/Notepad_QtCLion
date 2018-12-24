@@ -1,5 +1,5 @@
-#include "include/mynotepad.h"
-#include "ui_mynotepad.h"
+#include "notepad.h"
+#include "ui_notepad.h"
 
 Notepad::Notepad(QWidget *parent) :
     QMainWindow(parent),

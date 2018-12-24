@@ -49,17 +49,34 @@
 ****************************************************************************/
 
 #include <QApplication>
+#include <QPushButton>
+#include <QWidget>
 #include <iostream>
-#include "include/mynotepad.h"
+#include "notepad.h"
 
 
-int main(int argc, char *argv[])
-{
-    std::cout<<"qt study"<<std::endl;
+int main(int argc, char *argv[]) {
+    std::cout << "qt study" << std::endl;
 
     //创建QApplication对象
-    QApplication app(argc,argv);
-    Notepad notepad();
+    QApplication app(argc, argv);
+    Notepad notepad;
 
+    notepad.show();
+
+//    QWidget w;
+//    w.setWindowTitle("HelloWorld");
+//
+//    QPushButton btn;
+//    btn.setText("Close");
+//    btn.setParent(&w);
+//
+//    QObject::connect(&btn,SIGNAL(clicked()),&w,SLOT(close()));
+//
+//
+//    w.show();
+
+    //enter main event loop
+    //http://doc.qt.io/qt-5/qapplication.html#exec
     return app.exec();
 }
