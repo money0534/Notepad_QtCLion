@@ -53,6 +53,7 @@
 #include <QWidget>
 #include <iostream>
 #include "notepad.h"
+#include "calculator.h"
 
 
 int main(int argc, char *argv[]) {
@@ -60,7 +61,10 @@ int main(int argc, char *argv[]) {
 
     //创建QApplication对象
     QApplication app(argc, argv);
-    Notepad notepad;
+
+    //计算器程序
+    Calculator notepad;
+//    Notepad notepad;
 
     notepad.show();
 
