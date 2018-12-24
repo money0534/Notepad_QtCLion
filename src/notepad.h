@@ -21,6 +21,10 @@ private slots:
     void login();
     void closeSelf();
 
+    void on_btnCancel_clicked();
+
+    void on_etAccount_textChanged(const QString &arg1);
+
 private:
     Ui::Notepad *ui;
 };

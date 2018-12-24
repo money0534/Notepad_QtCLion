@@ -47,3 +47,18 @@ void Notepad::closeSelf() {
     close();
 }
 
+
+void Notepad::on_btnCancel_clicked()
+{
+    qDebug()<<"on_btnCancel_clicked()";
+    close();
+}
+
+/**
+ * 输入文本变化事件
+ * @param arg1
+ */
+void Notepad::on_etAccount_textChanged(const QString &arg1)
+{
+    qDebug()<<arg1;
+}
