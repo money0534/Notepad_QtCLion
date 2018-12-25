@@ -54,6 +54,7 @@
 #include <iostream>
 #include "notepad.h"
 #include "calculator.h"
+#include "employee/mainpage.h"
 #include <windows.h>
 
 
@@ -67,8 +68,11 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     //计算器程序
-    Calculator notepad;
+//    Calculator notepad;
+//记事本
 //    Notepad notepad;
+//员工管理
+    MainPage notepad;
 
     notepad.show();
 

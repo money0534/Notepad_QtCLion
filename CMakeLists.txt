@@ -18,7 +18,10 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 #src 1、当.h与.cpp不在同一路径中时，需要分别包含进来（在同一目录时可省略.h） 2、.ui文件（经测试，在CLion中.ui文件需要与对应的class在相同的路径内）
 set(SOURCE_FILES src/main.cpp src/notepad.cpp src/notepad.h src/notepad.ui
-        src/calculator.cpp src/calculator.h src/calculator.ui)
+        src/calculator.cpp src/calculator.h src/calculator.ui
+        employee/mainpage.cpp employee/mainpage.ui
+        employee/addemp.cpp employee/addemp.ui
+        )
 #resources 1、.qrc文件 2、存放图片资源文件等
 set(RESOURCE_FILES resources/notepad.qrc src/Model.cpp src/Model.h)
 
