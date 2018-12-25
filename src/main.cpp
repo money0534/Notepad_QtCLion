@@ -54,9 +54,13 @@
 #include <iostream>
 #include "notepad.h"
 #include "calculator.h"
+#include <windows.h>
 
 
 int main(int argc, char *argv[]) {
+
+    //dos窗口还是会一闪而过
+//    FreeConsole();
     std::cout << "qt study" << std::endl;
 
     //创建QApplication对象
