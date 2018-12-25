@@ -14,6 +14,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+#set(CMAKE_BUILD_TYPE )
+
 #src 1、当.h与.cpp不在同一路径中时，需要分别包含进来（在同一目录时可省略.h） 2、.ui文件（经测试，在CLion中.ui文件需要与对应的class在相同的路径内）
 set(SOURCE_FILES src/main.cpp src/notepad.cpp src/notepad.h src/notepad.ui
         src/calculator.cpp src/calculator.h src/calculator.ui)
@@ -27,7 +29,10 @@ find_package(Qt5PrintSupport REQUIRED)
 #图片等资源文件的文件夹包含进来
 include_directories(resources/images)
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES})
+#WIN32 indicates that the executable (when compiled on windows) is a windows app (using WinMain) not a console app (using main).
+#增加WIN32 表明是一个windows桌面程序，而非console app不显示cmd window
+#参考 https://cmake.org/pipermail/cmake/2008-March/020576.html
+add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${RESOURCE_FILES})
 
 #Qt5::Core Qt5::Quick
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::PrintSupport)
