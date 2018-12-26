@@ -21,7 +21,8 @@ set(SOURCE_FILES src/main.cpp src/notepad.cpp src/notepad.h src/notepad.ui
         src/calculator.cpp src/calculator.h src/calculator.ui
         employee/mainpage.cpp employee/mainpage.ui
         employee/addemp.cpp employee/addemp.ui
-        )
+        employee/queryemp.cpp employee/queryemp.ui
+        employee/EmpModel.cpp employee/EmpModel.h)
 #resources 1、.qrc文件 2、存放图片资源文件等
 set(RESOURCE_FILES resources/notepad.qrc src/Model.cpp src/Model.h)
 
@@ -35,7 +36,7 @@ include_directories(resources/images)
 #WIN32 indicates that the executable (when compiled on windows) is a windows app (using WinMain) not a console app (using main).
 #增加WIN32 表明是一个windows桌面程序，而非console app不显示cmd window
 #参考 https://cmake.org/pipermail/cmake/2008-March/020576.html
-add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${RESOURCE_FILES})
+add_executable(${PROJECT_NAME}  ${SOURCE_FILES} ${RESOURCE_FILES})#WIN32
 
 #Qt5::Core Qt5::Quick
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::PrintSupport)

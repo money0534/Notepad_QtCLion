@@ -2,6 +2,8 @@
 #define ADDEMP_H
 
 #include <QDialog>
+#include <QFile>
+#include "EmpModel.h"
 
 namespace Ui {
 class AddEmp;
@@ -24,8 +26,22 @@ private slots:
 
     void on_rbFemale_toggled(bool checked);
 
+    void on_cbbAge_currentIndexChanged(int arg1);
+
+    void on_cbbDept_currentIndexChanged(const QString &arg1);
+
+    void on_cbPool_stateChanged(int arg1);
+
+    void on_cbBasketball_stateChanged(int arg1);
+
+    void on_cbBadminton_stateChanged(int arg1);
+
+    void on_cbGame_stateChanged(int arg1);
+
 private:
     Ui::AddEmp *ui;
+
+    void writeToFile(EmpModel& model);
 };
 
 #endif // ADDEMP_H

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "addemp.h"
+#include "queryemp.h"
 
 namespace Ui {
 class MainPage;
@@ -26,6 +27,7 @@ private slots:
 private:
     Ui::MainPage *ui;
     AddEmp * addEmp;
+    QueryEmp * queryEmp;
 };
 
 #endif // MAINPAGE_H
