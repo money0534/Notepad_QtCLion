@@ -35,8 +35,16 @@ private slots:
 
     void handleError(QSerialPort::SerialPortError error);
 
+    void on_actionOverSpeed_triggered();
+
+    void on_actionLeftFront_triggered();
+
+    void on_actionMidBack_triggered();
+
 private:
     void initActionsConnections();
+
+    void simulateBrake(char* cmd);
 
 private:
     void showStatusMessage(const QString &message);

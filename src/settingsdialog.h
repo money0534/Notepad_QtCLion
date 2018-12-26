@@ -70,6 +70,9 @@ class SettingsDialog : public QDialog
     Q_OBJECT
 
 public:
+    /**
+     * 串口配置项类
+     */
     struct Settings {
         QString name;
         qint32 baudRate;

@@ -2,6 +2,7 @@
 #include "console.h"
 
 #include <QScrollBar>
+#include <QDebug>
 
 Console::Console(QWidget *parent) :
     QPlainTextEdit(parent)
@@ -17,6 +18,7 @@ void Console::putData(const QByteArray &data)
 {
     insertPlainText(data);
 
+
     QScrollBar *bar = verticalScrollBar();
     bar->setValue(bar->maximum());
 }
@@ -28,18 +30,20 @@ void Console::setLocalEchoEnabled(bool set)
 
 void Console::keyPressEvent(QKeyEvent *e)
 {
-    switch (e->key()) {
-    case Qt::Key_Backspace:
-    case Qt::Key_Left:
-    case Qt::Key_Right:
-    case Qt::Key_Up:
-    case Qt::Key_Down:
-        break;
-    default:
-        if (m_localEchoEnabled)
-            QPlainTextEdit::keyPressEvent(e);
-        emit getData(e->text().toLocal8Bit());
-    }
+    qDebug()<<"键盘事件："<<e->key();
+
+//    switch (e->key()) {
+//    case Qt::Key_Backspace:
+//    case Qt::Key_Left:
+//    case Qt::Key_Right:
+//    case Qt::Key_Up:
+//    case Qt::Key_Down:
+//        break;
+//    default:
+//        if (m_localEchoEnabled)
+//            QPlainTextEdit::keyPressEvent(e);
+//        emit getData(e->text().toLocal8Bit());
+//    }
 }
 
 void Console::mousePressEvent(QMouseEvent *e)

@@ -6,16 +6,17 @@
 
 #include <QLabel>
 #include <QMessageBox>
+#include <QDebug>
 
 //! [0]
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    m_ui(new Ui::MainWindow),
-    m_status(new QLabel),
-    m_console(new Console),
-    m_settings(new SettingsDialog),
+        QMainWindow(parent),
+        m_ui(new Ui::MainWindow),
+        m_status(new QLabel),
+        m_console(new Console),
+        m_settings(new SettingsDialog),
 //! [1]
-    m_serial(new QSerialPort(this))
+        m_serial(new QSerialPort(this))
 //! [1]
 {
 //! [0]
@@ -42,15 +43,13 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 //! [3]
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete m_settings;
     delete m_ui;
 }
 
 //! [4]
-void MainWindow::openSerialPort()
-{
+void MainWindow::openSerialPort() {
     const SettingsDialog::Settings p = m_settings->settings();
     m_serial->setPortName(p.name);
     m_serial->setBaudRate(p.baudRate);
@@ -65,8 +64,9 @@ void MainWindow::openSerialPort()
         m_ui->actionDisconnect->setEnabled(true);
         m_ui->actionConfigure->setEnabled(false);
         showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6")
-                          .arg(p.name).arg(p.stringBaudRate).arg(p.stringDataBits)
-                          .arg(p.stringParity).arg(p.stringStopBits).arg(p.stringFlowControl));
+                                  .arg(p.name).arg(p.stringBaudRate).arg(p.stringDataBits)
+                                  .arg(p.stringParity).arg(p.stringStopBits).arg(
+                        p.stringFlowControl));
     } else {
         QMessageBox::critical(this, tr("Error"), m_serial->errorString());
 
@@ -76,8 +76,7 @@ void MainWindow::openSerialPort()
 //! [4]
 
 //! [5]
-void MainWindow::closeSerialPort()
-{
+void MainWindow::closeSerialPort() {
     if (m_serial->isOpen())
         m_serial->close();
     m_console->setEnabled(false);
@@ -88,8 +87,7 @@ void MainWindow::closeSerialPort()
 }
 //! [5]
 
-void MainWindow::about()
-{
+void MainWindow::about() {
     QMessageBox::about(this, tr("About Simple Terminal"),
                        tr("The <b>Simple Terminal</b> example demonstrates how to "
                           "use the Qt Serial Port module in modern GUI applications "
@@ -97,23 +95,73 @@ void MainWindow::about()
 }
 
 //! [6]
-void MainWindow::writeData(const QByteArray &data)
-{
+void MainWindow::writeData(const QByteArray &data) {
     m_serial->write(data);
 }
 //! [6]
 
 //! [7]
-void MainWindow::readData()
-{
-    const QByteArray data = m_serial->readAll();
-    m_console->putData(data);
+void MainWindow::readData() {
+    QByteArray data = m_serial->readAll().trimmed();
+
+    const QString resp = " --> $OK\n";
+    //接收到发送后，作出响应
+    if (data.toStdString() == "$BRAKE=0") {
+        qDebug() << "$BRAKE=0解除刹车";
+        m_serial->write("$OK\n");
+        data.append(resp);
+        m_console->putData(data);
+    } else if (data.toStdString() == "$BRAKE=1") {
+        qDebug() << "$BRAKE=1刹车";
+        m_serial->write("$OK\n");
+        data.append(resp);
+        m_console->putData(data);
+    } else {
+        qDebug() << "data received:" << data;
+        m_console->putData(data);
+    }
 }
 //! [7]
 
-//! [8]
-void MainWindow::handleError(QSerialPort::SerialPortError error)
+void MainWindow::simulateBrake(char* cmd) {
+    //向串口发送
+    m_serial->write(cmd);
+    //显示到控制台
+    char prefix[] = "--> ";
+    QByteArray showCmd(prefix);
+    showCmd.append(cmd);
+    m_console->putData(showCmd);
+}
+
+/**
+ * 模拟超速
+ */
+void MainWindow::on_actionOverSpeed_triggered()
 {
+    char cmd[]="$EVENT=HS\r\n";
+    simulateBrake(cmd);
+}
+
+/**
+ * 模拟左前方障碍物
+ */
+void MainWindow::on_actionLeftFront_triggered()
+{
+    char cmd[]="$EVENT=FR\r\n";
+    simulateBrake(cmd);
+}
+
+/**
+ * 模拟后方障碍物
+ */
+void MainWindow::on_actionMidBack_triggered()
+{
+    char cmd[]="$EVENT=BM\r\n";
+    simulateBrake(cmd);
+}
+
+//! [8]
+void MainWindow::handleError(QSerialPort::SerialPortError error) {
     if (error == QSerialPort::ResourceError) {
         QMessageBox::critical(this, tr("Critical Error"), m_serial->errorString());
         closeSerialPort();
@@ -121,8 +169,7 @@ void MainWindow::handleError(QSerialPort::SerialPortError error)
 }
 //! [8]
 
-void MainWindow::initActionsConnections()
-{
+void MainWindow::initActionsConnections() {
     connect(m_ui->actionConnect, &QAction::triggered, this, &MainWindow::openSerialPort);
     connect(m_ui->actionDisconnect, &QAction::triggered, this, &MainWindow::closeSerialPort);
     connect(m_ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
@@ -132,7 +179,10 @@ void MainWindow::initActionsConnections()
     connect(m_ui->actionAboutQt, &QAction::triggered, qApp, &QApplication::aboutQt);
 }
 
-void MainWindow::showStatusMessage(const QString &message)
-{
+void MainWindow::showStatusMessage(const QString &message) {
     m_status->setText(message);
 }
+
+
+
+

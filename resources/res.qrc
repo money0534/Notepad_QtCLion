@@ -5,5 +5,8 @@
         <file>images/connect.png</file>
         <file>images/disconnect.png</file>
         <file>images/settings.png</file>
+        <file>images/obs_front.png</file>
+        <file>images/obs_back.png</file>
+        <file>images/overspeed.png</file>
     </qresource>
 </RCC>
