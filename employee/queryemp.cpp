@@ -28,6 +28,7 @@ QueryEmp::QueryEmp(QWidget *parent) :
 }
 
 QueryEmp::~QueryEmp() {
+    delete model;
     delete ui;
 }
 
