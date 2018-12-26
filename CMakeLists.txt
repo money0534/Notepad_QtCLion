@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.7)
-project(Notepad)
+project(SuperSerialport)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -14,29 +14,23 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-#set(CMAKE_BUILD_TYPE )
 
 #src 1、当.h与.cpp不在同一路径中时，需要分别包含进来（在同一目录时可省略.h） 2、.ui文件（经测试，在CLion中.ui文件需要与对应的class在相同的路径内）
-set(SOURCE_FILES src/main.cpp src/notepad.cpp src/notepad.h src/notepad.ui
-        src/calculator.cpp src/calculator.h src/calculator.ui
-        employee/mainpage.cpp employee/mainpage.ui
-        employee/addemp.cpp employee/addemp.ui
-        employee/queryemp.cpp employee/queryemp.ui
-        employee/EmpModel.cpp employee/EmpModel.h)
+set(SOURCE_FILES src/main.cpp
+        src/console.cpp
+        src/mainwindow.cpp src/mainwindow.ui
+        src/settingsdialog.cpp src/settingsdialog.ui)
+
 #resources 1、.qrc文件 2、存放图片资源文件等
-set(RESOURCE_FILES resources/notepad.qrc src/Model.cpp src/Model.h)
+set(RESOURCE_FILES resources/res.qrc)
 
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
-find_package(Qt5PrintSupport REQUIRED)
+find_package(Qt5SerialPort REQUIRED)
 
-#图片等资源文件的文件夹包含进来
 include_directories(resources/images)
 
-#WIN32 indicates that the executable (when compiled on windows) is a windows app (using WinMain) not a console app (using main).
-#增加WIN32 表明是一个windows桌面程序，而非console app不显示cmd window
-#参考 https://cmake.org/pipermail/cmake/2008-March/020576.html
-add_executable(${PROJECT_NAME}  ${SOURCE_FILES} ${RESOURCE_FILES})#WIN32
+add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES})#WIN32
 
 #Qt5::Core Qt5::Quick
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::PrintSupport)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::SerialPort)
