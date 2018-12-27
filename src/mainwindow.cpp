@@ -109,23 +109,24 @@ void MainWindow::readData() {
 
 void MainWindow::on_actionResponseOK_triggered()
 {
-    char cmd[]="$OK\r\n";
-    serialWrite(cmd);
+    QString txt = "$OK";
+    serialWrite(txt);
 }
 
 
-void MainWindow::serialWrite(char *cmd) {
+void MainWindow::serialWrite(QString &cmd) {
     if(!m_serial->isOpen()){
         QMessageBox::warning(this,"警告","请配置连接串口后重试！");
         return;
     }
+    cmd+="\r\n";
+    QByteArray sendCmd = cmd.toLocal8Bit();
     //向串口发送
-    m_serial->write(cmd);
+    m_serial->write(sendCmd);
     //显示到控制台
     char prefix[] = "--> ";
-    QByteArray showCmd(prefix);
-    showCmd.append(cmd);
-    m_console->putData(showCmd);
+    sendCmd.prepend(prefix);
+    m_console->putData(sendCmd);
 }
 
 /**
@@ -133,7 +134,7 @@ void MainWindow::serialWrite(char *cmd) {
  */
 void MainWindow::on_actionOverSpeed_triggered()
 {
-    char cmd[]="$EVENT=HS\r\n";
+    QString cmd="$EVENT=HS";
     serialWrite(cmd);
 }
 
@@ -142,7 +143,7 @@ void MainWindow::on_actionOverSpeed_triggered()
  */
 void MainWindow::on_actionLeftFront_triggered()
 {
-    char cmd[]="$EVENT=FL\r\n";
+    QString cmd="$EVENT=FL";
     serialWrite(cmd);
 }
 
@@ -151,7 +152,8 @@ void MainWindow::on_actionLeftFront_triggered()
  */
 void MainWindow::on_actionMidBack_triggered()
 {
-    char cmd[]="$EVENT=BM\r\n";
+    QString cmd="$EVENT=BM";
+
     serialWrite(cmd);
 }
 

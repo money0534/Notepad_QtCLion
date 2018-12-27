@@ -46,7 +46,7 @@ private slots:
 private:
     void initActionsConnections();
 
-    void serialWrite(char *cmd);
+    void serialWrite(QString& cmd);
 
 private:
     void showStatusMessage(const QString &message);
