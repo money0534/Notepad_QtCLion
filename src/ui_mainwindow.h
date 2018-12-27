@@ -27,7 +27,6 @@ class Ui_MainWindow
 {
 public:
     QAction *actionAbout;
-    QAction *actionAboutQt;
     QAction *actionConnect;
     QAction *actionDisconnect;
     QAction *actionConfigure;
@@ -36,6 +35,7 @@ public:
     QAction *actionOverSpeed;
     QAction *actionLeftFront;
     QAction *actionMidBack;
+    QAction *actionResponseOK;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QMenuBar *menuBar;
@@ -50,14 +50,12 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(400, 300);
+        MainWindow->resize(600, 800);
         QIcon icon;
         icon.addFile(QString::fromUtf8("../resources/images/icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
         actionAbout = new QAction(MainWindow);
         actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
-        actionAboutQt = new QAction(MainWindow);
-        actionAboutQt->setObjectName(QString::fromUtf8("actionAboutQt"));
         actionConnect = new QAction(MainWindow);
         actionConnect->setObjectName(QString::fromUtf8("actionConnect"));
         QIcon icon1;
@@ -98,6 +96,11 @@ public:
         QIcon icon8;
         icon8.addFile(QString::fromUtf8(":/images/obs_back.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionMidBack->setIcon(icon8);
+        actionResponseOK = new QAction(MainWindow);
+        actionResponseOK->setObjectName(QString::fromUtf8("actionResponseOK"));
+        QIcon icon9;
+        icon9.addFile(QString::fromUtf8("../resources/images/ok.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionResponseOK->setIcon(icon9);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -107,7 +110,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 26));
+        menuBar->setGeometry(QRect(0, 0, 600, 26));
         menuCalls = new QMenu(menuBar);
         menuCalls->setObjectName(QString::fromUtf8("menuCalls"));
         menuTools = new QMenu(menuBar);
@@ -135,10 +138,11 @@ public:
         menuTools->addAction(actionConfigure);
         menuTools->addAction(actionClear);
         menuHelp->addAction(actionAbout);
-        menuHelp->addAction(actionAboutQt);
         menuSimulation->addAction(actionOverSpeed);
         menuSimulation->addAction(actionLeftFront);
         menuSimulation->addAction(actionMidBack);
+        menuSimulation->addSeparator();
+        menuSimulation->addAction(actionResponseOK);
         mainToolBar->addAction(actionConnect);
         mainToolBar->addAction(actionDisconnect);
         mainToolBar->addAction(actionConfigure);
@@ -147,6 +151,8 @@ public:
         mainToolBar->addAction(actionOverSpeed);
         mainToolBar->addAction(actionLeftFront);
         mainToolBar->addAction(actionMidBack);
+        mainToolBar->addSeparator();
+        mainToolBar->addAction(actionResponseOK);
 
         retranslateUi(MainWindow);
 
@@ -163,7 +169,6 @@ public:
 #ifndef QT_NO_SHORTCUT
         actionAbout->setShortcut(QApplication::translate("MainWindow", "Alt+A", nullptr));
 #endif // QT_NO_SHORTCUT
-        actionAboutQt->setText(QApplication::translate("MainWindow", "About Qt", nullptr));
         actionConnect->setText(QApplication::translate("MainWindow", "C&onnect", nullptr));
 #ifndef QT_NO_TOOLTIP
         actionConnect->setToolTip(QApplication::translate("MainWindow", "Connect to serial port", nullptr));
@@ -208,10 +213,14 @@ public:
 #ifndef QT_NO_TOOLTIP
         actionMidBack->setToolTip(QApplication::translate("MainWindow", "\346\250\241\346\213\237\345\267\246\345\211\215\346\226\271\351\232\234\347\242\215\347\211\251", nullptr));
 #endif // QT_NO_TOOLTIP
+        actionResponseOK->setText(QApplication::translate("MainWindow", "\345\223\215\345\272\224OK", nullptr));
+#ifndef QT_NO_TOOLTIP
+        actionResponseOK->setToolTip(QApplication::translate("MainWindow", "\345\223\215\345\272\224OK", nullptr));
+#endif // QT_NO_TOOLTIP
         menuCalls->setTitle(QApplication::translate("MainWindow", "Calls", nullptr));
         menuTools->setTitle(QApplication::translate("MainWindow", "Tools", nullptr));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", nullptr));
-        menuSimulation->setTitle(QApplication::translate("MainWindow", "\346\250\241\346\213\237\345\210\271\350\275\246", nullptr));
+        menuSimulation->setTitle(QApplication::translate("MainWindow", "\345\212\250\344\275\234", nullptr));
     } // retranslateUi
 
 };

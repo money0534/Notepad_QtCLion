@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>600</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>600</width>
      <height>26</height>
     </rect>
    </property>
@@ -50,15 +50,16 @@
      <string>Help</string>
     </property>
     <addaction name="actionAbout"/>
-    <addaction name="actionAboutQt"/>
    </widget>
    <widget class="QMenu" name="menuSimulation">
     <property name="title">
-     <string>模拟刹车</string>
+     <string>动作</string>
     </property>
     <addaction name="actionOverSpeed"/>
     <addaction name="actionLeftFront"/>
     <addaction name="actionMidBack"/>
+    <addaction name="separator"/>
+    <addaction name="actionResponseOK"/>
    </widget>
    <addaction name="menuCalls"/>
    <addaction name="menuTools"/>
@@ -80,6 +81,8 @@
    <addaction name="actionOverSpeed"/>
    <addaction name="actionLeftFront"/>
    <addaction name="actionMidBack"/>
+   <addaction name="separator"/>
+   <addaction name="actionResponseOK"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAbout">
@@ -93,14 +96,9 @@
     <string>Alt+A</string>
    </property>
   </action>
-  <action name="actionAboutQt">
-   <property name="text">
-    <string>About Qt</string>
-   </property>
-  </action>
   <action name="actionConnect">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/connect.png</normaloff>:/images/connect.png</iconset>
    </property>
    <property name="text">
@@ -115,7 +113,7 @@
   </action>
   <action name="actionDisconnect">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/disconnect.png</normaloff>:/images/disconnect.png</iconset>
    </property>
    <property name="text">
@@ -130,7 +128,7 @@
   </action>
   <action name="actionConfigure">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/settings.png</normaloff>:/images/settings.png</iconset>
    </property>
    <property name="text">
@@ -145,7 +143,7 @@
   </action>
   <action name="actionClear">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/clear.png</normaloff>:/images/clear.png</iconset>
    </property>
    <property name="text">
@@ -160,7 +158,7 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/application-exit.png</normaloff>:/images/application-exit.png</iconset>
    </property>
    <property name="text">
@@ -172,7 +170,7 @@
   </action>
   <action name="actionOverSpeed">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/overspeed.png</normaloff>:/images/overspeed.png</iconset>
    </property>
    <property name="text">
@@ -184,7 +182,7 @@
   </action>
   <action name="actionLeftFront">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/obs_front.png</normaloff>:/images/obs_front.png</iconset>
    </property>
    <property name="text">
@@ -196,7 +194,7 @@
   </action>
   <action name="actionMidBack">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/obs_back.png</normaloff>:/images/obs_back.png</iconset>
    </property>
    <property name="text">
@@ -204,6 +202,18 @@
    </property>
    <property name="toolTip">
     <string>模拟左前方障碍物</string>
+   </property>
+  </action>
+  <action name="actionResponseOK">
+   <property name="icon">
+    <iconset>
+     <normaloff>../resources/images/ok.png</normaloff>../resources/images/ok.png</iconset>
+   </property>
+   <property name="text">
+    <string>响应OK</string>
+   </property>
+   <property name="toolTip">
+    <string>响应OK</string>
    </property>
   </action>
  </widget>

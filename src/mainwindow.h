@@ -41,10 +41,12 @@ private slots:
 
     void on_actionMidBack_triggered();
 
+    void on_actionResponseOK_triggered();
+
 private:
     void initActionsConnections();
 
-    void simulateBrake(char* cmd);
+    void serialWrite(char *cmd);
 
 private:
     void showStatusMessage(const QString &message);

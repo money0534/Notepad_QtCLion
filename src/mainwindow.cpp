@@ -100,28 +100,25 @@ void MainWindow::writeData(const QByteArray &data) {
 
 //! [7]
 void MainWindow::readData() {
-    QByteArray data = m_serial->readAll().trimmed();
+    QByteArray data = m_serial->readAll();
 
-    const QString resp = " --> $OK\n";
-    //接收到发送后，作出响应
-    if (data.toStdString() == "$BRAKE=0") {
-        qDebug() << "$BRAKE=0解除刹车";
-        m_serial->write("$OK\r\n");
-        data.append(resp);
-        m_console->putData(data);
-    } else if (data.toStdString() == "$BRAKE=1") {
-        qDebug() << "$BRAKE=1刹车";
-        m_serial->write("$OK\r\n");
-        data.append(resp);
-        m_console->putData(data);
-    } else {
-        qDebug() << "data received:" << data;
-        m_console->putData(data);
-    }
+    qDebug() << "data received:" << data;
+    m_console->putData(data);
 }
 //! [7]
 
-void MainWindow::simulateBrake(char* cmd) {
+void MainWindow::on_actionResponseOK_triggered()
+{
+    char cmd[]="$OK\r\n";
+    serialWrite(cmd);
+}
+
+
+void MainWindow::serialWrite(char *cmd) {
+    if(!m_serial->isOpen()){
+        QMessageBox::warning(this,"警告","请配置连接串口后重试！");
+        return;
+    }
     //向串口发送
     m_serial->write(cmd);
     //显示到控制台
@@ -137,7 +134,7 @@ void MainWindow::simulateBrake(char* cmd) {
 void MainWindow::on_actionOverSpeed_triggered()
 {
     char cmd[]="$EVENT=HS\r\n";
-    simulateBrake(cmd);
+    serialWrite(cmd);
 }
 
 /**
@@ -146,7 +143,7 @@ void MainWindow::on_actionOverSpeed_triggered()
 void MainWindow::on_actionLeftFront_triggered()
 {
     char cmd[]="$EVENT=FR\r\n";
-    simulateBrake(cmd);
+    serialWrite(cmd);
 }
 
 /**
@@ -155,7 +152,7 @@ void MainWindow::on_actionLeftFront_triggered()
 void MainWindow::on_actionMidBack_triggered()
 {
     char cmd[]="$EVENT=BM\r\n";
-    simulateBrake(cmd);
+    serialWrite(cmd);
 }
 
 //! [8]
@@ -174,12 +171,13 @@ void MainWindow::initActionsConnections() {
     connect(m_ui->actionConfigure, &QAction::triggered, m_settings, &SettingsDialog::show);
     connect(m_ui->actionClear, &QAction::triggered, m_console, &Console::clear);
     connect(m_ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
-    connect(m_ui->actionAboutQt, &QAction::triggered, qApp, &QApplication::aboutQt);
+//    connect(m_ui->actionAboutQt, &QAction::triggered, qApp, &QApplication::aboutQt);
 }
 
 void MainWindow::showStatusMessage(const QString &message) {
     m_status->setText(message);
 }
+
 
 
 
