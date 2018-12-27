@@ -8,5 +8,6 @@
         <file>images/obs_front.png</file>
         <file>images/obs_back.png</file>
         <file>images/overspeed.png</file>
+        <file>images/icon.png</file>
     </qresource>
 </RCC>

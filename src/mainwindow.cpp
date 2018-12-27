@@ -106,12 +106,12 @@ void MainWindow::readData() {
     //接收到发送后，作出响应
     if (data.toStdString() == "$BRAKE=0") {
         qDebug() << "$BRAKE=0解除刹车";
-        m_serial->write("$OK\n");
+        m_serial->write("$OK\r\n");
         data.append(resp);
         m_console->putData(data);
     } else if (data.toStdString() == "$BRAKE=1") {
         qDebug() << "$BRAKE=1刹车";
-        m_serial->write("$OK\n");
+        m_serial->write("$OK\r\n");
         data.append(resp);
         m_console->putData(data);
     } else {

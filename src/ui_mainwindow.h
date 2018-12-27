@@ -10,6 +10,7 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
@@ -50,50 +51,53 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(400, 300);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8("../resources/images/icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         actionAbout = new QAction(MainWindow);
         actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
         actionAboutQt = new QAction(MainWindow);
         actionAboutQt->setObjectName(QString::fromUtf8("actionAboutQt"));
         actionConnect = new QAction(MainWindow);
         actionConnect->setObjectName(QString::fromUtf8("actionConnect"));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8(":/images/connect.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionConnect->setIcon(icon);
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/images/connect.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionConnect->setIcon(icon1);
         actionDisconnect = new QAction(MainWindow);
         actionDisconnect->setObjectName(QString::fromUtf8("actionDisconnect"));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/images/disconnect.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionDisconnect->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/images/disconnect.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionDisconnect->setIcon(icon2);
         actionConfigure = new QAction(MainWindow);
         actionConfigure->setObjectName(QString::fromUtf8("actionConfigure"));
-        QIcon icon2;
-        icon2.addFile(QString::fromUtf8(":/images/settings.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionConfigure->setIcon(icon2);
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/images/settings.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionConfigure->setIcon(icon3);
         actionClear = new QAction(MainWindow);
         actionClear->setObjectName(QString::fromUtf8("actionClear"));
-        QIcon icon3;
-        icon3.addFile(QString::fromUtf8(":/images/clear.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionClear->setIcon(icon3);
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/images/clear.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionClear->setIcon(icon4);
         actionQuit = new QAction(MainWindow);
         actionQuit->setObjectName(QString::fromUtf8("actionQuit"));
-        QIcon icon4;
-        icon4.addFile(QString::fromUtf8(":/images/application-exit.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionQuit->setIcon(icon4);
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/images/application-exit.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionQuit->setIcon(icon5);
         actionOverSpeed = new QAction(MainWindow);
         actionOverSpeed->setObjectName(QString::fromUtf8("actionOverSpeed"));
-        QIcon icon5;
-        icon5.addFile(QString::fromUtf8(":/images/overspeed.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionOverSpeed->setIcon(icon5);
+        QIcon icon6;
+        icon6.addFile(QString::fromUtf8(":/images/overspeed.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionOverSpeed->setIcon(icon6);
         actionLeftFront = new QAction(MainWindow);
         actionLeftFront->setObjectName(QString::fromUtf8("actionLeftFront"));
-        QIcon icon6;
-        icon6.addFile(QString::fromUtf8(":/images/obs_front.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionLeftFront->setIcon(icon6);
+        QIcon icon7;
+        icon7.addFile(QString::fromUtf8(":/images/obs_front.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionLeftFront->setIcon(icon7);
         actionMidBack = new QAction(MainWindow);
         actionMidBack->setObjectName(QString::fromUtf8("actionMidBack"));
-        QIcon icon7;
-        icon7.addFile(QString::fromUtf8(":/images/obs_back.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionMidBack->setIcon(icon7);
+        QIcon icon8;
+        icon8.addFile(QString::fromUtf8(":/images/obs_back.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionMidBack->setIcon(icon8);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -151,7 +155,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Simple Terminal", nullptr));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\351\230\262\347\242\260\346\222\236\346\250\241\346\213\237\347\273\210\347\253\257", nullptr));
         actionAbout->setText(QApplication::translate("MainWindow", "&About", nullptr));
 #ifndef QT_NO_TOOLTIP
         actionAbout->setToolTip(QApplication::translate("MainWindow", "About program", nullptr));
@@ -192,14 +196,17 @@ public:
 #ifndef QT_NO_SHORTCUT
         actionQuit->setShortcut(QApplication::translate("MainWindow", "Ctrl+Q", nullptr));
 #endif // QT_NO_SHORTCUT
-        actionOverSpeed->setText(QApplication::translate("MainWindow", "\350\266\205\351\200\237", nullptr));
-        actionLeftFront->setText(QApplication::translate("MainWindow", "\345\267\246\345\211\215\346\226\271\351\232\234\347\242\215\347\211\251", nullptr));
+        actionOverSpeed->setText(QApplication::translate("MainWindow", "\346\250\241\346\213\237\350\266\205\351\200\237", nullptr));
 #ifndef QT_NO_TOOLTIP
-        actionLeftFront->setToolTip(QApplication::translate("MainWindow", "\345\267\246\345\211\215\346\226\271\351\232\234\347\242\215\347\211\251", nullptr));
+        actionOverSpeed->setToolTip(QApplication::translate("MainWindow", "\346\250\241\346\213\237\350\266\205\351\200\237", nullptr));
 #endif // QT_NO_TOOLTIP
-        actionMidBack->setText(QApplication::translate("MainWindow", "\345\220\216\346\226\271\351\232\234\347\242\215\347\211\251", nullptr));
+        actionLeftFront->setText(QApplication::translate("MainWindow", "\346\250\241\346\213\237\345\267\246\345\211\215\346\226\271\351\232\234\347\242\215\347\211\251", nullptr));
 #ifndef QT_NO_TOOLTIP
-        actionMidBack->setToolTip(QApplication::translate("MainWindow", "\345\220\216\346\226\271\351\232\234\347\242\215\347\211\251", nullptr));
+        actionLeftFront->setToolTip(QApplication::translate("MainWindow", "\346\250\241\346\213\237\345\267\246\345\211\215\346\226\271\351\232\234\347\242\215\347\211\251", nullptr));
+#endif // QT_NO_TOOLTIP
+        actionMidBack->setText(QApplication::translate("MainWindow", "\346\250\241\346\213\237\346\255\243\345\220\216\346\226\271\351\232\234\347\242\215\347\211\251", nullptr));
+#ifndef QT_NO_TOOLTIP
+        actionMidBack->setToolTip(QApplication::translate("MainWindow", "\346\250\241\346\213\237\345\267\246\345\211\215\346\226\271\351\232\234\347\242\215\347\211\251", nullptr));
 #endif // QT_NO_TOOLTIP
         menuCalls->setTitle(QApplication::translate("MainWindow", "Calls", nullptr));
         menuTools->setTitle(QApplication::translate("MainWindow", "Tools", nullptr));

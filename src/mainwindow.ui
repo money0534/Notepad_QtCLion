@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>防碰撞模拟终端</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../resources/images/icon.png</normaloff>../resources/images/icon.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout"/>
   </widget>
@@ -96,7 +100,7 @@
   </action>
   <action name="actionConnect">
    <property name="icon">
-    <iconset resource="../resources/res.qrc">
+    <iconset>
      <normaloff>:/images/connect.png</normaloff>:/images/connect.png</iconset>
    </property>
    <property name="text">
@@ -111,7 +115,7 @@
   </action>
   <action name="actionDisconnect">
    <property name="icon">
-    <iconset resource="../resources/res.qrc">
+    <iconset>
      <normaloff>:/images/disconnect.png</normaloff>:/images/disconnect.png</iconset>
    </property>
    <property name="text">
@@ -126,7 +130,7 @@
   </action>
   <action name="actionConfigure">
    <property name="icon">
-    <iconset resource="../resources/res.qrc">
+    <iconset>
      <normaloff>:/images/settings.png</normaloff>:/images/settings.png</iconset>
    </property>
    <property name="text">
@@ -141,7 +145,7 @@
   </action>
   <action name="actionClear">
    <property name="icon">
-    <iconset resource="../resources/res.qrc">
+    <iconset>
      <normaloff>:/images/clear.png</normaloff>:/images/clear.png</iconset>
    </property>
    <property name="text">
@@ -156,7 +160,7 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset resource="../resources/res.qrc">
+    <iconset>
      <normaloff>:/images/application-exit.png</normaloff>:/images/application-exit.png</iconset>
    </property>
    <property name="text">
@@ -168,35 +172,38 @@
   </action>
   <action name="actionOverSpeed">
    <property name="icon">
-    <iconset resource="../resources/res.qrc">
+    <iconset>
      <normaloff>:/images/overspeed.png</normaloff>:/images/overspeed.png</iconset>
    </property>
    <property name="text">
-    <string>超速</string>
+    <string>模拟超速</string>
+   </property>
+   <property name="toolTip">
+    <string>模拟超速</string>
    </property>
   </action>
   <action name="actionLeftFront">
    <property name="icon">
-    <iconset resource="../resources/res.qrc">
+    <iconset>
      <normaloff>:/images/obs_front.png</normaloff>:/images/obs_front.png</iconset>
    </property>
    <property name="text">
-    <string>左前方障碍物</string>
+    <string>模拟左前方障碍物</string>
    </property>
    <property name="toolTip">
-    <string>左前方障碍物</string>
+    <string>模拟左前方障碍物</string>
    </property>
   </action>
   <action name="actionMidBack">
    <property name="icon">
-    <iconset resource="../resources/res.qrc">
+    <iconset>
      <normaloff>:/images/obs_back.png</normaloff>:/images/obs_back.png</iconset>
    </property>
    <property name="text">
-    <string>后方障碍物</string>
+    <string>模拟正后方障碍物</string>
    </property>
    <property name="toolTip">
-    <string>后方障碍物</string>
+    <string>模拟左前方障碍物</string>
    </property>
   </action>
  </widget>
