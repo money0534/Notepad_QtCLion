@@ -142,7 +142,7 @@ void MainWindow::on_actionOverSpeed_triggered()
  */
 void MainWindow::on_actionLeftFront_triggered()
 {
-    char cmd[]="$EVENT=FR\r\n";
+    char cmd[]="$EVENT=FL\r\n";
     serialWrite(cmd);
 }
 
