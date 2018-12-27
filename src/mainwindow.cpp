@@ -109,7 +109,9 @@ void MainWindow::readData() {
 
 void MainWindow::on_actionResponseOK_triggered()
 {
-    QString txt = "$OK";
+    //上位机接收有问题$丢掉。使用串口工具正常，软件接收问题？
+    //上位机判断条件以$OK开头或包含OK=CLIENT
+    QString txt = "$OK=CLIENT";
     serialWrite(txt);
 }
 
