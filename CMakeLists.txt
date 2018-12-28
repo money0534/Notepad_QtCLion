@@ -9,8 +9,17 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_PREFIX_PATH C:\\Qt\\Qt5.12.0\\5.12.0\\mingw73_64)
 
 
+#参见 https://cmake.org/cmake/help/v3.0/variable/CMAKE_AUTOMOC.html
+#When this property is set ON, CMake will scan the source files at build time and invoke moc accordingly.
 set(CMAKE_AUTOMOC ON)
+#参见 https://cmake.org/cmake/help/v3.0/variable/CMAKE_AUTOUIC.html
+#When this property is ON, CMake will scan the source files at build time and invoke uic accordingly.
+#If an #include statement like #include "ui_foo.h" is found in foo.cpp, a foo.ui file is expected next to foo.cpp,
+#and uic is run on the foo.ui file.
+#简而言之就是自动根据foo.ui创建，自动运行uic
 set(CMAKE_AUTOUIC ON)
+#参见 https://cmake.org/cmake/help/v3.0/variable/CMAKE_AUTORCC.html
+#When this property is ON, CMake will handle .qrc files added as target sources at build time and invoke rcc accordingly.
 set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
