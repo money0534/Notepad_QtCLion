@@ -206,8 +206,8 @@
   </action>
   <action name="actionResponseOK">
    <property name="icon">
-    <iconset>
-     <normaloff>../resources/images/ok.png</normaloff>../resources/images/ok.png</iconset>
+    <iconset resource="../resources/res.qrc">
+     <normaloff>:/images/respok.png</normaloff>:/images/respok.png</iconset>
    </property>
    <property name="text">
     <string>响应OK</string>

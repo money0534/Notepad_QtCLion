@@ -99,7 +99,7 @@ public:
         actionResponseOK = new QAction(MainWindow);
         actionResponseOK->setObjectName(QString::fromUtf8("actionResponseOK"));
         QIcon icon9;
-        icon9.addFile(QString::fromUtf8("../resources/images/ok.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon9.addFile(QString::fromUtf8(":/images/respok.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionResponseOK->setIcon(icon9);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
