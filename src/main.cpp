@@ -62,18 +62,24 @@ int main(int argc, char *argv[]) {
 
     //dos窗口还是会一闪而过
 //    FreeConsole();
-    std::cout << "qt study" << std::endl;
 
     //创建QApplication对象
     QApplication app(argc, argv);
 
+    //使用 preprocessor
+#if 0
     //计算器程序
-//    Calculator notepad;
-//记事本
-//    Notepad notepad;
-//员工管理
+    Calculator notepad;
+
+#elif 1
+    //记事本
+    Notepad notepad;
+
+#elif 0
+    //员工管理
     MainPage notepad;
 
+#endif
     notepad.show();
 
 //    QWidget w;
