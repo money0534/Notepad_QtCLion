@@ -10,7 +10,21 @@ Notepad::Notepad(QWidget *parent) :
     ui->setupUi(this);
 
     //信号与槽绑定方式一
-    connect(ui->btnLogin,SIGNAL(clicked()),this,SLOT(login()));
+//    connect(ui->btnLogin,SIGNAL(clicked()),this,SLOT(login()));
+
+    //lambda表达式写法
+    //https://en.cppreference.com/w/cpp/language/lambda
+    //https://stackoverflow.com/questions/33575563/c-lambda-capture-this-vs-capture-by-reference
+    //capture this pointer
+    connect(ui->btnLogin,&QPushButton::clicked,[this](){
+        qDebug()<<"lambda expr :capture by this";
+        this->login();
+    });
+
+//    connect(ui->btnLogin,&QPushButton::clicked,[&](){
+//        qDebug()<<"lambda expr :capture by reference &";
+//        this->login();
+//    });
     //使用设计师绑定
 //    connect(ui->btnCancel,SIGNAL(clicked()),this,SLOT(closeSelf()));
 
