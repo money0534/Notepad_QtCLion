@@ -22,7 +22,7 @@ set(SOURCE_FILES src/main.cpp src/notepad.cpp src/notepad.h src/notepad.ui
         employee/mainpage.cpp employee/mainpage.ui
         employee/addemp.cpp employee/addemp.ui
         employee/queryemp.cpp employee/queryemp.ui
-        employee/EmpModel.cpp employee/EmpModel.h)
+        employee/EmpModel.cpp employee/EmpModel.h src/MyEventWidget.cpp src/MyEventWidget.h)
 #resources 1、.qrc文件 2、存放图片资源文件等
 set(RESOURCE_FILES resources/notepad.qrc src/Model.cpp src/Model.h)
 
