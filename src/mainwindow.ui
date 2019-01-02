@@ -297,8 +297,8 @@
   </action>
   <action name="actionEventEqBrake">
    <property name="icon">
-    <iconset>
-     <normaloff>../resources/images/brake.png</normaloff>../resources/images/brake.png</iconset>
+    <iconset resource="../resources/res.qrc">
+     <normaloff>:/images/brake.png</normaloff>:/images/brake.png</iconset>
    </property>
    <property name="text">
     <string>EventEqBrake</string>
