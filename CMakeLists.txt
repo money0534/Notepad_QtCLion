@@ -39,7 +39,7 @@ find_package(Qt5SerialPort REQUIRED)
 
 include_directories(resources/images)
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES})#WIN32
+add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${RESOURCE_FILES})#WIN32
 
 #Qt5::Core Qt5::Quick
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::SerialPort)

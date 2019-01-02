@@ -15,5 +15,6 @@
         <file>images/ds.png</file>
         <file>images/pause.png</file>
         <file>images/restart.png</file>
+        <file>images/brake.png</file>
     </qresource>
 </RCC>

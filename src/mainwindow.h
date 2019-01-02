@@ -69,6 +69,8 @@ private slots:
      */
     void sendMsg();
 
+    void on_actionEventEqBrake_triggered();
+
 private:
     void initActionsConnections();
 

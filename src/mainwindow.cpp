@@ -152,6 +152,16 @@ void MainWindow::serialWrite(QString &cmd) {
 }
 
 /**
+ * 模拟旧版刹车指令
+ */
+void MainWindow::on_actionEventEqBrake_triggered()
+{
+    QString cmd = "$EVENT=BRAKE";
+    serialWrite(cmd);
+}
+
+
+/**
  * 模拟超速
  */
 void MainWindow::on_actionOverSpeed_triggered() {
@@ -317,11 +327,14 @@ void MainWindow::onDataSourceReady(){
     sendLine = 0;
     //窗口显示当前数据源路径
     setWindowTitle(/*"防碰撞模拟终端 "+*/dataSource);
+    char tip[] = "初始化成功！\n";
+    m_console->putData(tip);
 }
 
 //不使用
 void MainWindow::on_actionRestart_triggered() {
 
 }
+
 
 

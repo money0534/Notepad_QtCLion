@@ -55,6 +55,7 @@
     <property name="title">
      <string>动作</string>
     </property>
+    <addaction name="actionEventEqBrake"/>
     <addaction name="actionOverSpeed"/>
     <addaction name="actionLeftFront"/>
     <addaction name="actionMidBack"/>
@@ -88,6 +89,7 @@
    <addaction name="actionConfigure"/>
    <addaction name="actionClear"/>
    <addaction name="separator"/>
+   <addaction name="actionEventEqBrake"/>
    <addaction name="actionOverSpeed"/>
    <addaction name="actionLeftFront"/>
    <addaction name="actionMidBack"/>
@@ -112,7 +114,7 @@
   </action>
   <action name="actionConnect">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/connect.png</normaloff>:/images/connect.png</iconset>
    </property>
    <property name="text">
@@ -127,7 +129,7 @@
   </action>
   <action name="actionDisconnect">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/disconnect.png</normaloff>:/images/disconnect.png</iconset>
    </property>
    <property name="text">
@@ -142,7 +144,7 @@
   </action>
   <action name="actionConfigure">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/settings.png</normaloff>:/images/settings.png</iconset>
    </property>
    <property name="text">
@@ -157,7 +159,7 @@
   </action>
   <action name="actionClear">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/clear.png</normaloff>:/images/clear.png</iconset>
    </property>
    <property name="text">
@@ -172,7 +174,7 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/application-exit.png</normaloff>:/images/application-exit.png</iconset>
    </property>
    <property name="text">
@@ -184,7 +186,7 @@
   </action>
   <action name="actionOverSpeed">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/overspeed.png</normaloff>:/images/overspeed.png</iconset>
    </property>
    <property name="text">
@@ -196,7 +198,7 @@
   </action>
   <action name="actionLeftFront">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/obs_front.png</normaloff>:/images/obs_front.png</iconset>
    </property>
    <property name="text">
@@ -208,7 +210,7 @@
   </action>
   <action name="actionMidBack">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/obs_back.png</normaloff>:/images/obs_back.png</iconset>
    </property>
    <property name="text">
@@ -220,7 +222,7 @@
   </action>
   <action name="actionResponseOK">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/respok.png</normaloff>:/images/respok.png</iconset>
    </property>
    <property name="text">
@@ -232,7 +234,7 @@
   </action>
   <action name="actionDataSource">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/ds.png</normaloff>:/images/ds.png</iconset>
    </property>
    <property name="text">
@@ -244,7 +246,7 @@
   </action>
   <action name="actionSend">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/send.png</normaloff>:/images/send.png</iconset>
    </property>
    <property name="text">
@@ -256,7 +258,7 @@
   </action>
   <action name="actionStop">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/stop.png</normaloff>:/images/stop.png</iconset>
    </property>
    <property name="text">
@@ -271,7 +273,7 @@
   </action>
   <action name="actionPause">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/pause.png</normaloff>:/images/pause.png</iconset>
    </property>
    <property name="text">
@@ -283,7 +285,7 @@
   </action>
   <action name="actionRestart">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/res.qrc">
      <normaloff>:/images/restart.png</normaloff>:/images/restart.png</iconset>
    </property>
    <property name="text">
@@ -291,6 +293,18 @@
    </property>
    <property name="toolTip">
     <string>重新发送</string>
+   </property>
+  </action>
+  <action name="actionEventEqBrake">
+   <property name="icon">
+    <iconset>
+     <normaloff>../resources/images/brake.png</normaloff>../resources/images/brake.png</iconset>
+   </property>
+   <property name="text">
+    <string>EventEqBrake</string>
+   </property>
+   <property name="toolTip">
+    <string>模拟旧版刹车$EVENT=BRAKE</string>
    </property>
   </action>
  </widget>
