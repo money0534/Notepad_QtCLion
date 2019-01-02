@@ -29,9 +29,9 @@ void Console::setLocalEchoEnabled(bool set) {
     m_localEchoEnabled = set;
 }
 
-void Console::keyPressEvent(QKeyEvent *e) {
-    qDebug() << "键盘事件：" << e->key();
-
+//void Console::keyPressEvent(QKeyEvent *e) {
+//    qDebug() << "键盘事件：" << e->key();
+//
 //    switch (e->key()) {
 //    case Qt::Key_Backspace:
 //    case Qt::Key_Left:
@@ -44,6 +44,26 @@ void Console::keyPressEvent(QKeyEvent *e) {
 //            QPlainTextEdit::keyPressEvent(e);
 //        emit getData(e->text().toLocal8Bit());
 //    }
+//}
+
+void Console::keyPressEvent(QKeyEvent *e) {
+    qDebug() << "键盘事件：" << e->key();
+
+    switch (e->key()) {
+        case Qt::Key_Backspace:
+        case Qt::Key_Left:
+        case Qt::Key_Right:
+        case Qt::Key_Up:
+        case Qt::Key_Down:
+            break;
+        case Qt::Key_Enter://发送事件
+            //发送自定义命令
+            break;
+//        default:
+//            if (m_localEchoEnabled)
+//                QPlainTextEdit::keyPressEvent(e);
+//            emit getData(e->text().toLocal8Bit());
+    }
 }
 
 void Console::mousePressEvent(QMouseEvent *e) {
