@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>281</width>
-    <height>262</height>
+    <width>419</width>
+    <height>316</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -164,6 +164,23 @@
         </property>
         <property name="checked">
          <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="leSendInterval">
+        <property name="text">
+         <string>100</string>
+        </property>
+        <property name="placeholderText">
+         <string>仿真发送间隔，默认100ms</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>发送间隔：</string>
         </property>
        </widget>
       </item>
