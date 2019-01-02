@@ -271,6 +271,9 @@ public:
 #ifndef QT_NO_TOOLTIP
         actionStop->setToolTip(QApplication::translate("MainWindow", "\345\201\234\346\255\242\345\217\221\351\200\201", nullptr));
 #endif // QT_NO_TOOLTIP
+#ifndef QT_NO_SHORTCUT
+        actionStop->setShortcut(QApplication::translate("MainWindow", "Ctrl+C", nullptr));
+#endif // QT_NO_SHORTCUT
         actionPause->setText(QApplication::translate("MainWindow", "Pause", nullptr));
 #ifndef QT_NO_TOOLTIP
         actionPause->setToolTip(QApplication::translate("MainWindow", "\346\232\202\345\201\234", nullptr));

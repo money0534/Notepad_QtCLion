@@ -193,6 +193,8 @@ void MainWindow::initActionsConnections() {
     connect(m_ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
     connect(m_ui->actionConfigure, &QAction::triggered, m_settings, &SettingsDialog::show);
     connect(m_ui->actionClear, &QAction::triggered, m_console, &Console::clear);
+    connect(m_ui->actionStop, &QAction::triggered, m_console, &Console::clear);
+    connect(m_ui->actionDataSource, &QAction::triggered, m_console, &Console::clear);
     connect(m_ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
 //    connect(m_ui->actionAboutQt, &QAction::triggered, qApp, &QApplication::aboutQt);
 }
@@ -310,7 +312,7 @@ void MainWindow::onDataSourceReady(){
     //从0开始计
     sendLine = 0;
     //窗口显示当前数据源路径
-    setWindowTitle(dataSource);
+    setWindowTitle("防碰撞模拟终端 "+dataSource);
 }
 
 //不使用
