@@ -92,8 +92,13 @@
    <addaction name="actionOverSpeed"/>
    <addaction name="actionLeftFront"/>
    <addaction name="actionMidBack"/>
-   <addaction name="separator"/>
    <addaction name="actionResponseOK"/>
+   <addaction name="separator"/>
+   <addaction name="actionDataSource"/>
+   <addaction name="actionSend"/>
+   <addaction name="actionStop"/>
+   <addaction name="actionPause"/>
+   <addaction name="actionRestart"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAbout">

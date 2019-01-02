@@ -43,6 +43,16 @@ private slots:
 
     void on_actionResponseOK_triggered();
 
+    void on_actionDataSource_triggered();
+
+    void on_actionSend_triggered();
+
+    void on_actionStop_triggered();
+
+    void on_actionPause_triggered();
+
+    void on_actionRestart_triggered();
+
 private:
     void initActionsConnections();
 

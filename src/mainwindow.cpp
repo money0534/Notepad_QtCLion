@@ -186,3 +186,28 @@ void MainWindow::showStatusMessage(const QString &message) {
 
 
 
+
+void MainWindow::on_actionDataSource_triggered()
+{
+
+}
+
+void MainWindow::on_actionSend_triggered()
+{
+
+}
+
+void MainWindow::on_actionStop_triggered()
+{
+
+}
+
+void MainWindow::on_actionPause_triggered()
+{
+
+}
+
+void MainWindow::on_actionRestart_triggered()
+{
+
+}
