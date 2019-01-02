@@ -281,6 +281,8 @@ void MainWindow::on_actionSend_triggered() {
     if (!isSending) {
         timer->start(sendInterval);
         isSending = true;
+        //禁用选择数据源按钮
+        m_ui->actionDataSource->setEnabled(false);
     }
 }
 
@@ -292,6 +294,8 @@ void MainWindow::on_actionStop_triggered() {
     sendLine=0;//归零
     isSending = false;
     timer->stop();
+    //启用选择数据源按钮
+    m_ui->actionDataSource->setEnabled(true);
 }
 
 /**
