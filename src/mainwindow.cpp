@@ -266,6 +266,8 @@ void MainWindow::on_actionDataSource_triggered() {
     sendLine = 0;
     //窗口显示当前数据源路径
     setWindowTitle(dataSource);
+    m_console->insertPlainText(tr("%1 初始化成功，共 %2 行。\n").arg(dataSource).arg(lines->length()));
+    qDebug()<<tr("%1 初始化成功，共 %2 行。\n").arg(dataSource).arg(lines->length());
 
 #endif
     //线程方式初始化
