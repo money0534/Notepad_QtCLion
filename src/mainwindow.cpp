@@ -202,18 +202,19 @@ void MainWindow::showStatusMessage(const QString &message) {
 
 //打开文件数据源
 void MainWindow::on_actionDataSource_triggered() {
+    //会默认打开当前路径 exe所在路径
     QString temp = QFileDialog::getOpenFileName(this, tr("选择数据源"), "",
 
                                                     tr("Text Files (*.txt *.log)"));
     qDebug() << "打开文件：" << temp;
 
-    //为空 或 打开了同一个文件
+    //为空
     if(nullptr==temp){
         qDebug()<<"用户取消";
         return;
     }
 
-
+    //或 打开了同一个文件
     if(dataSource==temp){
         return;
     }
@@ -234,10 +235,6 @@ void MainWindow::on_actionDataSource_triggered() {
 void MainWindow::sendMsg() {
 
     int length = lines->length();
-//    if(dataSource== nullptr){
-//        qDebug()<<"未配置数据源";
-//        return;
-//    }
 
     QByteArray line = lines->value(sendLine);
     double pct = 100*(sendLine+1)/(double)length;
@@ -259,6 +256,9 @@ void MainWindow::sendMsg() {
     }
 }
 
+/**
+ * 发送按钮
+ */
 void MainWindow::on_actionSend_triggered() {
     if(dataSource== nullptr){
         qDebug()<<"未配置数据源";
