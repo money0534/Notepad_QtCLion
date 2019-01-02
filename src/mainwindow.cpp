@@ -60,8 +60,10 @@ MainWindow::~MainWindow() {
     delete m_ui;
     delete timer;
     delete lines;
-    delete workerThread;
-    delete progressBar;
+
+    //Process finished with exit code -1073741819 (0xC0000005)?
+//    delete workerThread;
+//    delete progressBar;
 }
 
 //! [4]
@@ -154,8 +156,7 @@ void MainWindow::serialWrite(QString &cmd) {
 /**
  * 模拟旧版刹车指令
  */
-void MainWindow::on_actionEventEqBrake_triggered()
-{
+void MainWindow::on_actionEventEqBrake_triggered() {
     QString cmd = "$EVENT=BRAKE";
     serialWrite(cmd);
 }
@@ -198,7 +199,8 @@ void MainWindow::handleError(QSerialPort::SerialPortError error) {
 void MainWindow::initActionsConnections() {
     connect(m_ui->actionConnect, &QAction::triggered, this, &MainWindow::openSerialPort);
     //绑定退出事件 终止发送
-    connect(m_ui->actionDisconnect, &QAction::triggered, this, &MainWindow::on_actionStop_triggered);
+    connect(m_ui->actionDisconnect, &QAction::triggered, this,
+            &MainWindow::on_actionStop_triggered);
     connect(m_ui->actionDisconnect, &QAction::triggered, this, &MainWindow::closeSerialPort);
     connect(m_ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
     connect(m_ui->actionConfigure, &QAction::triggered, m_settings, &SettingsDialog::show);
@@ -217,25 +219,59 @@ void MainWindow::showStatusMessage(const QString &message) {
 //打开文件数据源
 void MainWindow::on_actionDataSource_triggered() {
     //会默认打开当前路径 exe所在路径
-    QString temp = QFileDialog::getOpenFileName(this, tr("选择数据源"), "",
+    QString temp = QFileDialog::getOpenFileName(this, tr("选择数据源")/*, "",
 
-                                                    tr("Text Files (*.txt *.log)"));
+                                                    tr("Text Files (*.txt *.log)")*/);
     //为空
-    if(nullptr==temp){
-        qDebug()<<"用户取消";
+    if (nullptr == temp) {
+        qDebug() << "用户取消";
         return;
     }
 
     //或 打开了同一个文件
-    if(dataSource==temp){
+    if (dataSource == temp) {
         return;
     }
 
     dataSource = temp;
     qDebug() << "打开文件：" << temp;
 
+    //Process finished with exit code -1073741819 (0xC0000005) nullptr
+#if 0
 
+    QFile file(dataSource);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        int ret = QMessageBox::critical(this, "错误", "打开文件失败", "确定");
+        qDebug() << "打开文件失败!";
+        return;
+    }
+
+    qDebug() << "开始读取";
+
+    //情况之前
+    lines->clear();
+
+    //读取到集合
+    while (!file.atEnd()) {
+        QByteArray line = file.readLine();
+        lines->append(line);
+        qDebug() << line;
+    }
+
+    qDebug() << "Total Lines:" << lines->length();
+    file.close();
+
+
+    //从0开始计
+    sendLine = 0;
+    //窗口显示当前数据源路径
+    setWindowTitle(dataSource);
+
+#endif
+    //线程方式初始化
+#if 1
     progressBar = new QProgressDialog("初始化数据源...","取消",0,0,this);
+    //模态窗口 获取焦点后外部无法交互
     progressBar->setWindowModality(Qt::WindowModal);
     progressBar->show();
 
@@ -243,6 +279,7 @@ void MainWindow::on_actionDataSource_triggered() {
     workerThread = new InitThread(nullptr,dataSource,lines);
     connect(workerThread, SIGNAL(initFinished()), this, SLOT(onDataSourceReady()));
     workerThread->start();
+#endif
 }
 
 
@@ -251,9 +288,9 @@ void MainWindow::sendMsg() {
     int length = lines->length();
 
     QByteArray line = lines->value(sendLine);
-    double pct = 100*(sendLine+1)/(double)length;
+    double pct = 100 * (sendLine + 1) / (double) length;
     //以非科学计数法保留两位小数
-    QByteArray pctStr=QByteArray::number(pct,'f',2);
+    QByteArray pctStr = QByteArray::number(pct, 'f', 2);
     m_serial->write(line);
 
     //显示到控制台
@@ -265,8 +302,8 @@ void MainWindow::sendMsg() {
 
 
     sendLine++;
-    if(sendLine>length-1){
-        sendLine=0;
+    if (sendLine > length - 1) {
+        sendLine = 0;
     }
 }
 
@@ -274,15 +311,15 @@ void MainWindow::sendMsg() {
  * 发送按钮
  */
 void MainWindow::on_actionSend_triggered() {
-    if(!m_serial->isOpen()){
-        qDebug()<<"未打开串口";
-        QMessageBox::warning(this,"警告","未打开串口","确定");
+    if (!m_serial->isOpen()) {
+        qDebug() << "未打开串口";
+        QMessageBox::warning(this, "警告", "未打开串口", "确定");
         return;
     }
 
-    if(dataSource== nullptr){
-        qDebug()<<"未配置数据源";
-        QMessageBox::warning(this,"警告","未配置数据源","确定");
+    if (dataSource == nullptr) {
+        qDebug() << "未配置数据源";
+        QMessageBox::warning(this, "警告", "未配置数据源", "确定");
         return;
     }
 
@@ -301,7 +338,7 @@ void MainWindow::on_actionSend_triggered() {
  */
 void MainWindow::on_actionStop_triggered() {
 //    isIntercept = true;
-    sendLine=0;//归零
+    sendLine = 0;//归零
     isSending = false;
     timer->stop();
     //启用选择数据源按钮
@@ -316,19 +353,22 @@ void MainWindow::on_actionPause_triggered() {
     timer->stop();
 }
 
-void MainWindow::onDataSourceReady(){
-    qDebug()<<"数据源初始化完成";
+void MainWindow::onDataSourceReady() {
+    qDebug() << "数据源初始化完成";
 
 
     delete workerThread;
-    progressBar->close();
+    if (progressBar != nullptr)
+        progressBar->close();
     delete progressBar;
     //从0开始计
     sendLine = 0;
     //窗口显示当前数据源路径
     setWindowTitle(/*"防碰撞模拟终端 "+*/dataSource);
-    char tip[] = "初始化成功！\n";
-    m_console->putData(tip);
+//    char tip[] = "初始化成功！\n";
+//    m_console->putData(tip);
+        m_console->insertPlainText(tr("%1 初始化成功，共 %2 行。\n").arg(dataSource).arg(lines->length()));
+
 }
 
 //不使用
