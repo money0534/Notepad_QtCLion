@@ -10,5 +10,10 @@
         <file>images/overspeed.png</file>
         <file>images/respok.png</file>
         <file>images/icon.png</file>
+        <file>images/send.png</file>
+        <file>images/stop.png</file>
+        <file>images/ds.png</file>
+        <file>images/pause.png</file>
+        <file>images/restart.png</file>
     </qresource>
 </RCC>

@@ -61,9 +61,20 @@
     <addaction name="separator"/>
     <addaction name="actionResponseOK"/>
    </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>仿真</string>
+    </property>
+    <addaction name="actionDataSource"/>
+    <addaction name="actionSend"/>
+    <addaction name="actionStop"/>
+    <addaction name="actionPause"/>
+    <addaction name="actionRestart"/>
+   </widget>
    <addaction name="menuCalls"/>
    <addaction name="menuTools"/>
    <addaction name="menuSimulation"/>
+   <addaction name="menu"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -214,6 +225,66 @@
    </property>
    <property name="toolTip">
     <string>响应OK</string>
+   </property>
+  </action>
+  <action name="actionDataSource">
+   <property name="icon">
+    <iconset resource="../resources/res.qrc">
+     <normaloff>:/images/ds.png</normaloff>:/images/ds.png</iconset>
+   </property>
+   <property name="text">
+    <string>DataSource</string>
+   </property>
+   <property name="toolTip">
+    <string>选择数据源</string>
+   </property>
+  </action>
+  <action name="actionSend">
+   <property name="icon">
+    <iconset resource="../resources/res.qrc">
+     <normaloff>:/images/send.png</normaloff>:/images/send.png</iconset>
+   </property>
+   <property name="text">
+    <string>Send</string>
+   </property>
+   <property name="toolTip">
+    <string>开始发送</string>
+   </property>
+  </action>
+  <action name="actionStop">
+   <property name="icon">
+    <iconset resource="../resources/res.qrc">
+     <normaloff>:/images/stop.png</normaloff>:/images/stop.png</iconset>
+   </property>
+   <property name="text">
+    <string>Stop</string>
+   </property>
+   <property name="toolTip">
+    <string>停止发送</string>
+   </property>
+  </action>
+  <action name="actionPause">
+   <property name="icon">
+    <iconset resource="../resources/res.qrc">
+     <normaloff>:/images/pause.png</normaloff>:/images/pause.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pause</string>
+   </property>
+   <property name="toolTip">
+    <string>暂停</string>
+   </property>
+  </action>
+  <action name="actionRestart">
+   <property name="icon">
+    <iconset resource="../resources/res.qrc">
+     <normaloff>:/images/restart.png</normaloff>:/images/restart.png</iconset>
+   </property>
+   <property name="text">
+    <string>Restart</string>
+   </property>
+   <property name="toolTip">
+    <string>重新发送</string>
    </property>
   </action>
  </widget>
