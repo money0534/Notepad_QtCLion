@@ -187,6 +187,8 @@ void MainWindow::handleError(QSerialPort::SerialPortError error) {
 
 void MainWindow::initActionsConnections() {
     connect(m_ui->actionConnect, &QAction::triggered, this, &MainWindow::openSerialPort);
+    //绑定退出事件 终止发送
+    connect(m_ui->actionDisconnect, &QAction::triggered, this, &MainWindow::on_actionStop_triggered);
     connect(m_ui->actionDisconnect, &QAction::triggered, this, &MainWindow::closeSerialPort);
     connect(m_ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
     connect(m_ui->actionConfigure, &QAction::triggered, m_settings, &SettingsDialog::show);
@@ -206,8 +208,6 @@ void MainWindow::on_actionDataSource_triggered() {
     QString temp = QFileDialog::getOpenFileName(this, tr("选择数据源"), "",
 
                                                     tr("Text Files (*.txt *.log)"));
-    qDebug() << "打开文件：" << temp;
-
     //为空
     if(nullptr==temp){
         qDebug()<<"用户取消";
@@ -220,6 +220,8 @@ void MainWindow::on_actionDataSource_triggered() {
     }
 
     dataSource = temp;
+    qDebug() << "打开文件：" << temp;
+
 
     progressBar = new QProgressDialog("初始化数据源...","取消",0,0,this);
     progressBar->setWindowModality(Qt::WindowModal);
@@ -247,7 +249,7 @@ void MainWindow::sendMsg() {
     line.prepend(prefix);
     line.prepend(pctStr);
     m_console->putData(line);
-    qDebug()<<line;
+//    qDebug()<<line;
 
 
     sendLine++;
@@ -260,6 +262,12 @@ void MainWindow::sendMsg() {
  * 发送按钮
  */
 void MainWindow::on_actionSend_triggered() {
+    if(!m_serial->isOpen()){
+        qDebug()<<"未打开串口";
+        QMessageBox::warning(this,"警告","未打开串口","确定");
+        return;
+    }
+
     if(dataSource== nullptr){
         qDebug()<<"未配置数据源";
         QMessageBox::warning(this,"警告","未配置数据源","确定");
@@ -293,13 +301,16 @@ void MainWindow::on_actionPause_triggered() {
 }
 
 void MainWindow::onDataSourceReady(){
-    qDebug()<<"完成初始化";
+    qDebug()<<"数据源初始化完成";
+
 
     delete workerThread;
     progressBar->close();
     delete progressBar;
     //从0开始计
     sendLine = 0;
+    //窗口显示当前数据源路径
+    setWindowTitle(dataSource);
 }
 
 //不使用
