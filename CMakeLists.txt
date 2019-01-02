@@ -28,7 +28,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(SOURCE_FILES src/main.cpp
         src/console.cpp
         src/mainwindow.cpp src/mainwindow.ui
-        src/settingsdialog.cpp src/settingsdialog.ui)
+        src/settingsdialog.cpp src/settingsdialog.ui src/InitThread.cpp src/InitThread.h)
 
 #resources 1、.qrc文件 2、存放图片资源文件等
 set(RESOURCE_FILES resources/res.qrc resources/release.rc)

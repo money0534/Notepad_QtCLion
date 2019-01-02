@@ -4,8 +4,9 @@
 
 #include <QMainWindow>
 #include <QSerialPort>
-#include <QFile>
-#include <QTextStream>
+#include <QProgressDialog>
+#include <QList>
+#include "InitThread.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -61,6 +62,8 @@ private slots:
 
     void on_actionRestart_triggered();
 
+    void onDataSourceReady();
+
     /**
      * 发送一行报文
      */
@@ -68,6 +71,7 @@ private slots:
 
 private:
     void initActionsConnections();
+
 
     void serialWrite(QString &cmd);
 
@@ -80,13 +84,15 @@ public:
     SettingsDialog *m_settings = nullptr;
     QSerialPort *m_serial = nullptr;
 
-    QFile* dataSource;//数据源
-    QTextStream* stream;//数据源
+    QProgressDialog * progressBar;
+    InitThread * workerThread;
+    QString dataSource;//数据源
     int sendInterval = 100;//报文自动发送间隔
+    QList<QByteArray>* lines;//所有行数据
     int sendLine = 0;//报文发送的行数，数据源中所在行
-    bool isStartWork = false;//是否已开始发送，默认false，点击发送或重新发送后置为true
-    bool isPause = false;//是否暂停发送，默认false，点击暂停后置为false
-    bool isIntercept = false;//是否终止发送，默认false，点击停止后置为false
+    bool isSending = false;//是否在发送中，默认false，点击发送或重新发送后置为true
+//    bool isPause = false;//是否暂停发送，默认false，点击暂停后置为false
+//    bool isIntercept = false;//是否终止发送，默认false，点击停止后置为false
 
     QTimer * timer;//定时器
 };

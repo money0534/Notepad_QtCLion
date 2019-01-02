@@ -3,6 +3,7 @@
 #include "ui_mainwindow.h"
 #include "console.h"
 #include "settingsdialog.h"
+#include "InitThread.h"
 
 #include <QLabel>
 #include <QMessageBox>
@@ -10,6 +11,7 @@
 #include <QFileDialog>
 #include <QTimer>
 #include <QTextStream>
+#include <QProgressDialog>
 
 //! [0]
 MainWindow::MainWindow(QWidget *parent) :
@@ -43,16 +45,23 @@ MainWindow::MainWindow(QWidget *parent) :
 //! [2]
     connect(m_console, &Console::getData, this, &MainWindow::writeData);
 //! [3]
-    dataSource = nullptr;
     //创建timer
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(sendMsg()));
+    //创建集合
+    lines = new QList<QByteArray>;
+
+
 }
 //! [3]
 
 MainWindow::~MainWindow() {
     delete m_settings;
     delete m_ui;
+    delete timer;
+    delete lines;
+    delete workerThread;
+    delete progressBar;
 }
 
 //! [4]
@@ -193,53 +202,104 @@ void MainWindow::showStatusMessage(const QString &message) {
 
 //打开文件数据源
 void MainWindow::on_actionDataSource_triggered() {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("选择数据源"), "",
+    QString temp = QFileDialog::getOpenFileName(this, tr("选择数据源"), "",
 
                                                     tr("Text Files (*.txt *.log)"));
-    qDebug() << "fileName=" << fileName;
-//    dataSource = new QFile(fileName);
-QFile file(fileName);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        stream = new QTextStream(&file);
-        QString line = stream->readAll();
-        qDebug()<<line;
+    qDebug() << "打开文件：" << temp;
+
+    //为空 或 打开了同一个文件
+    if(nullptr==temp){
+        qDebug()<<"用户取消";
+        return;
     }
+
+
+    if(dataSource==temp){
+        return;
+    }
+
+    dataSource = temp;
+
+    progressBar = new QProgressDialog("初始化数据源...","取消",0,0,this);
+    progressBar->setWindowModality(Qt::WindowModal);
+    progressBar->show();
+
+    //同界面跳转时的show()调用，必须在堆上创建对象，否则方法调用结束后对象被销毁
+    workerThread = new InitThread(nullptr,dataSource,lines);
+    connect(workerThread, SIGNAL(initFinished()), this, SLOT(onDataSourceReady()));
+    workerThread->start();
 }
 
 
 void MainWindow::sendMsg() {
 
-//    if(stream== nullptr){
+    int length = lines->length();
+//    if(dataSource== nullptr){
 //        qDebug()<<"未配置数据源";
 //        return;
 //    }
-//
-//    QString line = stream->readAll();
-////    QString line = stream->readLine(sendLine);
-//    qDebug()<<"发送第"<<sendLine<<"行:"<<line;
-//    sendLine++;
-//    if(sendLine>3){
-//        sendLine=0;
-//    }
-}
 
-void MainWindow::on_actionSend_triggered() {
-    //sendInterval,dataSource
-    //初始化发送
-    if (!isStartWork || isIntercept) {
-        timer->start(sendInterval);
-        //恢复发送
-    } else if (isPause) {
+    QByteArray line = lines->value(sendLine);
+    double pct = 100*(sendLine+1)/(double)length;
+    //以非科学计数法保留两位小数
+    QByteArray pctStr=QByteArray::number(pct,'f',2);
+    m_serial->write(line);
 
+    //显示到控制台
+    char prefix[] = "% --> ";
+    line.prepend(prefix);
+    line.prepend(pctStr);
+    m_console->putData(line);
+    qDebug()<<line;
+
+
+    sendLine++;
+    if(sendLine>length-1){
+        sendLine=0;
     }
 }
 
-void MainWindow::on_actionStop_triggered() {
+void MainWindow::on_actionSend_triggered() {
+    if(dataSource== nullptr){
+        qDebug()<<"未配置数据源";
+        QMessageBox::warning(this,"警告","未配置数据源","确定");
+        return;
+    }
 
+    //sendInterval,dataSource
+    //初始化发送
+    if (!isSending) {
+        timer->start(sendInterval);
+        isSending = true;
+    }
 }
 
-void MainWindow::on_actionPause_triggered() {
+/**
+ * 停止发送
+ */
+void MainWindow::on_actionStop_triggered() {
+//    isIntercept = true;
+    sendLine=0;//归零
+    isSending = false;
+    timer->stop();
+}
 
+/**
+ * 暂停
+ */
+void MainWindow::on_actionPause_triggered() {
+    isSending = false;
+    timer->stop();
+}
+
+void MainWindow::onDataSourceReady(){
+    qDebug()<<"完成初始化";
+
+    delete workerThread;
+    progressBar->close();
+    delete progressBar;
+    //从0开始计
+    sendLine = 0;
 }
 
 //不使用
