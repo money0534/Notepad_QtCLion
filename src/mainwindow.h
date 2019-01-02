@@ -66,6 +66,8 @@ private:
     Console *m_console = nullptr;
     SettingsDialog *m_settings = nullptr;
     QSerialPort *m_serial = nullptr;
+
+    int sendInterval;//报文自动发送间隔
 };
 
 #endif // MAINWINDOW_H

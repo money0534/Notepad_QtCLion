@@ -168,4 +168,9 @@ void SettingsDialog::updateSettings()
     m_currentSettings.stringFlowControl = m_ui->flowControlBox->currentText();
 
     m_currentSettings.localEchoEnabled = m_ui->localEchoCheckBox->isChecked();
+
+    QString intervalStr = m_ui->leSendInterval->text().trimmed();
+    //得到时间间隔，默认100ms
+    int interval = intervalStr.isEmpty()?100:intervalStr.toInt();
+    m_currentSettings.sendInterval = interval;
 }

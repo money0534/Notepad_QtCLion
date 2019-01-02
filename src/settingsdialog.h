@@ -86,6 +86,7 @@ public:
         QSerialPort::FlowControl flowControl;
         QString stringFlowControl;
         bool localEchoEnabled;
+        int sendInterval;//报文自动发送间隔
     };
 
     explicit SettingsDialog(QWidget *parent = nullptr);

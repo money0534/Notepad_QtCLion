@@ -51,6 +51,11 @@ MainWindow::~MainWindow() {
 //! [4]
 void MainWindow::openSerialPort() {
     const SettingsDialog::Settings p = m_settings->settings();
+
+    //得到发送间隔
+    sendInterval = p.sendInterval;
+    qDebug()<<"sendInterval="<<sendInterval;
+
     m_serial->setPortName(p.name);
     m_serial->setBaudRate(p.baudRate);
     m_serial->setDataBits(p.dataBits);
