@@ -7,6 +7,9 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QDebug>
+#include <QFileDialog>
+#include <QTimer>
+#include <QTextStream>
 
 //! [0]
 MainWindow::MainWindow(QWidget *parent) :
@@ -40,6 +43,10 @@ MainWindow::MainWindow(QWidget *parent) :
 //! [2]
     connect(m_console, &Console::getData, this, &MainWindow::writeData);
 //! [3]
+    dataSource = nullptr;
+    //创建timer
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(sendMsg()));
 }
 //! [3]
 
@@ -54,7 +61,7 @@ void MainWindow::openSerialPort() {
 
     //得到发送间隔
     sendInterval = p.sendInterval;
-    qDebug()<<"sendInterval="<<sendInterval;
+    qDebug() << "sendInterval=" << sendInterval;
 
     m_serial->setPortName(p.name);
     m_serial->setBaudRate(p.baudRate);
@@ -112,8 +119,7 @@ void MainWindow::readData() {
 }
 //! [7]
 
-void MainWindow::on_actionResponseOK_triggered()
-{
+void MainWindow::on_actionResponseOK_triggered() {
     //上位机接收有问题$丢掉。使用串口工具正常，软件接收问题？
     //上位机判断条件以$OK开头或包含OK=CLIENT
     QString txt = "$OK=CLIENT";
@@ -122,11 +128,11 @@ void MainWindow::on_actionResponseOK_triggered()
 
 
 void MainWindow::serialWrite(QString &cmd) {
-    if(!m_serial->isOpen()){
-        QMessageBox::warning(this,"警告","请配置连接串口后重试！");
+    if (!m_serial->isOpen()) {
+        QMessageBox::warning(this, "警告", "请配置连接串口后重试！");
         return;
     }
-    cmd+="\r\n";
+    cmd += "\r\n";
     QByteArray sendCmd = cmd.toLocal8Bit();
     //向串口发送
     m_serial->write(sendCmd);
@@ -139,27 +145,24 @@ void MainWindow::serialWrite(QString &cmd) {
 /**
  * 模拟超速
  */
-void MainWindow::on_actionOverSpeed_triggered()
-{
-    QString cmd="$EVENT=HS";
+void MainWindow::on_actionOverSpeed_triggered() {
+    QString cmd = "$EVENT=HS";
     serialWrite(cmd);
 }
 
 /**
  * 模拟左前方障碍物
  */
-void MainWindow::on_actionLeftFront_triggered()
-{
-    QString cmd="$EVENT=FL";
+void MainWindow::on_actionLeftFront_triggered() {
+    QString cmd = "$EVENT=FL";
     serialWrite(cmd);
 }
 
 /**
  * 模拟后方障碍物
  */
-void MainWindow::on_actionMidBack_triggered()
-{
-    QString cmd="$EVENT=BM";
+void MainWindow::on_actionMidBack_triggered() {
+    QString cmd = "$EVENT=BM";
 
     serialWrite(cmd);
 }
@@ -188,31 +191,60 @@ void MainWindow::showStatusMessage(const QString &message) {
 }
 
 
+//打开文件数据源
+void MainWindow::on_actionDataSource_triggered() {
+    QString fileName = QFileDialog::getOpenFileName(this, tr("选择数据源"), "",
+
+                                                    tr("Text Files (*.txt *.log)"));
+    qDebug() << "fileName=" << fileName;
+//    dataSource = new QFile(fileName);
+QFile file(fileName);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        stream = new QTextStream(&file);
+        QString line = stream->readAll();
+        qDebug()<<line;
+    }
+}
 
 
+void MainWindow::sendMsg() {
 
+//    if(stream== nullptr){
+//        qDebug()<<"未配置数据源";
+//        return;
+//    }
+//
+//    QString line = stream->readAll();
+////    QString line = stream->readLine(sendLine);
+//    qDebug()<<"发送第"<<sendLine<<"行:"<<line;
+//    sendLine++;
+//    if(sendLine>3){
+//        sendLine=0;
+//    }
+}
 
-void MainWindow::on_actionDataSource_triggered()
-{
+void MainWindow::on_actionSend_triggered() {
+    //sendInterval,dataSource
+    //初始化发送
+    if (!isStartWork || isIntercept) {
+        timer->start(sendInterval);
+        //恢复发送
+    } else if (isPause) {
+
+    }
+}
+
+void MainWindow::on_actionStop_triggered() {
 
 }
 
-void MainWindow::on_actionSend_triggered()
-{
+void MainWindow::on_actionPause_triggered() {
 
 }
 
-void MainWindow::on_actionStop_triggered()
-{
+//不使用
+void MainWindow::on_actionRestart_triggered() {
 
 }
 
-void MainWindow::on_actionPause_triggered()
-{
 
-}
-
-void MainWindow::on_actionRestart_triggered()
-{
-
-}

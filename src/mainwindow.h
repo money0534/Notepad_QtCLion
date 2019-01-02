@@ -4,33 +4,41 @@
 
 #include <QMainWindow>
 #include <QSerialPort>
+#include <QFile>
+#include <QTextStream>
 
 QT_BEGIN_NAMESPACE
 
 class QLabel;
 
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 
 QT_END_NAMESPACE
 
 class Console;
+
 class SettingsDialog;
 
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
+class MainWindow : public QMainWindow {
+Q_OBJECT
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+
     ~MainWindow();
 
 private slots:
+
     void openSerialPort();
+
     void closeSerialPort();
+
     void about();
+
     void writeData(const QByteArray &data);
+
     void readData();
 
     void handleError(QSerialPort::SerialPortError error);
@@ -53,12 +61,17 @@ private slots:
 
     void on_actionRestart_triggered();
 
+    /**
+     * 发送一行报文
+     */
+    void sendMsg();
+
 private:
     void initActionsConnections();
 
-    void serialWrite(QString& cmd);
+    void serialWrite(QString &cmd);
 
-private:
+public:
     void showStatusMessage(const QString &message);
 
     Ui::MainWindow *m_ui = nullptr;
@@ -67,7 +80,15 @@ private:
     SettingsDialog *m_settings = nullptr;
     QSerialPort *m_serial = nullptr;
 
-    int sendInterval;//报文自动发送间隔
+    QFile* dataSource;//数据源
+    QTextStream* stream;//数据源
+    int sendInterval = 100;//报文自动发送间隔
+    int sendLine = 0;//报文发送的行数，数据源中所在行
+    bool isStartWork = false;//是否已开始发送，默认false，点击发送或重新发送后置为true
+    bool isPause = false;//是否暂停发送，默认false，点击暂停后置为false
+    bool isIntercept = false;//是否终止发送，默认false，点击停止后置为false
+
+    QTimer * timer;//定时器
 };
 
 #endif // MAINWINDOW_H

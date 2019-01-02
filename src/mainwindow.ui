@@ -69,7 +69,6 @@
     <addaction name="actionSend"/>
     <addaction name="actionStop"/>
     <addaction name="actionPause"/>
-    <addaction name="actionRestart"/>
    </widget>
    <addaction name="menuCalls"/>
    <addaction name="menuTools"/>
@@ -98,7 +97,6 @@
    <addaction name="actionSend"/>
    <addaction name="actionStop"/>
    <addaction name="actionPause"/>
-   <addaction name="actionRestart"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAbout">
