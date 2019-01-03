@@ -129,13 +129,13 @@ void MainWindow::readData() {
     //普通文本
 //    m_console->putData(data);
     //html内容
-    QString html="<font color=\"red\">";
+    QString html="<font color=\"#ff0000\">";
     html+=data;
     html+="</font>";//<br/>不生效
     qDebug()<<html;
     m_console->appendHtml(html);
     //拼接换行符
-    m_console->insertPlainText("\n");
+//    m_console->insertPlainText("\n");
 
 }
 //! [7]
@@ -305,6 +305,7 @@ void MainWindow::sendMsg() {
     int length = lines->length();
 
     QByteArray line = lines->value(sendLine);
+
     double pct = 100 * (sendLine + 1) / (double) length;
     //以非科学计数法保留两位小数
     QByteArray pctStr = QByteArray::number(pct, 'f', 2);
@@ -317,8 +318,14 @@ void MainWindow::sendMsg() {
     line.prepend(prefix);
     line.prepend(pctStr);
 
-    m_console->putData(line);
+//    m_console->putData(line);
 //    qDebug()<<line;
+
+    QString html="<font color=\"#00ff00\">";
+    html+=line;
+    html+="</font>";
+    m_console->appendHtml(html);
+
 
 
     sendLine++;
