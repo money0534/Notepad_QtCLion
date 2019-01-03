@@ -298,6 +298,10 @@ void MainWindow::on_actionDataSource_triggered() {
 
 void MainWindow::sendMsg() {
 
+//    QString cmd = "$GPS,170.51,0.015,+4144194.841,+534207.577,3,*";
+//    serialWrite(cmd);
+
+#if 1
     int length = lines->length();
 
     QByteArray line = lines->value(sendLine);
@@ -319,6 +323,7 @@ void MainWindow::sendMsg() {
     if (sendLine > length - 1) {
         sendLine = 0;
     }
+#endif
 }
 
 /**
