@@ -123,7 +123,7 @@ void MainWindow::writeData(const QByteArray &data) {
 
 //! [7]
 void MainWindow::readData() {
-    QByteArray data = m_serial->readAll();
+    QByteArray data = m_serial->readAll().trimmed();
 
     qDebug() << "data received:" << data;
     //普通文本
@@ -134,6 +134,8 @@ void MainWindow::readData() {
     html+="</font>";
     qDebug()<<html;
     m_console->appendHtml(html);
+    //拼接换行符
+    m_console->insertPlainText("\r\n");
 
 }
 //! [7]
@@ -302,7 +304,7 @@ void MainWindow::sendMsg() {
     double pct = 100 * (sendLine + 1) / (double) length;
     //以非科学计数法保留两位小数
     QByteArray pctStr = QByteArray::number(pct, 'f', 2);
-    m_serial->write(line);
+    m_serial->write(line);//line.toStdString()
 
     //显示到控制台
 //    char prefix[] = "% --> ";
