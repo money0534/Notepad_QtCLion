@@ -129,13 +129,16 @@ void MainWindow::readData() {
     //普通文本
 //    m_console->putData(data);
     //html内容
-    QString html="<font color=\"#ff0000\">";
-    html+=data;
-    html+="</font>";//<br/>不生效
-    qDebug()<<html;
-    m_console->appendHtml(html);
+//    QString html="<font color=\"#ff0000\">";
+//    html+=data;
+//    html+="</font>";//<br/>不生效
+//    qDebug()<<html;
+//    m_console->appendHtml(html);
     //拼接换行符
 //    m_console->insertPlainText("\n");
+
+    m_console->putHtmlData(data,"#ff0000");
+
 
 }
 //! [7]
@@ -160,7 +163,9 @@ void MainWindow::serialWrite(QString &cmd) {
     //显示到控制台
 //    char prefix[] = "--> ";
 //    sendCmd.prepend(prefix);
-    m_console->putData(sendCmd);
+//    m_console->putData(sendCmd);
+    m_console->putHtmlData(sendCmd,"#00ff00");
+
 }
 
 /**
@@ -313,18 +318,20 @@ void MainWindow::sendMsg() {
     m_serial->write(line/*.constData()*/);//line.toStdString()
 
     //显示到控制台
-//    char prefix[] = "% --> ";
-    char prefix[] = "% ";
+    char prefix[] = "% -> ";
+//    char prefix[] = "% ";
     line.prepend(prefix);
     line.prepend(pctStr);
 
 //    m_console->putData(line);
 //    qDebug()<<line;
 
-    QString html="<font color=\"#00ff00\">";
-    html+=line;
-    html+="</font>";
-    m_console->appendHtml(html);
+//    QString html="<font color=\"#00ff00\">";
+//    html+=line;
+//    html+="</font>";
+//    m_console->appendHtml(html);
+
+    m_console->putHtmlData(line,"#00ff00");
 
 
 

@@ -15,6 +15,7 @@ public:
     explicit Console(QWidget *parent = nullptr);
 
     void putData(const QByteArray &data);
+    void putHtmlData(QByteArray &html,QString color);
     void setLocalEchoEnabled(bool set);
 
 protected:

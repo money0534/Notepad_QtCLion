@@ -79,3 +79,15 @@ void Console::mouseDoubleClickEvent(QMouseEvent *e) {
 void Console::contextMenuEvent(QContextMenuEvent *e) {
     Q_UNUSED(e)
 }
+
+void Console::putHtmlData(QByteArray &msg, QString color) {
+    QString html = "<font color=\"";
+    html+=color;
+    html+="\">";
+    html += msg;
+    html += "</font>";
+    appendHtml(html);
+    //滚动到最后
+    QScrollBar *bar = verticalScrollBar();
+    bar->setValue(bar->maximum());
+}
