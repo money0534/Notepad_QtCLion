@@ -86,10 +86,10 @@ void MainWindow::openSerialPort() {
         m_ui->actionConnect->setEnabled(false);
         m_ui->actionDisconnect->setEnabled(true);
         m_ui->actionConfigure->setEnabled(false);
-        showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6")
+        showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6.  Loop Interval : %7ms")
                                   .arg(p.name).arg(p.stringBaudRate).arg(p.stringDataBits)
                                   .arg(p.stringParity).arg(p.stringStopBits).arg(
-                        p.stringFlowControl));
+                        p.stringFlowControl).arg(p.sendInterval));
     } else {
         QMessageBox::critical(this, tr("Error"), m_serial->errorString());
 
@@ -218,10 +218,10 @@ void MainWindow::showStatusMessage(const QString &message) {
 
 //打开文件数据源
 void MainWindow::on_actionDataSource_triggered() {
-    //会默认打开当前路径 exe所在路径
-    QString temp = QFileDialog::getOpenFileName(this, tr("选择数据源")/*, "",
+    //会默认打开当前路径 exe所在路径；过滤文本文件
+    QString temp = QFileDialog::getOpenFileName(this, tr("选择数据源"), "",
 
-                                                    tr("Text Files (*.txt *.log)")*/);
+                                                    tr("Text Files (*.txt *.log)"));
     //为空
     if (nullptr == temp) {
         qDebug() << "用户取消";
@@ -237,7 +237,7 @@ void MainWindow::on_actionDataSource_triggered() {
     qDebug() << "打开文件：" << temp;
 
     //Process finished with exit code -1073741819 (0xC0000005) nullptr
-#if 0
+#if 1
 
     QFile file(dataSource);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -265,13 +265,14 @@ void MainWindow::on_actionDataSource_triggered() {
     //从0开始计
     sendLine = 0;
     //窗口显示当前数据源路径
-    setWindowTitle(dataSource);
-    m_console->insertPlainText(tr("%1 初始化成功，共 %2 行。\n").arg(dataSource).arg(lines->length()));
-    qDebug()<<tr("%1 初始化成功，共 %2 行。\n").arg(dataSource).arg(lines->length());
+    setWindowTitle(tr("%1 共%2行。\n").arg(dataSource).arg(lines->length()));
+//    setWindowTitle(dataSource);
+//    m_console->insertPlainText(tr("%1 初始化成功，共 %2 行。\n").arg(dataSource).arg(lines->length()));
+//    qDebug()<<tr("%1 初始化成功，共 %2 行。\n").arg(dataSource).arg(lines->length());
 
 #endif
     //线程方式初始化
-#if 1
+#if 0
     progressBar = new QProgressDialog("初始化数据源...","取消",0,0,this);
     //模态窗口 获取焦点后外部无法交互
     progressBar->setWindowModality(Qt::WindowModal);

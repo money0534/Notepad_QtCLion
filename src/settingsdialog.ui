@@ -172,7 +172,7 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>发送间隔（可选）：</string>
+           <string>发送间隔（单位ms）：</string>
           </property>
          </widget>
         </item>
@@ -182,7 +182,7 @@
            <string>100</string>
           </property>
           <property name="placeholderText">
-           <string>报文发送间隔，默认100ms</string>
+           <string>报文自动发送间隔，默认100</string>
           </property>
          </widget>
         </item>
