@@ -123,7 +123,7 @@ void MainWindow::writeData(const QByteArray &data) {
 
 //! [7]
 void MainWindow::readData() {
-    QByteArray data = m_serial->readAll().replace("\n","");
+    QByteArray data = m_serial->readAll().replace("\n","").replace("\r","");
 
     qDebug() << "data received:" << data;
     //普通文本
@@ -131,11 +131,11 @@ void MainWindow::readData() {
     //html内容
     QString html="<font color=\"red\">";
     html+=data;
-    html+="</font>";
+    html+="</font>";//<br/>不生效
     qDebug()<<html;
     m_console->appendHtml(html);
     //拼接换行符
-//    m_console->insertPlainText("\n");
+    m_console->insertPlainText("\n");
 
 }
 //! [7]
@@ -316,6 +316,7 @@ void MainWindow::sendMsg() {
     char prefix[] = "% ";
     line.prepend(prefix);
     line.prepend(pctStr);
+
     m_console->putData(line);
 //    qDebug()<<line;
 
