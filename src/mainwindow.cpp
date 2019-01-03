@@ -304,7 +304,7 @@ void MainWindow::sendMsg() {
     double pct = 100 * (sendLine + 1) / (double) length;
     //以非科学计数法保留两位小数
     QByteArray pctStr = QByteArray::number(pct, 'f', 2);
-    m_serial->write(line.constData());//line.toStdString()
+    m_serial->write(line/*.constData()*/);//line.toStdString()
 
     //显示到控制台
 //    char prefix[] = "% --> ";

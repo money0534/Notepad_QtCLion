@@ -235,9 +235,9 @@ public:
         applyButton->setText(QApplication::translate("SettingsDialog", "Apply", nullptr));
         additionalOptionsGroupBox->setTitle(QApplication::translate("SettingsDialog", "Additional options", nullptr));
         localEchoCheckBox->setText(QApplication::translate("SettingsDialog", "Local echo", nullptr));
-        label->setText(QApplication::translate("SettingsDialog", "\345\217\221\351\200\201\351\227\264\351\232\224\357\274\210\345\217\257\351\200\211\357\274\211\357\274\232", nullptr));
+        label->setText(QApplication::translate("SettingsDialog", "\345\217\221\351\200\201\351\227\264\351\232\224\357\274\210\345\215\225\344\275\215ms\357\274\211\357\274\232", nullptr));
         leSendInterval->setText(QApplication::translate("SettingsDialog", "100", nullptr));
-        leSendInterval->setPlaceholderText(QApplication::translate("SettingsDialog", "\346\212\245\346\226\207\345\217\221\351\200\201\351\227\264\351\232\224\357\274\214\351\273\230\350\256\244100ms", nullptr));
+        leSendInterval->setPlaceholderText(QApplication::translate("SettingsDialog", "\346\212\245\346\226\207\350\207\252\345\212\250\345\217\221\351\200\201\351\227\264\351\232\224\357\274\214\351\273\230\350\256\244100", nullptr));
     } // retranslateUi
 
 };
