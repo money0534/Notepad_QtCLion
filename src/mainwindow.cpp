@@ -126,7 +126,14 @@ void MainWindow::readData() {
     QByteArray data = m_serial->readAll();
 
     qDebug() << "data received:" << data;
-    m_console->putData(data);
+    //普通文本
+//    m_console->putData(data);
+    //html内容
+    QString html="<font color=\"red\">";
+    html+=data;
+    html+="</font>";
+    qDebug()<<html;
+    m_console->appendHtml(html);
 
 }
 //! [7]
@@ -149,8 +156,8 @@ void MainWindow::serialWrite(QString &cmd) {
     //向串口发送
     m_serial->write(sendCmd);
     //显示到控制台
-    char prefix[] = "--> ";
-    sendCmd.prepend(prefix);
+//    char prefix[] = "--> ";
+//    sendCmd.prepend(prefix);
     m_console->putData(sendCmd);
 }
 
@@ -298,7 +305,8 @@ void MainWindow::sendMsg() {
     m_serial->write(line);
 
     //显示到控制台
-    char prefix[] = "% --> ";
+//    char prefix[] = "% --> ";
+    char prefix[] = "% ";
     line.prepend(prefix);
     line.prepend(pctStr);
     m_console->putData(line);
