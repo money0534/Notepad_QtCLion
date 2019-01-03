@@ -127,6 +127,7 @@ void MainWindow::readData() {
 
     qDebug() << "data received:" << data;
     m_console->putData(data);
+
 }
 //! [7]
 
@@ -265,7 +266,7 @@ void MainWindow::on_actionDataSource_triggered() {
     //从0开始计
     sendLine = 0;
     //窗口显示当前数据源路径
-    setWindowTitle(tr("%1 共%2行。\n").arg(dataSource).arg(lines->length()));
+    setWindowTitle(tr("%1 共%2行\n").arg(dataSource).arg(lines->length()));
 //    setWindowTitle(dataSource);
 //    m_console->insertPlainText(tr("%1 初始化成功，共 %2 行。\n").arg(dataSource).arg(lines->length()));
 //    qDebug()<<tr("%1 初始化成功，共 %2 行。\n").arg(dataSource).arg(lines->length());
