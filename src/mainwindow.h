@@ -71,11 +71,19 @@ private slots:
 
     void on_actionEventEqBrake_triggered();
 
+    void on_actionTwiceSpeed_triggered();
+
+    void on_actionHalfSpeed_triggered();
+
+    void on_actionResetSpeed_triggered();
+
 private:
     void initActionsConnections();
 
 
     void serialWrite(QString &cmd);
+
+    void changeSpeed();
 
 public:
     void showStatusMessage(const QString &message);
@@ -89,7 +97,7 @@ public:
     QProgressDialog * progressBar;
     InitThread * workerThread;
     QString dataSource;//数据源
-    int sendInterval = 100;//报文自动发送间隔
+    float sendInterval = 100;//报文自动发送间隔
     QList<QByteArray>* lines;//所有行数据
     int sendLine = 0;//报文发送的行数，数据源中所在行
     bool isSending = false;//是否在发送中，默认false，点击发送或重新发送后置为true

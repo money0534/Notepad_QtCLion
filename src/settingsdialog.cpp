@@ -5,6 +5,7 @@
 #include <QIntValidator>
 #include <QLineEdit>
 #include <QSerialPortInfo>
+#include <QDebug>
 
 static const char blankString[] = QT_TRANSLATE_NOOP("SettingsDialog", "N/A");
 
@@ -171,6 +172,18 @@ void SettingsDialog::updateSettings()
 
     QString intervalStr = m_ui->leSendInterval->text().trimmed();
     //得到时间间隔，默认100ms
-    int interval = intervalStr.isEmpty()?100:intervalStr.toInt();
+    float interval;
+    try {
+         interval = intervalStr.isEmpty()?100:intervalStr.toInt();
+    }catch (std::exception& e){
+        interval = 100;
+        qDebug()<<"Exception:"<<e.what();
+    }
+
+    if(interval<=0){
+        interval = 100;
+    }
     m_currentSettings.sendInterval = interval;
+
+
 }

@@ -21,5 +21,7 @@
         <file>images/pause2.png</file>
         <file>images/start.png</file>
         <file>images/twice.png</file>
+        <file>images/half2.png</file>
+        <file>images/twice2.png</file>
     </qresource>
 </RCC>

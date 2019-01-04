@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>700</width>
     <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>防碰撞模拟终端</string>
+   <string>超级串口</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -25,7 +25,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>700</width>
      <height>26</height>
     </rect>
    </property>
@@ -69,8 +69,12 @@
     <addaction name="actionDataSource"/>
     <addaction name="actionSend"/>
     <addaction name="actionPause"/>
-    <addaction name="actionStop"/>
     <addaction name="actionRestart"/>
+    <addaction name="actionStop"/>
+    <addaction name="separator"/>
+    <addaction name="actionTwiceSpeed"/>
+    <addaction name="actionResetSpeed"/>
+    <addaction name="actionHalfSpeed"/>
    </widget>
    <addaction name="menuCalls"/>
    <addaction name="menuTools"/>
@@ -101,6 +105,10 @@
    <addaction name="actionPause"/>
    <addaction name="actionRestart"/>
    <addaction name="actionStop"/>
+   <addaction name="separator"/>
+   <addaction name="actionTwiceSpeed"/>
+   <addaction name="actionResetSpeed"/>
+   <addaction name="actionHalfSpeed"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAbout">
@@ -252,7 +260,7 @@
      <normaloff>:/images/start.png</normaloff>:/images/start.png</iconset>
    </property>
    <property name="text">
-    <string>Send</string>
+    <string>Start</string>
    </property>
    <property name="toolTip">
     <string>开始发送</string>
@@ -307,6 +315,42 @@
    </property>
    <property name="toolTip">
     <string>重新发送</string>
+   </property>
+  </action>
+  <action name="actionTwiceSpeed">
+   <property name="icon">
+    <iconset resource="../resources/res.qrc">
+     <normaloff>:/images/twice2.png</normaloff>:/images/twice2.png</iconset>
+   </property>
+   <property name="text">
+    <string>速度x2</string>
+   </property>
+   <property name="toolTip">
+    <string>当前速度加倍</string>
+   </property>
+  </action>
+  <action name="actionHalfSpeed">
+   <property name="icon">
+    <iconset resource="../resources/res.qrc">
+     <normaloff>:/images/half2.png</normaloff>:/images/half2.png</iconset>
+   </property>
+   <property name="text">
+    <string>速度x0.5</string>
+   </property>
+   <property name="toolTip">
+    <string>当前速度减半</string>
+   </property>
+  </action>
+  <action name="actionResetSpeed">
+   <property name="icon">
+    <iconset resource="../resources/res.qrc">
+     <normaloff>:/images/default_speed.png</normaloff>:/images/default_speed.png</iconset>
+   </property>
+   <property name="text">
+    <string>默认速度</string>
+   </property>
+   <property name="toolTip">
+    <string>恢复默认速度</string>
    </property>
   </action>
  </widget>

@@ -111,8 +111,8 @@ void MainWindow::closeSerialPort() {
 //! [5]
 
 void MainWindow::about() {
-    QMessageBox::about(this, tr("关于 防碰撞模拟终端"),
-                       tr("模拟防碰撞刹车，通过串口与机器人教练交互。"));
+    QMessageBox::about(this, tr("关于 %1%2").arg(windowTitle()).arg("V1.2"),
+                       tr("可模拟防碰撞刹车，自动发送报文"));
 }
 
 //! [6]
@@ -255,17 +255,19 @@ void MainWindow::on_actionDataSource_triggered() {
 #if 1
 
     QFile file(dataSource);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        int ret = QMessageBox::critical(this, "错误", "打开文件失败", "确定");
-        qDebug() << "打开文件失败!";
-        return;
+    try {
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            int ret = QMessageBox::critical(this, "错误", "打开文件失败", "确定");
+            qDebug() << "打开文件失败!";
+            return;
+        }
+        qDebug() << "开始读取";
+        //情况之前
+        lines->clear();
+    }catch (std::exception& ex){
+        qDebug()<<"Exception:"<<ex.what();
+        QMessageBox::warning(this, "警告", "文件错误", "确定");
     }
-
-    qDebug() << "开始读取";
-
-    //情况之前
-    lines->clear();
-
 
 #if 0 //文件方式
     //读取到集合
@@ -355,6 +357,10 @@ void MainWindow::sendMsg() {
  * 发送按钮
  */
 void MainWindow::on_actionSend_triggered() {
+    if(isSending){
+        return;
+    }
+
     if (!m_serial->isOpen()) {
         qDebug() << "未打开串口";
         QMessageBox::warning(this, "警告", "未打开串口", "确定");
@@ -369,12 +375,10 @@ void MainWindow::on_actionSend_triggered() {
 
     //sendInterval,dataSource
     //初始化发送
-    if (!isSending) {
-        timer->start(sendInterval);
-        isSending = true;
-        //禁用选择数据源按钮
-        m_ui->actionDataSource->setEnabled(false);
-    }
+    timer->start(sendInterval);
+    isSending = true;
+    //禁用选择数据源按钮
+    m_ui->actionDataSource->setEnabled(false);
 }
 
 /**
@@ -424,3 +428,37 @@ void MainWindow::on_actionRestart_triggered() {
 
 
 
+
+void MainWindow::on_actionTwiceSpeed_triggered()
+{
+    sendInterval/=2;
+
+    changeSpeed();
+}
+
+void MainWindow::on_actionHalfSpeed_triggered()
+{
+    sendInterval*=2;
+    changeSpeed();
+
+}
+
+void MainWindow::on_actionResetSpeed_triggered()
+{
+    sendInterval=m_settings->settings().sendInterval;
+    changeSpeed();
+
+}
+
+void MainWindow::changeSpeed() {
+    SettingsDialog::Settings p = m_settings->settings();
+
+    showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6.  Loop Interval : %7ms")
+                              .arg(p.name).arg(p.stringBaudRate).arg(p.stringDataBits)
+                              .arg(p.stringParity).arg(p.stringStopBits).arg(
+                    p.stringFlowControl).arg(sendInterval));
+
+    on_actionPause_triggered();
+    on_actionSend_triggered();
+
+}

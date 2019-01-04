@@ -42,6 +42,9 @@ public:
     QAction *actionPause;
     QAction *actionEventEqBrake;
     QAction *actionRestart;
+    QAction *actionTwiceSpeed;
+    QAction *actionHalfSpeed;
+    QAction *actionResetSpeed;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QMenuBar *menuBar;
@@ -57,7 +60,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(600, 800);
+        MainWindow->resize(700, 800);
         QIcon icon;
         icon.addFile(QString::fromUtf8("../resources/images/icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
@@ -138,6 +141,21 @@ public:
         QIcon icon15;
         icon15.addFile(QString::fromUtf8(":/images/restart.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionRestart->setIcon(icon15);
+        actionTwiceSpeed = new QAction(MainWindow);
+        actionTwiceSpeed->setObjectName(QString::fromUtf8("actionTwiceSpeed"));
+        QIcon icon16;
+        icon16.addFile(QString::fromUtf8(":/images/twice2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionTwiceSpeed->setIcon(icon16);
+        actionHalfSpeed = new QAction(MainWindow);
+        actionHalfSpeed->setObjectName(QString::fromUtf8("actionHalfSpeed"));
+        QIcon icon17;
+        icon17.addFile(QString::fromUtf8(":/images/half2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionHalfSpeed->setIcon(icon17);
+        actionResetSpeed = new QAction(MainWindow);
+        actionResetSpeed->setObjectName(QString::fromUtf8("actionResetSpeed"));
+        QIcon icon18;
+        icon18.addFile(QString::fromUtf8(":/images/default_speed.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionResetSpeed->setIcon(icon18);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -147,7 +165,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 26));
+        menuBar->setGeometry(QRect(0, 0, 700, 26));
         menuCalls = new QMenu(menuBar);
         menuCalls->setObjectName(QString::fromUtf8("menuCalls"));
         menuTools = new QMenu(menuBar);
@@ -187,8 +205,12 @@ public:
         menu->addAction(actionDataSource);
         menu->addAction(actionSend);
         menu->addAction(actionPause);
-        menu->addAction(actionStop);
         menu->addAction(actionRestart);
+        menu->addAction(actionStop);
+        menu->addSeparator();
+        menu->addAction(actionTwiceSpeed);
+        menu->addAction(actionResetSpeed);
+        menu->addAction(actionHalfSpeed);
         mainToolBar->addAction(actionConnect);
         mainToolBar->addAction(actionDisconnect);
         mainToolBar->addAction(actionConfigure);
@@ -205,6 +227,10 @@ public:
         mainToolBar->addAction(actionPause);
         mainToolBar->addAction(actionRestart);
         mainToolBar->addAction(actionStop);
+        mainToolBar->addSeparator();
+        mainToolBar->addAction(actionTwiceSpeed);
+        mainToolBar->addAction(actionResetSpeed);
+        mainToolBar->addAction(actionHalfSpeed);
 
         retranslateUi(MainWindow);
 
@@ -213,7 +239,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\351\230\262\347\242\260\346\222\236\346\250\241\346\213\237\347\273\210\347\253\257", nullptr));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\350\266\205\347\272\247\344\270\262\345\217\243", nullptr));
         actionAbout->setText(QApplication::translate("MainWindow", "&About", nullptr));
 #ifndef QT_NO_TOOLTIP
         actionAbout->setToolTip(QApplication::translate("MainWindow", "About program", nullptr));
@@ -273,7 +299,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         actionDataSource->setToolTip(QApplication::translate("MainWindow", "\351\200\211\346\213\251\346\225\260\346\215\256\346\272\220", nullptr));
 #endif // QT_NO_TOOLTIP
-        actionSend->setText(QApplication::translate("MainWindow", "Send", nullptr));
+        actionSend->setText(QApplication::translate("MainWindow", "Start", nullptr));
 #ifndef QT_NO_TOOLTIP
         actionSend->setToolTip(QApplication::translate("MainWindow", "\345\274\200\345\247\213\345\217\221\351\200\201", nullptr));
 #endif // QT_NO_TOOLTIP
@@ -295,6 +321,18 @@ public:
         actionRestart->setText(QApplication::translate("MainWindow", "Restart", nullptr));
 #ifndef QT_NO_TOOLTIP
         actionRestart->setToolTip(QApplication::translate("MainWindow", "\351\207\215\346\226\260\345\217\221\351\200\201", nullptr));
+#endif // QT_NO_TOOLTIP
+        actionTwiceSpeed->setText(QApplication::translate("MainWindow", "\351\200\237\345\272\246x2", nullptr));
+#ifndef QT_NO_TOOLTIP
+        actionTwiceSpeed->setToolTip(QApplication::translate("MainWindow", "\345\275\223\345\211\215\351\200\237\345\272\246\345\212\240\345\200\215", nullptr));
+#endif // QT_NO_TOOLTIP
+        actionHalfSpeed->setText(QApplication::translate("MainWindow", "\351\200\237\345\272\246x0.5", nullptr));
+#ifndef QT_NO_TOOLTIP
+        actionHalfSpeed->setToolTip(QApplication::translate("MainWindow", "\345\275\223\345\211\215\351\200\237\345\272\246\345\207\217\345\215\212", nullptr));
+#endif // QT_NO_TOOLTIP
+        actionResetSpeed->setText(QApplication::translate("MainWindow", "\351\273\230\350\256\244\351\200\237\345\272\246", nullptr));
+#ifndef QT_NO_TOOLTIP
+        actionResetSpeed->setToolTip(QApplication::translate("MainWindow", "\346\201\242\345\244\215\351\273\230\350\256\244\351\200\237\345\272\246", nullptr));
 #endif // QT_NO_TOOLTIP
         menuCalls->setTitle(QApplication::translate("MainWindow", "Calls", nullptr));
         menuTools->setTitle(QApplication::translate("MainWindow", "Tools", nullptr));
