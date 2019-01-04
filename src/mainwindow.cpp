@@ -266,16 +266,25 @@ void MainWindow::on_actionDataSource_triggered() {
     //情况之前
     lines->clear();
 
+
+#if 0 //文件方式
     //读取到集合
     while (!file.atEnd()) {
         QByteArray line = file.readLine().trimmed();
         lines->append(line);
         qDebug() << line;
     }
+#endif
 
+#if 1 //流方式
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();//不必调用trim
+        lines->append(line.toLocal8Bit());
+    }
     qDebug() << "Total Lines:" << lines->length();
     file.close();
-
+#endif
 
     //从0开始计
     sendLine = 0;
