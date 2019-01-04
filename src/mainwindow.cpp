@@ -354,6 +354,16 @@ void MainWindow::sendMsg() {
 #endif
 }
 
+//void MainWindow::toggleActionStatus() {
+//    if(isSending){
+//        m_ui->actionSend->toggled(true);
+//        m_ui->actionSend->setText("Pause");
+//    } else{
+//        m_ui->actionSend->toggled(false);
+//        m_ui->actionSend->setText("Start");
+//    }
+//}
+
 /**
  * 发送按钮
  */
