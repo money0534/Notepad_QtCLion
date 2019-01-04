@@ -40,8 +40,8 @@ public:
     QAction *actionSend;
     QAction *actionStop;
     QAction *actionPause;
-    QAction *actionRestart;
     QAction *actionEventEqBrake;
+    QAction *actionRestart;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QMenuBar *menuBar;
@@ -116,7 +116,7 @@ public:
         actionSend = new QAction(MainWindow);
         actionSend->setObjectName(QString::fromUtf8("actionSend"));
         QIcon icon11;
-        icon11.addFile(QString::fromUtf8(":/images/send.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon11.addFile(QString::fromUtf8(":/images/start.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionSend->setIcon(icon11);
         actionStop = new QAction(MainWindow);
         actionStop->setObjectName(QString::fromUtf8("actionStop"));
@@ -126,18 +126,18 @@ public:
         actionPause = new QAction(MainWindow);
         actionPause->setObjectName(QString::fromUtf8("actionPause"));
         QIcon icon13;
-        icon13.addFile(QString::fromUtf8(":/images/pause.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon13.addFile(QString::fromUtf8(":/images/pause2.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionPause->setIcon(icon13);
-        actionRestart = new QAction(MainWindow);
-        actionRestart->setObjectName(QString::fromUtf8("actionRestart"));
-        QIcon icon14;
-        icon14.addFile(QString::fromUtf8(":/images/restart.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionRestart->setIcon(icon14);
         actionEventEqBrake = new QAction(MainWindow);
         actionEventEqBrake->setObjectName(QString::fromUtf8("actionEventEqBrake"));
+        QIcon icon14;
+        icon14.addFile(QString::fromUtf8(":/images/brake.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionEventEqBrake->setIcon(icon14);
+        actionRestart = new QAction(MainWindow);
+        actionRestart->setObjectName(QString::fromUtf8("actionRestart"));
         QIcon icon15;
-        icon15.addFile(QString::fromUtf8(":/images/brake.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionEventEqBrake->setIcon(icon15);
+        icon15.addFile(QString::fromUtf8(":/images/restart.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionRestart->setIcon(icon15);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -186,8 +186,9 @@ public:
         menuSimulation->addAction(actionResponseOK);
         menu->addAction(actionDataSource);
         menu->addAction(actionSend);
-        menu->addAction(actionStop);
         menu->addAction(actionPause);
+        menu->addAction(actionStop);
+        menu->addAction(actionRestart);
         mainToolBar->addAction(actionConnect);
         mainToolBar->addAction(actionDisconnect);
         mainToolBar->addAction(actionConfigure);
@@ -201,8 +202,9 @@ public:
         mainToolBar->addSeparator();
         mainToolBar->addAction(actionDataSource);
         mainToolBar->addAction(actionSend);
-        mainToolBar->addAction(actionStop);
         mainToolBar->addAction(actionPause);
+        mainToolBar->addAction(actionRestart);
+        mainToolBar->addAction(actionStop);
 
         retranslateUi(MainWindow);
 
@@ -286,13 +288,13 @@ public:
 #ifndef QT_NO_TOOLTIP
         actionPause->setToolTip(QApplication::translate("MainWindow", "\346\232\202\345\201\234", nullptr));
 #endif // QT_NO_TOOLTIP
-        actionRestart->setText(QApplication::translate("MainWindow", "Restart", nullptr));
-#ifndef QT_NO_TOOLTIP
-        actionRestart->setToolTip(QApplication::translate("MainWindow", "\351\207\215\346\226\260\345\217\221\351\200\201", nullptr));
-#endif // QT_NO_TOOLTIP
         actionEventEqBrake->setText(QApplication::translate("MainWindow", "EventEqBrake", nullptr));
 #ifndef QT_NO_TOOLTIP
         actionEventEqBrake->setToolTip(QApplication::translate("MainWindow", "\346\250\241\346\213\237\346\227\247\347\211\210\345\210\271\350\275\246$EVENT=BRAKE", nullptr));
+#endif // QT_NO_TOOLTIP
+        actionRestart->setText(QApplication::translate("MainWindow", "Restart", nullptr));
+#ifndef QT_NO_TOOLTIP
+        actionRestart->setToolTip(QApplication::translate("MainWindow", "\351\207\215\346\226\260\345\217\221\351\200\201", nullptr));
 #endif // QT_NO_TOOLTIP
         menuCalls->setTitle(QApplication::translate("MainWindow", "Calls", nullptr));
         menuTools->setTitle(QApplication::translate("MainWindow", "Tools", nullptr));

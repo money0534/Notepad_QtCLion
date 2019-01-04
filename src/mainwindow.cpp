@@ -220,7 +220,7 @@ void MainWindow::initActionsConnections() {
     connect(m_ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
     connect(m_ui->actionConfigure, &QAction::triggered, m_settings, &SettingsDialog::show);
     connect(m_ui->actionClear, &QAction::triggered, m_console, &Console::clear);
-//    connect(m_ui->actionStop, &QAction::triggered, m_console, &Console::clear);
+    connect(m_ui->actionRestart, &QAction::triggered, m_console, &Console::clear);
     connect(m_ui->actionDataSource, &QAction::triggered, m_console, &Console::clear);
     connect(m_ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
 //    connect(m_ui->actionAboutQt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -417,7 +417,9 @@ void MainWindow::onDataSourceReady() {
 
 //不使用
 void MainWindow::on_actionRestart_triggered() {
-
+    //先停止后重发
+    on_actionStop_triggered();
+    on_actionSend_triggered();
 }
 
 

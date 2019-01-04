@@ -68,8 +68,9 @@
     </property>
     <addaction name="actionDataSource"/>
     <addaction name="actionSend"/>
-    <addaction name="actionStop"/>
     <addaction name="actionPause"/>
+    <addaction name="actionStop"/>
+    <addaction name="actionRestart"/>
    </widget>
    <addaction name="menuCalls"/>
    <addaction name="menuTools"/>
@@ -97,8 +98,9 @@
    <addaction name="separator"/>
    <addaction name="actionDataSource"/>
    <addaction name="actionSend"/>
-   <addaction name="actionStop"/>
    <addaction name="actionPause"/>
+   <addaction name="actionRestart"/>
+   <addaction name="actionStop"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAbout">
@@ -247,7 +249,7 @@
   <action name="actionSend">
    <property name="icon">
     <iconset resource="../resources/res.qrc">
-     <normaloff>:/images/send.png</normaloff>:/images/send.png</iconset>
+     <normaloff>:/images/start.png</normaloff>:/images/start.png</iconset>
    </property>
    <property name="text">
     <string>Send</string>
@@ -274,25 +276,13 @@
   <action name="actionPause">
    <property name="icon">
     <iconset resource="../resources/res.qrc">
-     <normaloff>:/images/pause.png</normaloff>:/images/pause.png</iconset>
+     <normaloff>:/images/pause2.png</normaloff>:/images/pause2.png</iconset>
    </property>
    <property name="text">
     <string>Pause</string>
    </property>
    <property name="toolTip">
     <string>暂停</string>
-   </property>
-  </action>
-  <action name="actionRestart">
-   <property name="icon">
-    <iconset resource="../resources/res.qrc">
-     <normaloff>:/images/restart.png</normaloff>:/images/restart.png</iconset>
-   </property>
-   <property name="text">
-    <string>Restart</string>
-   </property>
-   <property name="toolTip">
-    <string>重新发送</string>
    </property>
   </action>
   <action name="actionEventEqBrake">
@@ -305,6 +295,18 @@
    </property>
    <property name="toolTip">
     <string>模拟旧版刹车$EVENT=BRAKE</string>
+   </property>
+  </action>
+  <action name="actionRestart">
+   <property name="icon">
+    <iconset resource="../resources/res.qrc">
+     <normaloff>:/images/restart.png</normaloff>:/images/restart.png</iconset>
+   </property>
+   <property name="text">
+    <string>Restart</string>
+   </property>
+   <property name="toolTip">
+    <string>重新发送</string>
    </property>
   </action>
  </widget>
