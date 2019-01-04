@@ -51,9 +51,9 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
-   <widget class="QMenu" name="menuSimulation">
+   <widget class="QMenu" name="menuHardware">
     <property name="title">
-     <string>动作</string>
+     <string>下位机</string>
     </property>
     <addaction name="actionEventEqBrake"/>
     <addaction name="actionOverSpeed"/>
@@ -62,9 +62,9 @@
     <addaction name="separator"/>
     <addaction name="actionResponseOK"/>
    </widget>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="menuAuto">
     <property name="title">
-     <string>仿真</string>
+     <string>循环发送</string>
     </property>
     <addaction name="actionDataSource"/>
     <addaction name="actionSend"/>
@@ -76,10 +76,20 @@
     <addaction name="actionResetSpeed"/>
     <addaction name="actionHalfSpeed"/>
    </widget>
+   <widget class="QMenu" name="menuSoftware">
+    <property name="title">
+     <string>上位机</string>
+    </property>
+    <addaction name="actionBrakeOn"/>
+    <addaction name="actionBrakeOff"/>
+    <addaction name="actionOpenOn"/>
+    <addaction name="actionOpenOff"/>
+   </widget>
    <addaction name="menuCalls"/>
    <addaction name="menuTools"/>
-   <addaction name="menuSimulation"/>
-   <addaction name="menu"/>
+   <addaction name="menuHardware"/>
+   <addaction name="menuAuto"/>
+   <addaction name="menuSoftware"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -134,7 +144,7 @@
     <string>Connect to serial port</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+O</string>
+    <string>Alt+1</string>
    </property>
   </action>
   <action name="actionDisconnect">
@@ -149,7 +159,7 @@
     <string>Disconnect from serial port</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+D</string>
+    <string>Alt+2</string>
    </property>
   </action>
   <action name="actionConfigure">
@@ -164,7 +174,7 @@
     <string>Configure serial port</string>
    </property>
    <property name="shortcut">
-    <string>Alt+C</string>
+    <string>Alt+3</string>
    </property>
   </action>
   <action name="actionClear">
@@ -179,7 +189,7 @@
     <string>Clear data</string>
    </property>
    <property name="shortcut">
-    <string>Alt+L</string>
+    <string>Alt+4</string>
    </property>
   </action>
   <action name="actionQuit">
@@ -205,6 +215,9 @@
    <property name="toolTip">
     <string>模拟超速</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+H</string>
+   </property>
   </action>
   <action name="actionLeftFront">
    <property name="icon">
@@ -212,10 +225,13 @@
      <normaloff>:/images/obs_front.png</normaloff>:/images/obs_front.png</iconset>
    </property>
    <property name="text">
-    <string>模拟左前方障碍物</string>
+    <string>前方障碍物</string>
    </property>
    <property name="toolTip">
-    <string>模拟左前方障碍物</string>
+    <string>模拟前方障碍物</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+W</string>
    </property>
   </action>
   <action name="actionMidBack">
@@ -224,10 +240,13 @@
      <normaloff>:/images/obs_back.png</normaloff>:/images/obs_back.png</iconset>
    </property>
    <property name="text">
-    <string>模拟正后方障碍物</string>
+    <string>后方障碍物</string>
    </property>
    <property name="toolTip">
-    <string>模拟左前方障碍物</string>
+    <string>模拟后方障碍物</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+S</string>
    </property>
   </action>
   <action name="actionResponseOK">
@@ -241,6 +260,9 @@
    <property name="toolTip">
     <string>响应OK</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+O</string>
+   </property>
   </action>
   <action name="actionDataSource">
    <property name="icon">
@@ -253,6 +275,9 @@
    <property name="toolTip">
     <string>选择数据源</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionSend">
    <property name="icon">
@@ -264,6 +289,9 @@
    </property>
    <property name="toolTip">
     <string>开始发送</string>
+   </property>
+   <property name="shortcut">
+    <string>Space</string>
    </property>
   </action>
   <action name="actionStop">
@@ -292,6 +320,9 @@
    <property name="toolTip">
     <string>暂停</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Space</string>
+   </property>
   </action>
   <action name="actionEventEqBrake">
    <property name="icon">
@@ -299,10 +330,13 @@
      <normaloff>:/images/brake.png</normaloff>:/images/brake.png</iconset>
    </property>
    <property name="text">
-    <string>EventEqBrake</string>
+    <string>旧版刹车</string>
    </property>
    <property name="toolTip">
     <string>模拟旧版刹车$EVENT=BRAKE</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Q</string>
    </property>
   </action>
   <action name="actionRestart">
@@ -316,6 +350,9 @@
    <property name="toolTip">
     <string>重新发送</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Space</string>
+   </property>
   </action>
   <action name="actionTwiceSpeed">
    <property name="icon">
@@ -327,6 +364,9 @@
    </property>
    <property name="toolTip">
     <string>当前速度加倍</string>
+   </property>
+   <property name="shortcut">
+    <string>Up</string>
    </property>
   </action>
   <action name="actionHalfSpeed">
@@ -340,6 +380,9 @@
    <property name="toolTip">
     <string>当前速度减半</string>
    </property>
+   <property name="shortcut">
+    <string>Down</string>
+   </property>
   </action>
   <action name="actionResetSpeed">
    <property name="icon">
@@ -351,6 +394,53 @@
    </property>
    <property name="toolTip">
     <string>恢复默认速度</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionBrakeOn">
+   <property name="text">
+    <string>执行刹车</string>
+   </property>
+   <property name="toolTip">
+    <string>发送$BRAKE=1</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+1</string>
+   </property>
+  </action>
+  <action name="actionBrakeOff">
+   <property name="text">
+    <string>解除刹车</string>
+   </property>
+   <property name="toolTip">
+    <string>发送$BRAKE=0</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+0</string>
+   </property>
+  </action>
+  <action name="actionOpenOn">
+   <property name="text">
+    <string>打开系统</string>
+   </property>
+   <property name="toolTip">
+    <string>发送$OPEN=1</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+1</string>
+   </property>
+  </action>
+  <action name="actionOpenOff">
+   <property name="text">
+    <string>关闭系统</string>
+   </property>
+   <property name="toolTip">
+    <string>发送$OPEN=0</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+0</string>
    </property>
   </action>
  </widget>

@@ -187,10 +187,10 @@ void MainWindow::on_actionOverSpeed_triggered() {
 }
 
 /**
- * 模拟左前方障碍物
+ * 模拟前方障碍物
  */
 void MainWindow::on_actionLeftFront_triggered() {
-    QString cmd = "$EVENT=FL";
+    QString cmd = "$EVENT=FM";
     serialWrite(cmd);
 }
 
@@ -472,4 +472,28 @@ void MainWindow::changeSpeed() {
     on_actionPause_triggered();
     on_actionSend_triggered();
 
+}
+
+void MainWindow::on_actionBrakeOn_triggered()
+{
+    QString cmd = "$BRAKE=1";
+    serialWrite(cmd);
+}
+
+void MainWindow::on_actionBrakeOff_triggered()
+{
+    QString cmd = "$BRAKE=0";
+    serialWrite(cmd);
+}
+
+void MainWindow::on_actionOpenOn_triggered()
+{
+    QString cmd = "$OPEN=1";
+    serialWrite(cmd);
+}
+
+void MainWindow::on_actionOpenOff_triggered()
+{
+    QString cmd = "$OPEN=0";
+    serialWrite(cmd);
 }

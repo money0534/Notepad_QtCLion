@@ -77,6 +77,14 @@ private slots:
 
     void on_actionResetSpeed_triggered();
 
+    void on_actionBrakeOn_triggered();
+
+    void on_actionBrakeOff_triggered();
+
+    void on_actionOpenOn_triggered();
+
+    void on_actionOpenOff_triggered();
+
 private:
     void initActionsConnections();
 
