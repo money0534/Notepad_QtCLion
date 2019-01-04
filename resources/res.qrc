@@ -16,5 +16,10 @@
         <file>images/pause.png</file>
         <file>images/restart.png</file>
         <file>images/brake.png</file>
+        <file>images/default_speed.png</file>
+        <file>images/half.png</file>
+        <file>images/pause2.png</file>
+        <file>images/start.png</file>
+        <file>images/twice.png</file>
     </qresource>
 </RCC>
