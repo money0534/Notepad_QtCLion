@@ -1,0 +1,11 @@
+//
+// Created by Shinelon on 2019/1/4.
+//
+
+#ifndef SUPERSERIALPORT_APPCONFIG_H
+#define SUPERSERIALPORT_APPCONFIG_H
+
+#define APP_NAME "超级串口"
+#define APP_VERSION "V1.2"
+
+#endif //SUPERSERIALPORT_APPCONFIG_H

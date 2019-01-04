@@ -4,6 +4,7 @@
 #include "console.h"
 #include "settingsdialog.h"
 #include "InitThread.h"
+#include "AppConfig.h"
 
 #include <QLabel>
 #include <QMessageBox>
@@ -111,8 +112,8 @@ void MainWindow::closeSerialPort() {
 //! [5]
 
 void MainWindow::about() {
-    QMessageBox::about(this, tr("关于 %1%2").arg(windowTitle()).arg("V1.2"),
-                       tr("可模拟防碰撞刹车，自动发送报文"));
+    QMessageBox::about(this, tr("关于 %1 %2").arg(APP_NAME).arg(APP_VERSION),
+                       tr("可模拟防碰撞刹车，自动发送报文，变速控制等操作"));
 }
 
 //! [6]
