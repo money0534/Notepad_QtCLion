@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
-    <height>800</height>
+    <width>760</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>700</width>
+     <width>760</width>
      <height>26</height>
     </rect>
    </property>
@@ -75,6 +75,8 @@
     <addaction name="actionTwiceSpeed"/>
     <addaction name="actionResetSpeed"/>
     <addaction name="actionHalfSpeed"/>
+    <addaction name="actionSendForward"/>
+    <addaction name="actionSendBackward"/>
    </widget>
    <widget class="QMenu" name="menuSoftware">
     <property name="title">
@@ -119,6 +121,8 @@
    <addaction name="actionTwiceSpeed"/>
    <addaction name="actionResetSpeed"/>
    <addaction name="actionHalfSpeed"/>
+   <addaction name="actionSendForward"/>
+   <addaction name="actionSendBackward"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAbout">
@@ -435,6 +439,31 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+0</string>
+   </property>
+  </action>
+  <action name="actionSendForward">
+   <property name="icon">
+    <iconset resource="../resources/res.qrc">
+     <normaloff>:/images/forward.png</normaloff>
+     <normalon>:/images/backward.png</normalon>:/images/forward.png</iconset>
+   </property>
+   <property name="text">
+    <string>正序发送</string>
+   </property>
+   <property name="toolTip">
+    <string>正序发送</string>
+   </property>
+  </action>
+  <action name="actionSendBackward">
+   <property name="icon">
+    <iconset resource="../resources/res.qrc">
+     <normaloff>:/images/backward.png</normaloff>:/images/backward.png</iconset>
+   </property>
+   <property name="text">
+    <string>倒序发送</string>
+   </property>
+   <property name="toolTip">
+    <string>倒序发送</string>
    </property>
   </action>
  </widget>
