@@ -147,7 +147,7 @@ void MainWindow::readData() {
 void MainWindow::on_actionResponseOK_triggered() {
     //上位机接收有问题$丢掉。使用串口工具正常，软件接收问题？
     //上位机判断条件以$OK开头或包含OK=CLIENT
-    QString txt = "$OK=CLIENT";
+    QString txt = RESP_OK;
     serialWrite(txt);
 }
 
@@ -173,7 +173,7 @@ void MainWindow::serialWrite(QString &cmd) {
  * 模拟旧版刹车指令
  */
 void MainWindow::on_actionEventEqBrake_triggered() {
-    QString cmd = "$EVENT=BRAKE";
+    QString cmd = BRAKE_NORMAL;
     serialWrite(cmd);
 }
 
@@ -182,7 +182,7 @@ void MainWindow::on_actionEventEqBrake_triggered() {
  * 模拟超速
  */
 void MainWindow::on_actionOverSpeed_triggered() {
-    QString cmd = "$EVENT=HS";
+    QString cmd = BRAKE_OVERSPEED;
     serialWrite(cmd);
 }
 
@@ -190,7 +190,7 @@ void MainWindow::on_actionOverSpeed_triggered() {
  * 模拟前方障碍物
  */
 void MainWindow::on_actionLeftFront_triggered() {
-    QString cmd = "$EVENT=FM";
+    QString cmd = BRAKE_FRONT;
     serialWrite(cmd);
 }
 
@@ -198,7 +198,7 @@ void MainWindow::on_actionLeftFront_triggered() {
  * 模拟后方障碍物
  */
 void MainWindow::on_actionMidBack_triggered() {
-    QString cmd = "$EVENT=BM";
+    QString cmd = BRAKE_BACK;
 
     serialWrite(cmd);
 }
@@ -476,25 +476,25 @@ void MainWindow::changeSpeed() {
 
 void MainWindow::on_actionBrakeOn_triggered()
 {
-    QString cmd = "$BRAKE=1";
+    QString cmd = BRAKE_ON;
     serialWrite(cmd);
 }
 
 void MainWindow::on_actionBrakeOff_triggered()
 {
-    QString cmd = "$BRAKE=0";
+    QString cmd = BRAKE_OFF;
     serialWrite(cmd);
 }
 
 void MainWindow::on_actionOpenOn_triggered()
 {
-    QString cmd = "$OPEN=1";
+    QString cmd = OPEN_ON;
     serialWrite(cmd);
 }
 
 void MainWindow::on_actionOpenOff_triggered()
 {
-    QString cmd = "$OPEN=0";
+    QString cmd = OPEN_OFF;
     serialWrite(cmd);
 }
 
