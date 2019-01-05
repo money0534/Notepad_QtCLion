@@ -49,6 +49,7 @@ public:
     QAction *actionBrakeOff;
     QAction *actionOpenOn;
     QAction *actionOpenOff;
+    QAction *actionSendDirection;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QMenuBar *menuBar;
@@ -65,7 +66,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(700, 800);
+        MainWindow->resize(760, 600);
         QIcon icon;
         icon.addFile(QString::fromUtf8("../resources/images/icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
@@ -169,6 +170,11 @@ public:
         actionOpenOn->setObjectName(QString::fromUtf8("actionOpenOn"));
         actionOpenOff = new QAction(MainWindow);
         actionOpenOff->setObjectName(QString::fromUtf8("actionOpenOff"));
+        actionSendDirection = new QAction(MainWindow);
+        actionSendDirection->setObjectName(QString::fromUtf8("actionSendDirection"));
+        QIcon icon19;
+        icon19.addFile(QString::fromUtf8(":/images/backward.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionSendDirection->setIcon(icon19);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -178,7 +184,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 700, 26));
+        menuBar->setGeometry(QRect(0, 0, 760, 26));
         menuCalls = new QMenu(menuBar);
         menuCalls->setObjectName(QString::fromUtf8("menuCalls"));
         menuTools = new QMenu(menuBar);
@@ -227,6 +233,7 @@ public:
         menuAuto->addAction(actionTwiceSpeed);
         menuAuto->addAction(actionResetSpeed);
         menuAuto->addAction(actionHalfSpeed);
+        menuAuto->addAction(actionSendDirection);
         menuSoftware->addAction(actionBrakeOn);
         menuSoftware->addAction(actionBrakeOff);
         menuSoftware->addAction(actionOpenOn);
@@ -251,6 +258,7 @@ public:
         mainToolBar->addAction(actionTwiceSpeed);
         mainToolBar->addAction(actionResetSpeed);
         mainToolBar->addAction(actionHalfSpeed);
+        mainToolBar->addAction(actionSendDirection);
 
         retranslateUi(MainWindow);
 
@@ -368,14 +376,14 @@ public:
         actionTwiceSpeed->setToolTip(QApplication::translate("MainWindow", "\345\275\223\345\211\215\351\200\237\345\272\246\345\212\240\345\200\215", nullptr));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
-        actionTwiceSpeed->setShortcut(QApplication::translate("MainWindow", "Up", nullptr));
+        actionTwiceSpeed->setShortcut(QApplication::translate("MainWindow", "Ctrl+Up", nullptr));
 #endif // QT_NO_SHORTCUT
         actionHalfSpeed->setText(QApplication::translate("MainWindow", "\351\200\237\345\272\246x0.5", nullptr));
 #ifndef QT_NO_TOOLTIP
         actionHalfSpeed->setToolTip(QApplication::translate("MainWindow", "\345\275\223\345\211\215\351\200\237\345\272\246\345\207\217\345\215\212", nullptr));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
-        actionHalfSpeed->setShortcut(QApplication::translate("MainWindow", "Down", nullptr));
+        actionHalfSpeed->setShortcut(QApplication::translate("MainWindow", "Ctrl+Down", nullptr));
 #endif // QT_NO_SHORTCUT
         actionResetSpeed->setText(QApplication::translate("MainWindow", "\351\273\230\350\256\244\351\200\237\345\272\246", nullptr));
 #ifndef QT_NO_TOOLTIP
@@ -412,6 +420,10 @@ public:
 #ifndef QT_NO_SHORTCUT
         actionOpenOff->setShortcut(QApplication::translate("MainWindow", "Ctrl+Alt+0", nullptr));
 #endif // QT_NO_SHORTCUT
+        actionSendDirection->setText(QApplication::translate("MainWindow", "\345\200\222\345\272\217\345\217\221\351\200\201", nullptr));
+#ifndef QT_NO_TOOLTIP
+        actionSendDirection->setToolTip(QApplication::translate("MainWindow", "\345\200\222\345\272\217\345\217\221\351\200\201\346\212\245\346\226\207", nullptr));
+#endif // QT_NO_TOOLTIP
         menuCalls->setTitle(QApplication::translate("MainWindow", "Calls", nullptr));
         menuTools->setTitle(QApplication::translate("MainWindow", "Tools", nullptr));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", nullptr));

@@ -85,6 +85,9 @@ private slots:
 
     void on_actionOpenOff_triggered();
 
+    void on_actionSendDirection_triggered();
+
+
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 
@@ -94,7 +97,7 @@ private:
 
     void serialWrite(QString &cmd);
 
-    void changeSpeed();
+    void updateStatus();
 
 public:
     void showStatusMessage(const QString &message);
@@ -112,7 +115,7 @@ public:
     QList<QByteArray>* lines;//所有行数据
     int sendLine = 0;//报文发送的行数，数据源中所在行
     bool isSending = false;//是否在发送中，默认false，点击发送或重新发送后置为true
-//    bool isPause = false;//是否暂停发送，默认false，点击暂停后置为false
+    bool isBackward=false;//是否倒序发送，false正序；true倒序
 //    bool isIntercept = false;//是否终止发送，默认false，点击停止后置为false
 
     QTimer * timer;//定时器

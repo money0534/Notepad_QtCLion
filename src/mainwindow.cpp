@@ -52,7 +52,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //创建集合
     lines = new QList<QByteArray>;
 
-
+    //默认选中 默认正序
+//    m_ui->actionSendForward->setChecked(false);
 }
 //! [3]
 
@@ -87,7 +88,7 @@ void MainWindow::openSerialPort() {
         m_ui->actionConnect->setEnabled(false);
         m_ui->actionDisconnect->setEnabled(true);
         m_ui->actionConfigure->setEnabled(false);
-        showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6.  Loop Interval : %7ms")
+        showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6.  Loop Interval : %7ms  SendMode : Forward")
                                   .arg(p.name).arg(p.stringBaudRate).arg(p.stringDataBits)
                                   .arg(p.stringParity).arg(p.stringStopBits).arg(
                         p.stringFlowControl).arg(p.sendInterval));
@@ -124,7 +125,7 @@ void MainWindow::writeData(const QByteArray &data) {
 
 //! [7]
 void MainWindow::readData() {
-    QByteArray data = m_serial->readAll().replace("\n","").replace("\r","");
+    QByteArray data = m_serial->readAll().replace("\n", "").replace("\r", "");
 
     qDebug() << "data received:" << data;
     //普通文本
@@ -138,7 +139,7 @@ void MainWindow::readData() {
     //拼接换行符
 //    m_console->insertPlainText("\n");
 
-    m_console->putHtmlData(data,"#ff0000");
+    m_console->putHtmlData(data, "#ff0000");
 
 
 }
@@ -165,7 +166,7 @@ void MainWindow::serialWrite(QString &cmd) {
 //    char prefix[] = "--> ";
 //    sendCmd.prepend(prefix);
 //    m_console->putData(sendCmd);
-    m_console->putHtmlData(sendCmd,"#00ff00");
+    m_console->putHtmlData(sendCmd, "#00ff00");
 
 }
 
@@ -237,7 +238,7 @@ void MainWindow::on_actionDataSource_triggered() {
     //会默认打开当前路径 exe所在路径；过滤文本文件
     QString temp = QFileDialog::getOpenFileName(this, tr("选择数据源"), "",
 
-                                                    tr("Text Files (*.txt *.log)"));
+                                                tr("Text Files (*.txt *.log)"));
     //为空
     if (nullptr == temp) {
         qDebug() << "用户取消";
@@ -265,8 +266,8 @@ void MainWindow::on_actionDataSource_triggered() {
         qDebug() << "开始读取";
         //情况之前
         lines->clear();
-    }catch (std::exception& ex){
-        qDebug()<<"Exception:"<<ex.what();
+    } catch (std::exception &ex) {
+        qDebug() << "Exception:" << ex.what();
         QMessageBox::warning(this, "警告", "文件错误", "确定");
     }
 
@@ -326,7 +327,7 @@ void MainWindow::sendMsg() {
     double pct = 100 * (sendLine + 1) / (double) length;
     //以非科学计数法保留两位小数
     QByteArray pctStr = QByteArray::number(pct, 'f', 2);
-    line+="\r\n";
+    line += "\r\n";
     m_serial->write(line/*.constData()*/);//line.toStdString()
 
     //显示到控制台
@@ -343,32 +344,33 @@ void MainWindow::sendMsg() {
 //    html+="</font>";
 //    m_console->appendHtml(html);
 
-    m_console->putHtmlData(line,"#00ff00");
+    m_console->putHtmlData(line, "#00ff00");
 
 
-
-    sendLine++;
-    if (sendLine > length - 1) {
-        sendLine = 0;
+    //正序
+    if (!isBackward) {
+        sendLine++;
+        if (sendLine > length - 1) {
+            sendLine = 0;
+        }
+    } else {
+        //倒序
+        sendLine--;
+        if (sendLine < 0) {
+            sendLine = length - 1;
+        }
     }
+
+
 #endif
 }
 
-//void MainWindow::toggleActionStatus() {
-//    if(isSending){
-//        m_ui->actionSend->toggled(true);
-//        m_ui->actionSend->setText("Pause");
-//    } else{
-//        m_ui->actionSend->toggled(false);
-//        m_ui->actionSend->setText("Start");
-//    }
-//}
 
 /**
  * 发送按钮
  */
 void MainWindow::on_actionSend_triggered() {
-    if(isSending){
+    if (isSending) {
         return;
     }
 
@@ -396,7 +398,10 @@ void MainWindow::on_actionSend_triggered() {
  * 停止发送
  */
 void MainWindow::on_actionStop_triggered() {
-//    isIntercept = true;
+    if(isBackward){
+        qDebug() << "Ctrl+Right";
+        emit m_ui->actionSendDirection->triggered();
+    }
     sendLine = 0;//归零
     isSending = false;
     timer->stop();
@@ -426,7 +431,7 @@ void MainWindow::onDataSourceReady() {
     setWindowTitle(/*"防碰撞模拟终端 "+*/dataSource);
 //    char tip[] = "初始化成功！\n";
 //    m_console->putData(tip);
-        m_console->insertPlainText(tr("%1 初始化成功，共 %2 行。\n").arg(dataSource).arg(lines->length()));
+    m_console->insertPlainText(tr("%1 初始化成功，共 %2 行。\n").arg(dataSource).arg(lines->length()));
 
 }
 
@@ -438,62 +443,86 @@ void MainWindow::on_actionRestart_triggered() {
 }
 
 
+void MainWindow::on_actionTwiceSpeed_triggered() {
+    sendInterval /= 2;
 
-
-void MainWindow::on_actionTwiceSpeed_triggered()
-{
-    sendInterval/=2;
-
-    changeSpeed();
+    updateStatus();
 }
 
-void MainWindow::on_actionHalfSpeed_triggered()
-{
-    sendInterval*=2;
-    changeSpeed();
+void MainWindow::on_actionHalfSpeed_triggered() {
+    sendInterval *= 2;
+    updateStatus();
 
 }
 
-void MainWindow::on_actionResetSpeed_triggered()
-{
-    sendInterval=m_settings->settings().sendInterval;
-    changeSpeed();
+void MainWindow::on_actionResetSpeed_triggered() {
+    sendInterval = m_settings->settings().sendInterval;
+    updateStatus();
 
 }
 
-void MainWindow::changeSpeed() {
+/**
+ * 正序发送
+ */
+void MainWindow::on_actionSendDirection_triggered() {
+    qDebug()<<"isForward="<<isBackward;
+    if (!isBackward) {
+        qDebug() << "倒序";
+        isBackward = true;
+        m_ui->actionSendDirection->setIcon(QIcon(":/images/forward.png"));
+        m_ui->actionSendDirection->setText("正序发送");
+        m_ui->actionSendDirection->setToolTip("正序发送报文");
+
+    } else {
+        qDebug() << "正序";
+        isBackward = false;
+        m_ui->actionSendDirection->setIcon(QIcon(":/images/backward.png"));
+        m_ui->actionSendDirection->setText("倒序发送");
+        m_ui->actionSendDirection->setToolTip("倒序发送报文");
+    }
+
+    updateStatus();
+}
+
+
+/**
+ * 倒序发送
+ */
+//void MainWindow::on_actionSendBackward_triggered()
+//{
+//
+//}
+
+
+void MainWindow::updateStatus() {
     SettingsDialog::Settings p = m_settings->settings();
 
-    showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6.  Loop Interval : %7ms")
+    showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6.  Loop Interval : %7ms  SendMode : %8")
                               .arg(p.name).arg(p.stringBaudRate).arg(p.stringDataBits)
                               .arg(p.stringParity).arg(p.stringStopBits).arg(
-                    p.stringFlowControl).arg(sendInterval));
+                    p.stringFlowControl).arg(sendInterval).arg(isBackward?"Backward":"Forward"));
 
     on_actionPause_triggered();
     on_actionSend_triggered();
 
 }
 
-void MainWindow::on_actionBrakeOn_triggered()
-{
+void MainWindow::on_actionBrakeOn_triggered() {
     QString cmd = BRAKE_ON;
     serialWrite(cmd);
 }
 
-void MainWindow::on_actionBrakeOff_triggered()
-{
+void MainWindow::on_actionBrakeOff_triggered() {
     QString cmd = BRAKE_OFF;
     serialWrite(cmd);
 }
 
-void MainWindow::on_actionOpenOn_triggered()
-{
+void MainWindow::on_actionOpenOn_triggered() {
     QString cmd = OPEN_ON;
     serialWrite(cmd);
 }
 
-void MainWindow::on_actionOpenOff_triggered()
-{
+void MainWindow::on_actionOpenOff_triggered() {
     QString cmd = OPEN_OFF;
     serialWrite(cmd);
 }
@@ -502,14 +531,25 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 //    QWidget::keyPressEvent(event);
 
     //重写空格键 事件
-    if(event->key()==Qt::Key_Space){
+    if (event->key() == Qt::Key_Space) {
 
 //        qDebug()<<"空格键:"<<isSending;
 
-        if(isSending){
+        if (isSending) {
             on_actionPause_triggered();
-        } else{
+        } else {
             on_actionSend_triggered();
+        }
+    } else if (event->key() == Qt::Key_Left && event->modifiers() == Qt::ControlModifier) {
+        if(!isBackward){
+            qDebug() << "Ctrl+Left";
+            emit m_ui->actionSendDirection->triggered();
+        }
+    }else if (event->key() == Qt::Key_Right && event->modifiers() == Qt::ControlModifier) {
+        if(isBackward){
+            qDebug() << "Ctrl+Right";
+            emit m_ui->actionSendDirection->triggered();
         }
     }
 }
+

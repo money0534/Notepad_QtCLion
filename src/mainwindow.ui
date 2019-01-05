@@ -75,8 +75,7 @@
     <addaction name="actionTwiceSpeed"/>
     <addaction name="actionResetSpeed"/>
     <addaction name="actionHalfSpeed"/>
-    <addaction name="actionSendForward"/>
-    <addaction name="actionSendBackward"/>
+    <addaction name="actionSendDirection"/>
    </widget>
    <widget class="QMenu" name="menuSoftware">
     <property name="title">
@@ -121,8 +120,7 @@
    <addaction name="actionTwiceSpeed"/>
    <addaction name="actionResetSpeed"/>
    <addaction name="actionHalfSpeed"/>
-   <addaction name="actionSendForward"/>
-   <addaction name="actionSendBackward"/>
+   <addaction name="actionSendDirection"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAbout">
@@ -364,7 +362,7 @@
     <string>当前速度加倍</string>
    </property>
    <property name="shortcut">
-    <string>Up</string>
+    <string>Ctrl+Up</string>
    </property>
   </action>
   <action name="actionHalfSpeed">
@@ -379,7 +377,7 @@
     <string>当前速度减半</string>
    </property>
    <property name="shortcut">
-    <string>Down</string>
+    <string>Ctrl+Down</string>
    </property>
   </action>
   <action name="actionResetSpeed">
@@ -441,20 +439,7 @@
     <string>Ctrl+Alt+0</string>
    </property>
   </action>
-  <action name="actionSendForward">
-   <property name="icon">
-    <iconset resource="../resources/res.qrc">
-     <normaloff>:/images/forward.png</normaloff>
-     <normalon>:/images/backward.png</normalon>:/images/forward.png</iconset>
-   </property>
-   <property name="text">
-    <string>正序发送</string>
-   </property>
-   <property name="toolTip">
-    <string>正序发送</string>
-   </property>
-  </action>
-  <action name="actionSendBackward">
+  <action name="actionSendDirection">
    <property name="icon">
     <iconset resource="../resources/res.qrc">
      <normaloff>:/images/backward.png</normaloff>:/images/backward.png</iconset>
@@ -463,7 +448,7 @@
     <string>倒序发送</string>
    </property>
    <property name="toolTip">
-    <string>倒序发送</string>
+    <string>倒序发送报文</string>
    </property>
   </action>
  </widget>
