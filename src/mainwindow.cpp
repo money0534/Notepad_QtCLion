@@ -497,3 +497,19 @@ void MainWindow::on_actionOpenOff_triggered()
     QString cmd = "$OPEN=0";
     serialWrite(cmd);
 }
+
+void MainWindow::keyPressEvent(QKeyEvent *event) {
+//    QWidget::keyPressEvent(event);
+
+    //重写空格键 事件
+    if(event->key()==Qt::Key_Space){
+
+//        qDebug()<<"空格键:"<<isSending;
+
+        if(isSending){
+            on_actionPause_triggered();
+        } else{
+            on_actionSend_triggered();
+        }
+    }
+}

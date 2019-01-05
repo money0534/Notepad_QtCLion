@@ -85,6 +85,9 @@ private slots:
 
     void on_actionOpenOff_triggered();
 
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
+
 private:
     void initActionsConnections();
 

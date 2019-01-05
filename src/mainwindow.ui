@@ -290,9 +290,6 @@
    <property name="toolTip">
     <string>开始发送</string>
    </property>
-   <property name="shortcut">
-    <string>Space</string>
-   </property>
   </action>
   <action name="actionStop">
    <property name="icon">
@@ -319,9 +316,6 @@
    </property>
    <property name="toolTip">
     <string>暂停</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Space</string>
    </property>
   </action>
   <action name="actionEventEqBrake">
@@ -351,7 +345,7 @@
     <string>重新发送</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+Space</string>
+    <string>Ctrl+Space</string>
    </property>
   </action>
   <action name="actionTwiceSpeed">

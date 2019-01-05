@@ -338,9 +338,6 @@ public:
 #ifndef QT_NO_TOOLTIP
         actionSend->setToolTip(QApplication::translate("MainWindow", "\345\274\200\345\247\213\345\217\221\351\200\201", nullptr));
 #endif // QT_NO_TOOLTIP
-#ifndef QT_NO_SHORTCUT
-        actionSend->setShortcut(QApplication::translate("MainWindow", "Space", nullptr));
-#endif // QT_NO_SHORTCUT
         actionStop->setText(QApplication::translate("MainWindow", "Stop", nullptr));
 #ifndef QT_NO_TOOLTIP
         actionStop->setToolTip(QApplication::translate("MainWindow", "\345\201\234\346\255\242\345\217\221\351\200\201", nullptr));
@@ -352,9 +349,6 @@ public:
 #ifndef QT_NO_TOOLTIP
         actionPause->setToolTip(QApplication::translate("MainWindow", "\346\232\202\345\201\234", nullptr));
 #endif // QT_NO_TOOLTIP
-#ifndef QT_NO_SHORTCUT
-        actionPause->setShortcut(QApplication::translate("MainWindow", "Ctrl+Space", nullptr));
-#endif // QT_NO_SHORTCUT
         actionEventEqBrake->setText(QApplication::translate("MainWindow", "\346\227\247\347\211\210\345\210\271\350\275\246", nullptr));
 #ifndef QT_NO_TOOLTIP
         actionEventEqBrake->setToolTip(QApplication::translate("MainWindow", "\346\250\241\346\213\237\346\227\247\347\211\210\345\210\271\350\275\246$EVENT=BRAKE", nullptr));
@@ -367,7 +361,7 @@ public:
         actionRestart->setToolTip(QApplication::translate("MainWindow", "\351\207\215\346\226\260\345\217\221\351\200\201", nullptr));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
-        actionRestart->setShortcut(QApplication::translate("MainWindow", "Ctrl+Shift+Space", nullptr));
+        actionRestart->setShortcut(QApplication::translate("MainWindow", "Ctrl+Space", nullptr));
 #endif // QT_NO_SHORTCUT
         actionTwiceSpeed->setText(QApplication::translate("MainWindow", "\351\200\237\345\272\246x2", nullptr));
 #ifndef QT_NO_TOOLTIP
