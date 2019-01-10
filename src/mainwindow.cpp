@@ -245,9 +245,9 @@ void MainWindow::on_actionDataSource_triggered() {
         return;
     }
 
-    //或 打开了同一个文件
+    //或 打开了同一个文件。不做处理，期间文件可能修改，重新载入。
     if (dataSource == temp) {
-        return;
+//        return;
     }
 
     dataSource = temp;
