@@ -21,7 +21,7 @@ set(RESOURCE_FILES resources/notepad.qrc)
 
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
-find_package(Qt5PrintSupport REQUIRED)
+find_package(Qt5Network REQUIRED)
 
 #图片等资源文件的文件夹包含进来
 include_directories(resources/images)
@@ -30,4 +30,4 @@ include_directories(resources/images)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES})# ${PROJECT_NAME} WIN32 ${SOURCE_FILES}
 
 #Qt5::Core Qt5::Quick
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::PrintSupport)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)
