@@ -24,6 +24,16 @@ struct EncapUrl {
     QString envUrl;
 };
 
+class ProgressDialog : public QProgressDialog {
+Q_OBJECT
+
+public:
+    explicit ProgressDialog(const QUrl &url, QWidget *parent = nullptr);
+
+public slots:
+    void networkReplyProgress(qint64 bytesRead, qint64 totalBytes);
+};
+
 class MainDialog : public QDialog {
 Q_OBJECT
 

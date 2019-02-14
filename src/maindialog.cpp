@@ -2,6 +2,24 @@
 #include "maindialog.h"
 #include "ui_maindialog.h"
 
+ProgressDialog::ProgressDialog(const QUrl &url, QWidget *parent)
+        : QProgressDialog(parent)
+{
+    setWindowTitle(tr("Download Progress"));
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    setLabelText(tr("Downloading %1.").arg(url.toDisplayString()));
+    setMinimum(0);
+    setValue(0);
+    setMinimumDuration(0);
+    setMinimumSize(QSize(400, 75));
+}
+
+void ProgressDialog::networkReplyProgress(qint64 bytesRead, qint64 totalBytes)
+{
+    setMaximum(totalBytes);
+    setValue(bytesRead);
+}
+
 MainDialog::MainDialog(QWidget *parent) :
         QDialog(parent),
         ui(new Ui::MainDialog) {
@@ -27,7 +45,14 @@ MainDialog::MainDialog(QPair<QString, QString> taskEntity, QWidget *parent) :
 }
 
 void MainDialog::startDownload() {
-    manager->get(QNetworkRequest(QUrl(taskEntity.first)));
+    QUrl url(taskEntity.first);
+    QNetworkReply* reply = manager->get(QNetworkRequest(url));
+    ProgressDialog *progressDialog = new ProgressDialog(url, this);
+    progressDialog->setAttribute(Qt::WA_DeleteOnClose);
+//    connect(progressDialog, &QProgressDialog::canceled, this, &HttpWindow::cancelDownload);
+    connect(reply, &QNetworkReply::downloadProgress, progressDialog, &ProgressDialog::networkReplyProgress);
+    connect(reply, &QNetworkReply::finished, progressDialog, &ProgressDialog::hide);
+    progressDialog->show();
 }
 
 //void MainDialog::replyFinished(QNetworkReply* reply) {
