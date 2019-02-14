@@ -34,7 +34,8 @@ int main(int argc, char *argv[])
 //    qDebug()<<"appPath is "<<appPath;
 
 
-    QString appUrl = "http://hhzn.img.exueche.com/robotcoach/哈哈智能驾校v2.0_20190214";
+//    QString appUrl = "http://www.qt.io/index.html";
+    QString appUrl = "http://hhzn.img.exueche.com/robotcoach/哈哈智能驾校v2.0_20190214.rar";
     QString appPath= "D:\\Unity\\Projects\\哈哈智能驾校";
 
     QPair<QString,QString> task(appUrl,appPath);
