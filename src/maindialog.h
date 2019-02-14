@@ -25,6 +25,7 @@ public:
     explicit MainDialog(QWidget *parent = nullptr);
     explicit MainDialog(EncapUrl* urlEntity,QWidget *parent = nullptr);
     ~MainDialog();
+    void downloadFile(QString url);
 
 private:
     Ui::MainDialog *ui;
