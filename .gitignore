@@ -12,6 +12,9 @@
 *.o
 *.obj
 
+#Qt generated files
+ui_*.h
+
 # Precompiled Headers
 *.gch
 *.pch
