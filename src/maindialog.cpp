@@ -14,17 +14,17 @@ MainDialog::MainDialog(QWidget *parent) :
 MainDialog::~MainDialog()
 {
     delete ui;
-    delete urlEntity;
+//    delete taskEntity;
 }
 
-MainDialog::MainDialog(EncapUrl* urlEntity, QWidget *parent) :
+MainDialog::MainDialog(QPair<QString,QString>  taskEntity, QWidget *parent) :
         QDialog(parent),
         ui(new Ui::MainDialog)
 {
     ui->setupUi(this);
-    this->urlEntity = urlEntity;
+    this->taskEntity = taskEntity;
 
-    qDebug()<<urlEntity->appUrl;
+    qDebug()<<taskEntity.first<<","<<taskEntity.second;
 
 
 }
@@ -43,7 +43,7 @@ void MainDialog::downloadFile(QString urlSpec)
 
     QString fileName = newUrl.fileName();
 //    if (fileName.isEmpty())
-//        fileName = defaultFileLineEdit->text().trimmed();
+//        fileName = defaultFileLineEdit->text().trimmed()
 //    if (fileName.isEmpty())
 //        fileName = defaultFileName;
 

@@ -23,13 +23,13 @@ class MainDialog : public QDialog
 
 public:
     explicit MainDialog(QWidget *parent = nullptr);
-    explicit MainDialog(EncapUrl* urlEntity,QWidget *parent = nullptr);
+    explicit MainDialog(QPair<QString,QString>  taskEntity,QWidget *parent = nullptr);
     ~MainDialog();
     void downloadFile(QString url);
 
 private:
     Ui::MainDialog *ui;
-    EncapUrl* urlEntity;
+    QPair<QString,QString>  taskEntity;
 };
 
 #endif // MAINDIALOG_H

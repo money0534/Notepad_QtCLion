@@ -21,28 +21,22 @@ int main(int argc, char *argv[])
     parser.addOptions({
                               // options with a value
                               {{"a","app"}, "Download application from <AppUrl>.","AppUrl"},
-                              {{"c","cfg"}, "Download config files from <CfgUrl>.","CfgUrl"},
-                              {{"e","env"}, "Download 3D environment files from <EnvUrl>.","EnvUrl"},
+                              {{"d","dir"}, "Download application into <AppDir>.","AppDir"},
                       });
 
     // Process the actual command line arguments given by the user
     parser.process(app);
 
     //带值的参数
-    QString aValue = parser.value("a");
-    QString cValue = parser.value("c");
-    QString eValue = parser.value("e");
+    QString appUrl = parser.value("a");
+    QString appPath = parser.value("d");
 
-//    qDebug()<<"AppValue is "<<aValue;
-//    qDebug()<<"CfgValue is "<<cValue;
-//    qDebug()<<"EnvValue is "<<eValue;
+//    qDebug()<<"appPath is "<<appPath;
 
-    auto urlEntity = new EncapUrl;
-    urlEntity->appUrl = aValue;
-    urlEntity->cfgUrl = cValue;
-    urlEntity->envUrl = eValue;
 
-    MainDialog dialog(urlEntity);
+
+    QPair<QString,QString> task(appUrl,appPath);
+    MainDialog dialog(task);
     dialog.show();
 
     return app.exec();
