@@ -48,8 +48,13 @@ private:
     Ui::MainDialog *ui;
     QPair<QString, QString> taskEntity;
     QNetworkAccessManager *manager;
+    QNetworkReply* reply;
 
     void startDownload();
+    QString saveFileName(const QUrl &url);
+    bool saveToDisk(const QString &filename, QIODevice *data);
+    void doQuit();
+
 
 private slots:
 
@@ -57,10 +62,7 @@ private slots:
 
     bool isHttpRedirect(QNetworkReply *reply);
 
-    QString saveFileName(const QUrl &url);
-
-    bool saveToDisk(const QString &filename, QIODevice *data);
-
+    void cancelDownload();
 };
 
 #endif // MAINDIALOG_H

@@ -46,25 +46,15 @@ MainDialog::MainDialog(QPair<QString, QString> taskEntity, QWidget *parent) :
 
 void MainDialog::startDownload() {
     QUrl url(taskEntity.first);
-    QNetworkReply* reply = manager->get(QNetworkRequest(url));
+    reply = manager->get(QNetworkRequest(url));
     ProgressDialog *progressDialog = new ProgressDialog(url, this);
     progressDialog->setAttribute(Qt::WA_DeleteOnClose);
-//    connect(progressDialog, &QProgressDialog::canceled, this, &HttpWindow::cancelDownload);
+    connect(progressDialog, &QProgressDialog::canceled, this, &MainDialog::cancelDownload);
     connect(reply, &QNetworkReply::downloadProgress, progressDialog, &ProgressDialog::networkReplyProgress);
     connect(reply, &QNetworkReply::finished, progressDialog, &ProgressDialog::hide);
     progressDialog->show();
 }
 
-//void MainDialog::replyFinished(QNetworkReply* reply) {
-//    if (reply->error() == QNetworkReply::NoError)
-//    {
-//        qDebug()<<reply->readAll ();
-//    }
-//    else
-//    {
-//        qDebug()<<reply->errorString();
-//    }
-//}
 
 void MainDialog::replyFinished(QNetworkReply *reply)
 {
@@ -82,6 +72,9 @@ void MainDialog::replyFinished(QNetworkReply *reply)
                 printf("Download of %s succeeded (saved to %s)\n",
                        url.toEncoded().constData(), qPrintable(filename));
             }
+
+            //todo 退出程序
+            doQuit();
         }
     }
 
@@ -103,19 +96,6 @@ QString MainDialog::saveFileName(const QUrl &url)
     QString path = url.path();
     QString basename = QFileInfo(path).fileName();
 
-//    if (basename.isEmpty())
-//        basename = "download";
-//
-//    if (QFile::exists(basename)) {
-//        // already exists, don't overwrite
-//        int i = 0;
-//        basename += '.';
-//        while (QFile::exists(basename + QString::number(i)))
-//            ++i;
-//
-//        basename += QString::number(i);
-//    }
-
     QString dir = "D:\\"+basename;
 
     return dir;
@@ -136,4 +116,16 @@ bool MainDialog::saveToDisk(const QString &filename, QIODevice *data)
     file.close();
 
     return true;
+}
+
+void MainDialog::cancelDownload() {
+    qDebug()<<"取消下载！";
+    reply->abort();
+    reply->deleteLater();
+    doQuit();
+}
+
+
+void MainDialog::doQuit(){
+    QCoreApplication::instance()->quit();
 }
