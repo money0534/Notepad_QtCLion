@@ -11,4 +11,15 @@ MainDialog::MainDialog(QWidget *parent) :
 MainDialog::~MainDialog()
 {
     delete ui;
+    delete urlEntity;
+}
+
+MainDialog::MainDialog(EncapUrl* urlEntity, QWidget *parent) :
+        QDialog(parent),
+        ui(new Ui::MainDialog)
+{
+    ui->setupUi(this);
+    this->urlEntity = urlEntity;
+
+    qDebug()<<urlEntity->appUrl;
 }
