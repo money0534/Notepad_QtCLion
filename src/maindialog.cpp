@@ -121,24 +121,11 @@ void MainDialog::cancelDownload() {
 }
 
 
-
-void MainDialog::doInstall() {
-    filename = "D:/哈哈智能驾校.zip";
-    ui->lbStatus->setText("安装中，请稍后...");
-    qDebug() << "开始解压："<<filename;
-
-//    JlCompress::extractDir("D:\\哈哈.zip","D:\\111");//compressDir
-    JlCompress::extractDir(filename,taskEntity.second);
-    
-
+void MainDialog::installFinish(){
     qDebug() << "解压完成！";
     ui->lbStatus->setText("更新完成，即将启动");
 
-
-
-
     //启动Unity
-
     QStringList array = taskEntity.second.split("/");
 
     QString program = taskEntity.second+"/"+array[array.length()-1]+".exe";
@@ -151,6 +138,21 @@ void MainDialog::doInstall() {
 
     //最后再退出
     doQuit();
+}
+
+void MainDialog::doInstall() {
+
+    filename = "D:/哈哈智能驾校.zip";
+    ui->lbStatus->setText("安装中，请稍后...");
+    qDebug() << "开始解压："<<filename;
+
+    WorkerThread* thread = new WorkerThread(this,filename,taskEntity.second);
+    connect(thread, &WorkerThread::resultReady, this, &MainDialog::installFinish);
+
+
+//    JlCompress::extractDir("D:\\哈哈.zip","D:\\111");//compressDir
+//    JlCompress::extractDir(filename,taskEntity.second);
+    thread->start();
 
 }
 

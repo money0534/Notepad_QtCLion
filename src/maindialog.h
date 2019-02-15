@@ -11,7 +11,8 @@
 #include <QtCore/QDir>
 #include <QProgressDialog>
 #include <QProcess>
-#include "lib/JlCompress.h"
+#include "thread.h"
+//#include "lib/JlCompress.h"
 
 namespace Ui {
     class MainDialog;
@@ -71,6 +72,8 @@ private slots:
     bool isHttpRedirect(QNetworkReply *reply);
 
     void cancelDownload();
+
+    void installFinish();
 };
 
 #endif // MAINDIALOG_H
