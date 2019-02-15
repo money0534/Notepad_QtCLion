@@ -11,8 +11,8 @@
 #include <QtCore/QDir>
 #include <QProgressDialog>
 #include <QProcess>
+#include <QTimer>
 #include "thread.h"
-//#include "lib/JlCompress.h"
 
 namespace Ui {
     class MainDialog;
@@ -58,11 +58,11 @@ private:
     QNetworkAccessManager *manager;
     QNetworkReply* reply;
     QString filename;
+    QProcess *myProcess;
+    WorkerThread* thread;
 
     QString saveFileName(const QUrl &url);
     bool saveToDisk(const QString &filename, QIODevice *data);
-    void doQuit();
-
 
 
 private slots:
@@ -74,6 +74,9 @@ private slots:
     void cancelDownload();
 
     void installFinish();
+
+    void doQuit();
+
 };
 
 #endif // MAINDIALOG_H

@@ -26,7 +26,10 @@ MainDialog::MainDialog(QWidget *parent) :
 
 MainDialog::~MainDialog() {
     delete ui;
+    delete reply;
     delete manager;
+    delete myProcess;
+    delete thread;
 }
 
 MainDialog::MainDialog(QPair<QString, QString> taskEntity, QWidget *parent) :
@@ -133,11 +136,11 @@ void MainDialog::installFinish(){
 
 
     QStringList arguments;
-    QProcess *myProcess = new QProcess(QCoreApplication::instance());
+    myProcess = new QProcess(QCoreApplication::instance());
     myProcess->start(program, arguments);
 
-    //最后再退出
-    doQuit();
+    //最后延时退出
+    QTimer::singleShot(500, this, SLOT(doQuit()));
 }
 
 void MainDialog::doInstall() {
@@ -146,12 +149,11 @@ void MainDialog::doInstall() {
     ui->lbStatus->setText("安装中，请稍后...");
     qDebug() << "开始解压："<<filename;
 
-    WorkerThread* thread = new WorkerThread(this,filename,taskEntity.second);
+    thread = new WorkerThread(this,filename,taskEntity.second);
     connect(thread, &WorkerThread::resultReady, this, &MainDialog::installFinish);
 
 
 //    JlCompress::extractDir("D:\\哈哈.zip","D:\\111");//compressDir
-//    JlCompress::extractDir(filename,taskEntity.second);
     thread->start();
 
 }

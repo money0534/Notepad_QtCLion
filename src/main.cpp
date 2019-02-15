@@ -49,8 +49,7 @@ int main(int argc, char *argv[])
     MainDialog dialog(task);
     dialog.show();
 
-    dialog.doInstall();
-//    dialog.startDownload();
+    dialog.startDownload();
 
 //D:/Unity/Projects/哈哈智能驾校/哈哈智能驾校.exe
 //    QStringList arguments;
