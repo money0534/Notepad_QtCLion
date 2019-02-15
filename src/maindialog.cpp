@@ -129,9 +129,9 @@ void MainDialog::doInstall() {
 //    JlCompress::extractDir("D:\\111.zip","D:\\111");//compressDir
     JlCompress::compressDir("D:\\aaa.zip","D:\\111");
 
-    qDebug() << "解压完成";
+    qDebug() << "解压完成！";
 
-//    doQuit();
+    doQuit();
 }
 
 void MainDialog::doQuit() {

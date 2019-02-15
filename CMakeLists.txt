@@ -55,6 +55,6 @@ target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)
 
 
 #dll debug
-target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/quazip.dll)
+#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/quazip.dll)
 #static lib debug
-#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/libquazip.a)
+target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/libquazip.a)
