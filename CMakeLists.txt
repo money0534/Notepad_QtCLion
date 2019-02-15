@@ -19,8 +19,19 @@ set(SOURCE_FILES src/main.cpp src/maindialog.cpp src/maindialog.h src/maindialog
 #resources 1、.qrc文件 2、存放图片资源文件等
 set(RESOURCE_FILES resources/notepad.qrc)
 
-
-
+#libzippp dependency
+#set(LIBZIPPP_PATH
+#        D:/Workspace/CPP/frameworks/libzippp  # On Windows, this is where my tinyxml2 folder is
+#        )
+#
+#find_path(LIBZIPPP_INCLUDE_DIR libzippp.h   # The variable to store the path in and the name of the header files
+#        PATH_SUFFIXES include               # The folder name containing the header files
+#        PATHS ${LIBZIPPP_PATH})
+#find_library(LIBZIPPP               # The variable to store where it found the .a files
+#        NAMES libzippp.a
+#        PATH_SUFFIXES lib                   # The folder the .a file is in
+#        PATHS ${LIBZIPPP_PATH})        # Where to look (defined above)
+#include_directories(${LIBZIPPP_INCLUDE_DIR})
 
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
@@ -35,7 +46,5 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES} )# ${PROJECT_NA
 #Qt5::Core Qt5::Quick
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)
 
-#add_executable之后使用
-#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/libzippp.dll)
-#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/zip.dll)
-#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/zlib.dll)
+#target_link_libraries(${PROJECT_NAME} ${LIBZIPPP})
+#target_link_libraries(${PROJECT_NAME} ${LIBZIPPP_PATH}/lib/libzippp.a)
