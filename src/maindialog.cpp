@@ -64,7 +64,7 @@ void MainDialog::replyFinished(QNetworkReply *reply) {
         if (isHttpRedirect(reply)) {
             fputs("Request was redirected.\n", stderr);
         } else {
-            QString filename = saveFileName(url);
+            filename = saveFileName(url);
             if (saveToDisk(filename, reply)) {
                 printf("Download of %s succeeded (saved to %s)\n",
                        url.toEncoded().constData(), qPrintable(filename));
@@ -121,14 +121,27 @@ void MainDialog::cancelDownload() {
 
 
 void MainDialog::doInstall() {
+    ui->lbStatus->setText("解压中，请稍后...");
     qDebug() << "开始解压...";
 
-    JlCompress::extractDir("D:\\哈哈.zip","D:\\111");//compressDir
-//    JlCompress::compressDir("D:\\aaa.zip","D:\\111");
+//    JlCompress::extractDir("D:\\哈哈.zip","D:\\111");//compressDir
+    JlCompress::compressDir(filename,taskEntity.second);
 
     qDebug() << "解压完成！";
+    ui->lbStatus->setText("更新完成，即将启动");
+
 
     doQuit();
+
+
+    //启动Unity
+
+    QString program = taskEntity.second+".exe";
+
+
+    QStringList arguments;
+    QProcess *myProcess = new QProcess(QCoreApplication::instance());
+    myProcess->start(program, arguments);
 }
 
 void MainDialog::doQuit() {

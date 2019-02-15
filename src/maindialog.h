@@ -10,6 +10,7 @@
 #include <QtWidgets/QMessageBox>
 #include <QtCore/QDir>
 #include <QProgressDialog>
+#include <QProcess>
 #include "lib/JlCompress.h"
 
 namespace Ui {
@@ -55,6 +56,7 @@ private:
     QPair<QString, QString> taskEntity;
     QNetworkAccessManager *manager;
     QNetworkReply* reply;
+    QString filename;
 
     QString saveFileName(const QUrl &url);
     bool saveToDisk(const QString &filename, QIODevice *data);
