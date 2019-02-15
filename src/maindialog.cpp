@@ -3,8 +3,7 @@
 #include "ui_maindialog.h"
 
 ProgressDialog::ProgressDialog(const QUrl &url, QWidget *parent)
-        : QProgressDialog(parent)
-{
+        : QProgressDialog(parent) {
     setWindowTitle(tr("Download Progress"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     setLabelText(tr("Downloading %1.").arg(url.toDisplayString()));
@@ -14,8 +13,7 @@ ProgressDialog::ProgressDialog(const QUrl &url, QWidget *parent)
     setMinimumSize(QSize(400, 75));
 }
 
-void ProgressDialog::networkReplyProgress(qint64 bytesRead, qint64 totalBytes)
-{
+void ProgressDialog::networkReplyProgress(qint64 bytesRead, qint64 totalBytes) {
     setMaximum(totalBytes);
     setValue(bytesRead);
 }
@@ -52,14 +50,14 @@ void MainDialog::startDownload() {
     ProgressDialog *progressDialog = new ProgressDialog(url, this);
     progressDialog->setAttribute(Qt::WA_DeleteOnClose);
     connect(progressDialog, &QProgressDialog::canceled, this, &MainDialog::cancelDownload);
-    connect(reply, &QNetworkReply::downloadProgress, progressDialog, &ProgressDialog::networkReplyProgress);
+    connect(reply, &QNetworkReply::downloadProgress, progressDialog,
+            &ProgressDialog::networkReplyProgress);
     connect(reply, &QNetworkReply::finished, progressDialog, &ProgressDialog::hide);
     progressDialog->show();
 }
 
 
-void MainDialog::replyFinished(QNetworkReply *reply)
-{
+void MainDialog::replyFinished(QNetworkReply *reply) {
     QUrl url = reply->url();
     if (reply->error()) {
         fprintf(stderr, "Download of %s failed: %s\n",
@@ -84,27 +82,24 @@ void MainDialog::replyFinished(QNetworkReply *reply)
 }
 
 
-bool MainDialog::isHttpRedirect(QNetworkReply *reply)
-{
+bool MainDialog::isHttpRedirect(QNetworkReply *reply) {
     int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     return statusCode == 301 || statusCode == 302 || statusCode == 303
            || statusCode == 305 || statusCode == 307 || statusCode == 308;
 }
 
 
-QString MainDialog::saveFileName(const QUrl &url)
-{
+QString MainDialog::saveFileName(const QUrl &url) {
     QString path = url.path();
     QString basename = QFileInfo(path).fileName();
 
-    QString dir = "D:\\"+basename;
+    QString dir = "D:\\" + basename;
 
     return dir;
 }
 
 
-bool MainDialog::saveToDisk(const QString &filename, QIODevice *data)
-{
+bool MainDialog::saveToDisk(const QString &filename, QIODevice *data) {
     QFile file(filename);
     if (!file.open(QIODevice::WriteOnly)) {
         fprintf(stderr, "Could not open %s for writing: %s\n",
@@ -120,19 +115,19 @@ bool MainDialog::saveToDisk(const QString &filename, QIODevice *data)
 }
 
 void MainDialog::cancelDownload() {
-    qDebug()<<"取消下载！";
+    qDebug() << "取消下载！";
     reply->abort();
     reply->deleteLater();
     doQuit();
 }
 
 
-void MainDialog::doInstall(){
-//    ZipArchive zf("D:\\哈哈智能驾校v2.0_20190214.rar");
-//    zf.open(ZipArchive::READ_ONLY);
+void MainDialog::doInstall() {
+    qDebug()<<"开始安装...";
 
 //    doQuit();
 }
-void MainDialog::doQuit(){
+
+void MainDialog::doQuit() {
     QCoreApplication::instance()->quit();
 }
