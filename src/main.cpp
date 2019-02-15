@@ -8,6 +8,12 @@
 using namespace std;
 
 
+/**
+ * MaintenanceTool.exe -a http://hhzn.img.exueche.com/robotcoach/哈哈智能驾校.zip -d D:/Unity/Projects/哈哈智能驾校
+ * @param argc
+ * @param argv
+ * @return
+ */
 int main(int argc, char *argv[])
 {
 
@@ -43,8 +49,12 @@ int main(int argc, char *argv[])
     MainDialog dialog(task);
     dialog.show();
 
-//    dialog.doInstall();
-    dialog.startDownload();
+    dialog.doInstall();
+//    dialog.startDownload();
 
+//D:/Unity/Projects/哈哈智能驾校/哈哈智能驾校.exe
+//    QStringList arguments;
+//    QProcess *myProcess = new QProcess(QCoreApplication::instance());
+//    myProcess->start("D:/Unity/Projects/哈哈智能驾校/哈哈智能驾校.exe", arguments);
     return app.exec();
 }

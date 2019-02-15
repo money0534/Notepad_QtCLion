@@ -40,6 +40,8 @@ MainDialog::MainDialog(QPair<QString, QString> taskEntity, QWidget *parent) :
 }
 
 void MainDialog::startDownload() {
+    ui->lbStatus->setText("新版本下载中...");
+
     connect(manager, &QNetworkAccessManager::finished, this, &MainDialog::replyFinished);
 
     QUrl url(taskEntity.first);
@@ -90,7 +92,7 @@ QString MainDialog::saveFileName(const QUrl &url) {
     QString path = url.path();
     QString basename = QFileInfo(path).fileName();
 
-    QString dir = "D:\\" + basename;
+    QString dir = "D:/" + basename;
 
     return dir;
 }
@@ -121,27 +123,35 @@ void MainDialog::cancelDownload() {
 
 
 void MainDialog::doInstall() {
-    ui->lbStatus->setText("解压中，请稍后...");
-    qDebug() << "开始解压...";
+    filename = "D:/哈哈智能驾校.zip";
+    ui->lbStatus->setText("安装中，请稍后...");
+    qDebug() << "开始解压："<<filename;
 
 //    JlCompress::extractDir("D:\\哈哈.zip","D:\\111");//compressDir
-    JlCompress::compressDir(filename,taskEntity.second);
+    JlCompress::extractDir(filename,taskEntity.second);
+    
 
     qDebug() << "解压完成！";
     ui->lbStatus->setText("更新完成，即将启动");
 
 
-    doQuit();
 
 
     //启动Unity
 
-    QString program = taskEntity.second+".exe";
+    QStringList array = taskEntity.second.split("/");
+
+    QString program = taskEntity.second+"/"+array[array.length()-1]+".exe";
+    qDebug()<<"启动程序："<<program;
 
 
     QStringList arguments;
     QProcess *myProcess = new QProcess(QCoreApplication::instance());
     myProcess->start(program, arguments);
+
+    //最后再退出
+    doQuit();
+
 }
 
 void MainDialog::doQuit() {
