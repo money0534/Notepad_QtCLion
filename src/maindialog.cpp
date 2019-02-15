@@ -126,6 +126,8 @@ void MainDialog::cancelDownload() {
 void MainDialog::doInstall() {
     qDebug() << "开始安装...";
 
+//    JlCompress::extractDir("D:\\111.zip","D:\\111");//compressDir
+    JlCompress::compressDir("D:\\aaa.zip","D:\\111");
 //    doQuit();
 }
 

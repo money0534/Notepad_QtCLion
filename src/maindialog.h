@@ -10,6 +10,7 @@
 #include <QtWidgets/QMessageBox>
 #include <QtCore/QDir>
 #include <QProgressDialog>
+#include "lib/JlCompress.h"
 
 namespace Ui {
     class MainDialog;

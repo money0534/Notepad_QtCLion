@@ -19,18 +19,26 @@ set(SOURCE_FILES src/main.cpp src/maindialog.cpp src/maindialog.h src/maindialog
 #resources 1、.qrc文件 2、存放图片资源文件等
 set(RESOURCE_FILES resources/notepad.qrc)
 
-
-#libzippp dependency
-set(LIBZIPPP_PATH D:/Workspace/CPP/frameworks/libzippp)
-#
-#find_path(LIBZIPPP_INCLUDE_DIR libzippp.h   # The variable to store the path in and the name of the header files
-#        PATH_SUFFIXES include               # The folder name containing the header files
-#        PATHS ${LIBZIPPP_PATH})
-#find_library(LIBZIPPP               # The variable to store where it found the .a files
-#        NAMES libzippp.a
-#        PATH_SUFFIXES lib                   # The folder the .a file is in
-#        PATHS ${LIBZIPPP_PATH})        # Where to look (defined above)
-#include_directories(${LIBZIPPP_INCLUDE_DIR})
+set(QUA_LIB
+        lib/crypt.h
+        lib/ioapi.h
+        lib/JlCompress.h
+        lib/quaadler32.h
+        lib/quachecksum32.h
+        lib/quacrc32.h
+        lib/quagzipfile.h
+        lib/quaziodevice.h
+        lib/quazip.h
+        lib/quazip_global.h
+        lib/quazipdir.h
+        lib/quazipfile.h
+        lib/quazipfileinfo.h
+        lib/quazipnewinfo.h
+        lib/unzip.h
+        lib/zconf.h
+        lib/zip.h
+        lib/zlib.h
+        )
 
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
@@ -40,16 +48,13 @@ find_package(Qt5Network REQUIRED)
 include_directories(resources/images)
 
 # WIN32
-add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES} )# ${PROJECT_NAME} WIN32 ${SOURCE_FILES}
+add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES} ${QUA_LIB})# ${PROJECT_NAME} WIN32 ${SOURCE_FILES}
 
 #Qt5::Core Qt5::Quick
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)
 
-#target_link_libraries(${PROJECT_NAME} ${LIBZIPPP})
-#target_link_libraries(${PROJECT_NAME} ${LIBZIPPP_PATH}/lib/libzippp.a)
 
-
-#dll libs
-#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/zip.dll)
-#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/libzippp_static.lib)
-#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/libzippp.dll)
+#dll debug
+target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/quazipdebug.dll)
+#static lib debug
+#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/libquazip.a)
