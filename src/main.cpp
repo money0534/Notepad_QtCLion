@@ -36,11 +36,15 @@ int main(int argc, char *argv[])
 
 //    QString appUrl = "http://www.qt.io/index.html";
     QString appUrl = "http://hhzn.img.exueche.com/robotcoach/哈哈智能驾校v2.0_20190214.rar";
-    QString appPath= "D:\\Unity\\Projects\\哈哈智能驾校";
+    QString appPath= "D:\\";
+//    QString appPath= "D:\\Unity\\Projects\\哈哈智能驾校";
 
     QPair<QString,QString> task(appUrl,appPath);
     MainDialog dialog(task);
     dialog.show();
+
+    dialog.doInstall();
+//    dialog.startDownload();
 
     return app.exec();
 }

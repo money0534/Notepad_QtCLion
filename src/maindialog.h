@@ -45,18 +45,21 @@ public:
 
     ~MainDialog();
 
+    void startDownload();
+
+    void doInstall();
+
+
 private:
     Ui::MainDialog *ui;
     QPair<QString, QString> taskEntity;
     QNetworkAccessManager *manager;
     QNetworkReply* reply;
 
-    void startDownload();
     QString saveFileName(const QUrl &url);
     bool saveToDisk(const QString &filename, QIODevice *data);
     void doQuit();
 
-    void doInstall();
 
 
 private slots:

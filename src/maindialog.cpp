@@ -37,14 +37,11 @@ MainDialog::MainDialog(QPair<QString, QString> taskEntity, QWidget *parent) :
 
     qDebug() << taskEntity.first << "," << taskEntity.second;
 
-
-//    connect(manager, &QNetworkAccessManager::finished, this, &MainDialog::replyFinished);
-//    startDownload();
-
-    doInstall();
 }
 
 void MainDialog::startDownload() {
+    connect(manager, &QNetworkAccessManager::finished, this, &MainDialog::replyFinished);
+
     QUrl url(taskEntity.first);
     reply = manager->get(QNetworkRequest(url));
     ProgressDialog *progressDialog = new ProgressDialog(url, this);
@@ -126,8 +123,8 @@ void MainDialog::cancelDownload() {
 void MainDialog::doInstall() {
     qDebug() << "开始解压...";
 
-//    JlCompress::extractDir("D:\\111.zip","D:\\111");//compressDir
-    JlCompress::compressDir("D:\\aaa.zip","D:\\111");
+    JlCompress::extractDir("D:\\哈哈.zip","D:\\111");//compressDir
+//    JlCompress::compressDir("D:\\aaa.zip","D:\\111");
 
     qDebug() << "解压完成！";
 
@@ -135,5 +132,7 @@ void MainDialog::doInstall() {
 }
 
 void MainDialog::doQuit() {
+    this->close();
     QCoreApplication::instance()->quit();
+    qDebug()<<"doQuit()";
 }
