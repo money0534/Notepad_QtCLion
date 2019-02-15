@@ -19,10 +19,9 @@ set(SOURCE_FILES src/main.cpp src/maindialog.cpp src/maindialog.h src/maindialog
 #resources 1、.qrc文件 2、存放图片资源文件等
 set(RESOURCE_FILES resources/notepad.qrc)
 
+
 #libzippp dependency
-#set(LIBZIPPP_PATH
-#        D:/Workspace/CPP/frameworks/libzippp  # On Windows, this is where my tinyxml2 folder is
-#        )
+set(LIBZIPPP_PATH D:/Workspace/CPP/frameworks/libzippp)
 #
 #find_path(LIBZIPPP_INCLUDE_DIR libzippp.h   # The variable to store the path in and the name of the header files
 #        PATH_SUFFIXES include               # The folder name containing the header files
@@ -48,3 +47,9 @@ target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)
 
 #target_link_libraries(${PROJECT_NAME} ${LIBZIPPP})
 #target_link_libraries(${PROJECT_NAME} ${LIBZIPPP_PATH}/lib/libzippp.a)
+
+
+#dll libs
+#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/zip.dll)
+#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/libzippp_static.lib)
+#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/libzippp.dll)

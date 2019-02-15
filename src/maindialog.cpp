@@ -121,8 +121,11 @@ void MainDialog::cancelDownload() {
     doQuit();
 }
 
+
+
 void MainDialog::doInstall() {
     qDebug() << "开始安装...";
+
 //    doQuit();
 }
 
