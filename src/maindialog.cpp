@@ -40,8 +40,10 @@ MainDialog::MainDialog(QPair<QString, QString> taskEntity, QWidget *parent) :
     qDebug() << taskEntity.first << "," << taskEntity.second;
 
 
-    connect(manager, &QNetworkAccessManager::finished, this, &MainDialog::replyFinished);
-    startDownload();
+//    connect(manager, &QNetworkAccessManager::finished, this, &MainDialog::replyFinished);
+//    startDownload();
+
+    doInstall();
 }
 
 void MainDialog::startDownload() {
@@ -73,8 +75,7 @@ void MainDialog::replyFinished(QNetworkReply *reply)
                        url.toEncoded().constData(), qPrintable(filename));
             }
 
-            //todo 退出程序
-            doQuit();
+            doInstall();
         }
     }
 
@@ -126,6 +127,12 @@ void MainDialog::cancelDownload() {
 }
 
 
+void MainDialog::doInstall(){
+//    ZipArchive zf("D:\\哈哈智能驾校v2.0_20190214.rar");
+//    zf.open(ZipArchive::READ_ONLY);
+
+//    doQuit();
+}
 void MainDialog::doQuit(){
     QCoreApplication::instance()->quit();
 }

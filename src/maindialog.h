@@ -55,6 +55,8 @@ private:
     bool saveToDisk(const QString &filename, QIODevice *data);
     void doQuit();
 
+    void doInstall();
+
 
 private slots:
 

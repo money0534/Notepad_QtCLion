@@ -19,6 +19,8 @@ set(SOURCE_FILES src/main.cpp src/maindialog.cpp src/maindialog.h src/maindialog
 #resources 1、.qrc文件 2、存放图片资源文件等
 set(RESOURCE_FILES resources/notepad.qrc)
 
+
+
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Network REQUIRED)
@@ -31,3 +33,8 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES})# ${PROJECT_NAM
 
 #Qt5::Core Qt5::Quick
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)
+
+#add_executable之后使用
+#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/libzippp.dll)
+#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/zip.dll)
+#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/zlib.dll)
