@@ -55,13 +55,14 @@ public:
 
 
 private:
-    Ui::MainDialog *ui;
-    QPair<QString, QString> taskEntity;
-    QNetworkAccessManager *manager;
-    QNetworkReply* reply;
     QString filename;
-    QProcess *myProcess;
-    WorkerThread* thread;
+    QPair<QString, QString> taskEntity;
+    Ui::MainDialog *ui;
+    //声明为nullptr 可安全delete
+    QNetworkAccessManager *manager = nullptr;
+    QNetworkReply* reply = nullptr;
+    QProcess *myProcess = nullptr;
+    WorkerThread* thread = nullptr;
 
     QString saveFileName(const QUrl &url);
     bool saveToDisk(const QString &filename, QIODevice *data);
