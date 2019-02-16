@@ -95,8 +95,17 @@ QString MainDialog::saveFileName(const QUrl &url) {
     QString path = url.path();
     QString basename = QFileInfo(path).fileName();
 
-    QString dir = "D:/" + basename;
+    //下载到当前所在路径下的/downloads/下
+    QString dir = "./downloads" ;
 
+    QDir dlDir(dir);
+    if(!dlDir.exists()){
+        bool ret = dlDir.mkpath(dir);
+        qDebug()<<"创建路径："<<dir<<" "<<ret;
+    }
+
+    dir+="/";
+    dir+= basename;
     return dir;
 }
 
@@ -145,7 +154,7 @@ void MainDialog::installFinish(){
 
 void MainDialog::doInstall() {
 
-    filename = "D:/哈哈智能驾校.zip";
+//    filename = "D:/哈哈智能驾校.zip";
     ui->lbStatus->setText("安装中，请稍后...");
     qDebug() << "开始解压："<<filename;
 

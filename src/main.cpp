@@ -51,9 +51,5 @@ int main(int argc, char *argv[])
 
     dialog.startDownload();
 
-//D:/Unity/Projects/哈哈智能驾校/哈哈智能驾校.exe
-//    QStringList arguments;
-//    QProcess *myProcess = new QProcess(QCoreApplication::instance());
-//    myProcess->start("D:/Unity/Projects/哈哈智能驾校/哈哈智能驾校.exe", arguments);
     return app.exec();
 }
