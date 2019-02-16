@@ -95,8 +95,9 @@ QString MainDialog::saveFileName(const QUrl &url) {
     QString path = url.path();
     QString basename = QFileInfo(path).fileName();
 
-    //下载到当前所在路径下的/downloads/下
-    QString dir = "./downloads" ;
+    //从软件启动升级工具，当前路径为软件所在路径，需要跳到上一级
+    //下载到当前所在路径上一级下的/downloads/下
+    QString dir = "../downloads" ;
 
     QDir dlDir(dir);
     if(!dlDir.exists()){
