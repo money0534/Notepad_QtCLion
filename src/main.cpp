@@ -49,7 +49,11 @@ int main(int argc, char *argv[])
     MainDialog dialog(task);
     dialog.show();
 
-    dialog.startDownload();
+    if(appUrl.isEmpty()||appPath.isEmpty()){
+        dialog.showMsg("无更新内容");
+    } else{
+        dialog.startDownload();
+    }
 
     return app.exec();
 }

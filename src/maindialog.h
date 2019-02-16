@@ -51,6 +51,8 @@ public:
 
     void doInstall();
 
+    void showMsg(QString content);
+
 
 private:
     Ui::MainDialog *ui;

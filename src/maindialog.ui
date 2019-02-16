@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MaintenanceTool</string>
+   <string>机器人教练升级工具</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../resources/images/update.png</normaloff>../resources/images/update.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

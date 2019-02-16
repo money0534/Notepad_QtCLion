@@ -43,7 +43,7 @@ MainDialog::MainDialog(QPair<QString, QString> taskEntity, QWidget *parent) :
 }
 
 void MainDialog::startDownload() {
-    ui->lbStatus->setText("新版本下载中...");
+    showMsg("新版本下载中...");
 
     connect(manager, &QNetworkAccessManager::finished, this, &MainDialog::replyFinished);
 
@@ -135,7 +135,7 @@ void MainDialog::cancelDownload() {
 
 void MainDialog::installFinish(){
     qDebug() << "解压完成！";
-    ui->lbStatus->setText("更新完成，即将启动");
+    showMsg("更新完成，即将启动");
 
     //启动Unity
     QStringList array = taskEntity.second.split("/");
@@ -155,7 +155,7 @@ void MainDialog::installFinish(){
 void MainDialog::doInstall() {
 
 //    filename = "D:/哈哈智能驾校.zip";
-    ui->lbStatus->setText("安装中，请稍后...");
+    showMsg("安装中，请稍后...");
     qDebug() << "开始解压："<<filename;
 
     thread = new WorkerThread(this,filename,taskEntity.second);
@@ -171,4 +171,8 @@ void MainDialog::doQuit() {
     this->close();
     QCoreApplication::instance()->quit();
     qDebug()<<"doQuit()";
+}
+
+void MainDialog::showMsg(QString content) {
+    ui->lbStatus->setText(content);
 }
