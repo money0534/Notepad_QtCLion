@@ -18,6 +18,9 @@ int main(int argc, char *argv[])
 {
 
     QApplication app(argc, argv);
+    //打包发布增加库路径
+    //参见 https://stackoverflow.com/questions/21268558/application-failed-to-start-because-it-could-not-find-or-load-the-qt-platform-pl/22982039
+    QApplication::addLibraryPath("./");
     QCoreApplication::setApplicationName("MaintenanceTool");
     QCoreApplication::setApplicationVersion("1.0");
 
