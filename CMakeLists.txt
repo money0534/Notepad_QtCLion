@@ -3,7 +3,6 @@ project(XmlConverter)
 
 set(CMAKE_CXX_STANDARD 11)
 
-
 # Qt
 # Set this to your Qt installation
 set(CMAKE_PREFIX_PATH C:\\Qt\\Qt5.12.0\\5.12.0\\mingw73_64)
@@ -23,6 +22,7 @@ set(RESOURCE_FILES resources/notepad.qrc)
 
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Xml REQUIRED)
 
 #图片等资源文件的文件夹包含进来
 include_directories(resources/images)
@@ -33,4 +33,6 @@ include_directories(resources/images)
 add_executable(${PROJECT_NAME}  ${SOURCE_FILES} ${RESOURCE_FILES})#WIN32
 
 #Qt5::Core Qt5::Quick
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Xml)
+
+
