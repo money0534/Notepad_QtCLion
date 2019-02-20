@@ -85,14 +85,16 @@ void reverseInput(QString& path) {
     }
     file.close();
 
-    QStringList arr = path.split('/', QString::SkipEmptyParts);
+    QStringList arr = path.split('\\', QString::SkipEmptyParts);
     QString name = arr.value(arr.length()-1);
 
 //    qDebug()<<name;
 
-    QStringList arr2 = name.split('.',QString::SkipEmptyParts);
-    QString outputName=arr2.value(0)+"-reversed."+arr2.value(arr2.length()-1);
     //输出
+    QString outputDir = path.left(path.lastIndexOf("\\"));
+    QStringList arr2 = name.split('.',QString::SkipEmptyParts);
+    QString outputName=outputDir+"\\"+arr2.value(0)+"-reversed."+arr2.value(arr2.length()-1);
+
     QFile output(outputName);
     if (!output.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
@@ -176,10 +178,10 @@ void field2subject(QString &srcPath){
     qDebug()<<"convert total subject count: "<<subEntrys.size();
     subDoc.appendChild(root);
 
-    QString outputDir = srcPath.left(srcPath.lastIndexOf("/"));
+    QString outputDir = srcPath.left(srcPath.lastIndexOf("\\"));
 
     //写入到subjects.xml
-    QFile output(outputDir+"/subjects.xml");
+    QFile output(outputDir+"\\subjects.xml");
     if (!output.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
 
