@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
     //c++11 支持
     parser.addOptions({
                               // A boolean option with a single name (-r)
-                              {"r", "Reverse lines of the input file"},
+                              {"r", "Reverse lines of the input file."},
 
                               // An option with a value
                               {{"i", "input"},"Path for input file.","InputPath"}
@@ -176,8 +176,10 @@ void field2subject(QString &srcPath){
     qDebug()<<"convert total subject count: "<<subEntrys.size();
     subDoc.appendChild(root);
 
+    QString outputDir = srcPath.left(srcPath.lastIndexOf("/"));
+
     //写入到subjects.xml
-    QFile output("subjects.xml");
+    QFile output(outputDir+"/subjects.xml");
     if (!output.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
 
