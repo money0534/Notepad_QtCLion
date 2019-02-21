@@ -11,6 +11,8 @@
 *.lo
 *.o
 *.obj
+#Qt auto uic generated files
+ui_*.h
 
 # Precompiled Headers
 *.gch
