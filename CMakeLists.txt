@@ -56,12 +56,13 @@ target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)
 #confusing???
 #if dll name is quazip.dll then executable looks for quaziprelease.dll,
 #while if dll name is quazipd.dll then executable looks for quazip.dll
+#it depends on the dll name you compiled in QtCreator,so it explains the strange phenomenon above
 
 #dll debug https://cmake.org/cmake/help/v3.0/command/target_link_libraries.html
 target_link_libraries(${PROJECT_NAME} debug ${PROJECT_SOURCE_DIR}/lib/quazipd.dll)
 
 #dll builds except debug
-target_link_libraries(${PROJECT_NAME} optimized ${PROJECT_SOURCE_DIR}/lib/quazipd.dll)
+target_link_libraries(${PROJECT_NAME} optimized ${PROJECT_SOURCE_DIR}/lib/quazip.dll)
 
 #static lib debug
 #target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/libquazip.a)
