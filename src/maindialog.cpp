@@ -138,20 +138,44 @@ void MainDialog::installFinish(){
     qDebug() << "解压完成！";
     showMsg("更新完成，即将启动");
 
-    //启动Unity
-    QStringList array = taskEntity.second.split("/");
+    //启动Unity，如：D:/Unity/Projects/HahaRobot
+    QString input = taskEntity.second;
 
-    QString program = taskEntity.second+"/"+array[array.length()-1]+".exe";
-    qDebug()<<"启动程序："<<program;
+    //截取后：/HahaRobot
+    QString program = input.right(input.length()-input.lastIndexOf("/"));
+//    qDebug()<<"启动程序："<<program;
+
+    QString appDir=input.append(program).append(".exe");
+    qDebug()<<"启动程序："<<appDir;
 
 
     QStringList arguments;
     myProcess = new QProcess(QCoreApplication::instance());
-    myProcess->start(program, arguments);
+    myProcess->start(appDir, arguments);
 
     //最后延时退出
     QTimer::singleShot(500, this, SLOT(doQuit()));
 }
+
+
+//void MainDialog::installFinish(){
+//    qDebug() << "解压完成！";
+//    showMsg("更新完成，即将启动");
+//
+//    //启动Unity
+//    QStringList array = taskEntity.second.split("/");
+//
+//    QString program = taskEntity.second+"/"+array[array.length()-1]+".exe";
+//    qDebug()<<"启动程序："<<program;
+//
+//
+//    QStringList arguments;
+//    myProcess = new QProcess(QCoreApplication::instance());
+//    myProcess->start(program, arguments);
+//
+//    //最后延时退出
+//    QTimer::singleShot(500, this, SLOT(doQuit()));
+//}
 
 void MainDialog::doInstall() {
 

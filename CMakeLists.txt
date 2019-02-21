@@ -53,7 +53,15 @@ add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${RESOURCE_FILES} ${QUA_LIB
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)
 
 
+#confusing???
+#if dll name is quazip.dll then executable looks for quaziprelease.dll,
+#while if dll name is quazipd.dll then executable looks for quazip.dll
+
 #dll debug
-target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/quazip.dll)
+target_link_libraries(${PROJECT_NAME} debug ${PROJECT_SOURCE_DIR}/lib/quazipd.dll)
+
+#dll builds except debug
+target_link_libraries(${PROJECT_NAME} optimized ${PROJECT_SOURCE_DIR}/lib/quazipd.dll)
+
 #static lib debug
 #target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/libquazip.a)
