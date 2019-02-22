@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //下载任务
     tasks = new QQueue<Task *>;
 
+    logger = new Logger("yyyy-MM-dd HH:mm:ss");
+
     loadConfFromJsonFile();
 }
 
@@ -79,6 +81,7 @@ MainWindow::~MainWindow() {
     delete tasks;
     delete ui;
     delete fileDialog;
+    delete logger;
 }
 
 void MainWindow::on_btnCancel_clicked() {
@@ -173,6 +176,7 @@ void MainWindow::startDownload() {
         currentTask = tasks->dequeue();
         qDebug() << "开始下载：" << currentTask->downloadUrl;
         showStatus("正在下载 " + currentTask->downloadUrl);
+        logger->write("开始下载："+currentTask->downloadUrl);
         currentTask->startDownload();
     }
 }
@@ -184,6 +188,7 @@ void MainWindow::onTaskCanceled() {
 void MainWindow::onDownloadFinish() {
     qDebug() << "下载结束：" << currentTask->downloadUrl;
     showStatus("正在解压 " + currentTask->filename + " 到 " + currentTask->decompressPath);
+    logger->write("解压 " + currentTask->filename + " 到 " + currentTask->decompressPath);
 }
 
 

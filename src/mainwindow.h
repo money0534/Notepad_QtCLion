@@ -8,6 +8,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include "Task.h"
+#include "Logger.h"
 
 
 namespace Ui {
@@ -85,6 +86,8 @@ public:
     QString appUrl;
     QString cfgUrl;
     QString sceneUrl;
+
+    Logger* logger= nullptr;
 };
 
 #endif // MAINWINDOW_H
