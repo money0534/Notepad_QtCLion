@@ -23,7 +23,7 @@ void Logger::write(QString line) {
         qDebug()<<"创建路径："<<"log"<<" "<<ret;
     }
     QFile file("log/update.log");
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    if (!file.open(QIODevice::Append | QIODevice::Text))//Write Mode
         return;
 
 
