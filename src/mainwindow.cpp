@@ -45,6 +45,7 @@ void MainWindow::loadConfFromJsonFile() {
 
     if (!appPath.isEmpty()) {
         ui->lbAppPath->setText(appPath);
+        ui->lbAppPath->setStyleSheet("color: black;");
     }
 
     if (!cfgUrl.isEmpty()) {
@@ -53,6 +54,7 @@ void MainWindow::loadConfFromJsonFile() {
 
     if (!cfgPath.isEmpty()) {
         ui->lbCfgPath->setText(cfgPath);
+        ui->lbCfgPath->setStyleSheet("color: black;");
     }
 
     if (!sceneUrl.isEmpty()) {
@@ -61,6 +63,7 @@ void MainWindow::loadConfFromJsonFile() {
 
     if (!scenePath.isEmpty()) {
         ui->lbScenePath->setText(scenePath);
+        ui->lbScenePath->setStyleSheet("color: black;");
     }
 
     //qDebug() << appUrl;
