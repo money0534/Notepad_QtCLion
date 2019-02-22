@@ -37,13 +37,24 @@ private slots:
 
     void on_cbScene_toggled(bool checked);
 
+    //结束完一个任务的回调
+    void onTaskFinish();
+    //所有任务结束
+    void onAllTaskFinish();
+
 private:
     Ui::MainWindow *ui;
     QFileDialog *fileDialog;
     //下载任务队列
-    QQueue<Task> * tasks;
+    QQueue<Task*> * tasks;
     //状态栏更新状态
     void showStatus(QString status);
+
+    //弹窗警告
+    void warn(QString msg);
+
+    //开始下载任务
+    void startDownload();
 
 public:
     bool isAppChecked;//App选中

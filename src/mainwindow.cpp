@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     fileDialog->setFileMode(QFileDialog::Directory);
 
     //下载任务
-    tasks = new QQueue<Task>;
+    tasks = new QQueue<Task*>;
 }
 
 MainWindow::~MainWindow()
@@ -32,13 +32,33 @@ void MainWindow::on_btnCancel_clicked()
     close();
 }
 
+void MainWindow::warn(QString msg){
+    QMessageBox::warning(this,"警告",msg);
+}
+
 void MainWindow::on_btnDownload_clicked()
 {
+    //禁用下载按钮
+    ui->btnDownload->setEnabled(false);
+
     qDebug()<<"Download click";
 
     //app选中
     if(isAppChecked){
         qDebug()<<"app选中";
+        QString appUrl = ui->leAppUrl->text().trimmed();
+        if(appUrl.isEmpty()){
+            warn("请输入应用下载地址！");
+            return;
+        }
+
+        if(appPath.isEmpty()){
+            warn("请输入应用安装路径！");
+            return;
+        }
+        Task* task = new Task(appUrl,appPath);
+        tasks->enqueue(task);
+        connect(task,SIGNAL(taskFinish),this,SLOT(onTaskFinish));
     }
 
     //res选中
@@ -50,7 +70,33 @@ void MainWindow::on_btnDownload_clicked()
     if(isSceneChecked){
         qDebug()<<"scene选中";
     }
+
+    startDownload();
 }
+
+void MainWindow::startDownload() {
+    if (!tasks->isEmpty()){
+        Task * task = tasks->dequeue();
+        qDebug()<<"开始下载："<<task->downloadUrl;
+        task->startDownload();
+    }
+}
+
+void MainWindow::onTaskFinish() {
+    if (!tasks->isEmpty()){
+        startDownload();
+    } else{
+        onAllTaskFinish();
+    }
+}
+
+void MainWindow::onAllTaskFinish() {
+    qDebug()<<"全部下载结束";
+
+    //提醒 和 退出
+}
+
+
 
 void MainWindow::on_cbApp_toggled(bool checked)
 {
@@ -113,5 +159,7 @@ void MainWindow::on_tbScenePath_clicked()
 void MainWindow::showStatus(QString status) {
     statusBar()->showMessage(status);
 }
+
+
 
 
