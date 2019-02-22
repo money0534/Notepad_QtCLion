@@ -96,21 +96,6 @@ QString Task::saveFileName(const QUrl &url) {
     return dir;
 }
 
-bool Task::saveToDisk(const QString &filename, QIODevice *data) {
-    QFile file(filename);
-    if (!file.open(QIODevice::WriteOnly)) {
-        fprintf(stderr, "Could not open %s for writing: %s\n",
-                qPrintable(filename),
-                qPrintable(file.errorString()));
-        return false;
-    }
-
-    file.write(data->readAll());
-    file.close();
-
-    return true;
-}
-
 void Task::cancelDownload() {
     qDebug() << "取消下载！";
     reply->abort();

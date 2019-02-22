@@ -59,9 +59,6 @@ private:
 
     QString saveFileName(const QUrl &url);
 
-    bool saveToDisk(const QString &filename, QIODevice *data);
-
-
 private slots:
     void replyFinished(QNetworkReply *);
 
