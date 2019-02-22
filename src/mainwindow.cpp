@@ -32,6 +32,20 @@ void MainWindow::on_btnDownload_clicked()
 {
     qDebug()<<"Download click";
 
+    if(!isResChecked&&!isAppChecked){
+        //全都未选中
+        return;
+    }
+
+    //app选中
+    if(isAppChecked){
+
+    }
+
+    //res选中
+    if(isResChecked){
+
+    }
 }
 
 void MainWindow::on_cbApp_toggled(bool checked)

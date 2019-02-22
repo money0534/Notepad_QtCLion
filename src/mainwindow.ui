@@ -40,7 +40,11 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="leAppUrl"/>
+          <widget class="QLineEdit" name="leAppUrl">
+           <property name="placeholderText">
+            <string>请输入软件下载地址</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -127,7 +131,11 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="leResUrl"/>
+          <widget class="QLineEdit" name="leResUrl">
+           <property name="placeholderText">
+            <string>请输入资源文件下载地址</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
