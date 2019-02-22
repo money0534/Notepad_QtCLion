@@ -19,10 +19,11 @@ public:
     void run() override {
         /* ... here is the expensive or blocking operation ... */
 
-        saveToDisk();
-        JlCompress::extractDir(zipPath,decpPath);
+        if(saveToDisk()){
+            JlCompress::extractDir(zipPath,decpPath);
+            emit resultReady();
+        }
 
-        emit resultReady();
     }
 
     bool saveToDisk(){
