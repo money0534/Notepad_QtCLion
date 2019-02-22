@@ -32,7 +32,7 @@ void MainWindow::on_btnDownload_clicked()
 {
     qDebug()<<"Download click";
 
-    if(!isResChecked&&!isAppChecked){
+    if(!isCfgChecked&&!isAppChecked){
         //全都未选中
         return;
     }
@@ -43,7 +43,7 @@ void MainWindow::on_btnDownload_clicked()
     }
 
     //res选中
-    if(isResChecked){
+    if(isCfgChecked){
 
     }
 }
@@ -54,10 +54,10 @@ void MainWindow::on_cbApp_toggled(bool checked)
     qDebug()<<"App "<<checked;
 }
 
-void MainWindow::on_cbRes_toggled(bool checked)
+void MainWindow::on_cbCfg_toggled(bool checked)
 {
-    isResChecked=checked;
-    qDebug()<<"Res "<<checked;
+    isCfgChecked=checked;
+    qDebug()<<"Cfg "<<checked;
 
 }
 
@@ -76,15 +76,15 @@ void MainWindow::on_tbAppPath_clicked()
     }
 }
 
-void MainWindow::on_tbResPath_clicked()
+void MainWindow::on_tbCfgPath_clicked()
 {
-//    qDebug()<<"ResPath clicked ";
+//    qDebug()<<"CfgPath clicked ";
     fileDialog->show();
 
     if(fileDialog->exec()){
-        resPath = fileDialog->selectedFiles()[0];
-        qDebug()<<resPath;
-        ui->lbResPath->setText(resPath);
-        ui->lbResPath->setStyleSheet("color: black;");
+        cfgPath = fileDialog->selectedFiles()[0];
+        qDebug()<<cfgPath;
+        ui->lbCfgPath->setText(cfgPath);
+        ui->lbCfgPath->setStyleSheet("color: black;");
     }
 }

@@ -24,20 +24,20 @@ private slots:
 
     void on_cbApp_toggled(bool checked);
 
-    void on_cbRes_toggled(bool checked);
+    void on_cbCfg_toggled(bool checked);
 
     void on_tbAppPath_clicked();
 
-    void on_tbResPath_clicked();
+    void on_tbCfgPath_clicked();
 
 private:
     Ui::MainWindow *ui;
     QFileDialog *fileDialog;
 public:
     bool isAppChecked;//App选中
-    bool isResChecked;//Res选中
+    bool isCfgChecked;//Cfg选中
     QString appPath;
-    QString resPath;
+    QString cfgPath;
 };
 
 #endif // MAINWINDOW_H
