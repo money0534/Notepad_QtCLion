@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
+#include <QStatusBar>
 
 
 namespace Ui {
@@ -37,6 +38,10 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QFileDialog *fileDialog;
+
+    //状态栏更新状态
+    void showStatus(QString status);
+
 public:
     bool isAppChecked;//App选中
     bool isCfgChecked;//Cfg选中

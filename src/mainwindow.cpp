@@ -106,4 +106,8 @@ void MainWindow::on_tbScenePath_clicked()
     }
 }
 
+void MainWindow::showStatus(QString status) {
+    statusBar()->showMessage(status);
+}
+
 
