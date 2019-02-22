@@ -104,10 +104,10 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="10,4,1,4,1">
       <property name="topMargin">
-       <number>20</number>
+       <number>10</number>
       </property>
       <property name="bottomMargin">
-       <number>20</number>
+       <number>10</number>
       </property>
       <item>
        <spacer name="horizontalSpacer_2">
