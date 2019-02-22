@@ -4,15 +4,18 @@
     "obj": {
         "main_data": {
             "version_code": "v1.2_20190216",
-            "down_url": "http://www.jiaolianmishu.com/robot_mock_version/哈哈智能驾校_v1.2_20190216.zip"
+            "down_url": "http://www.jiaolianmishu.com/robot_mock_version/哈哈智能驾校_v1.2_20190216.zip",
+            "install_path":"C:/HahaRobot"
         },
         "conf_data": {
             "update_time": "20190214142139",
-            "down_url": "http://www.jiaolianmishu.com/robot_mock_version/工作计划2019-02-22.zip"
+            "down_url": "http://www.jiaolianmishu.com/robot_mock_version/工作计划2019-02-22.zip",
+            "install_path":"C:/HahaRobot"
         },
         "scene_data": {
             "update_time": "20190214142139",
-            "down_url": "http://www.jiaolianmishu.com/robot_mock_version/工作计划2019-02-22.zip"
+            "down_url": "http://www.jiaolianmishu.com/robot_mock_version/工作计划2019-02-22.zip",
+            "install_path":"C:/HahaRobot"
         }
     }
 }

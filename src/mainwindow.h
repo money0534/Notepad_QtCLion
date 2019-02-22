@@ -5,6 +5,8 @@
 #include <QFileDialog>
 #include <QStatusBar>
 #include <QQueue>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include "Task.h"
 
 
@@ -70,6 +72,8 @@ private:
     void onAllTaskFinish();
 
     void initTask(QString& url,QString& path);
+
+    void loadConfFromJsonFile();
 public:
     bool isAppChecked;//App选中
     bool isCfgChecked;//Cfg选中

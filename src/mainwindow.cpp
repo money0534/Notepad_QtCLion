@@ -16,6 +16,59 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //下载任务
     tasks = new QQueue<Task *>;
+
+    loadConfFromJsonFile();
+}
+
+void MainWindow::loadConfFromJsonFile() {
+    QFile jsonFile("conf/conf.json");
+    if (!jsonFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "文件打开失败";
+        return;
+    }
+
+    QJsonDocument doc = QJsonDocument::fromJson(jsonFile.readAll());
+    jsonFile.close();
+    //注意take与value差别；take会移除当前
+    QJsonObject obj = doc.object().value("obj").toObject();
+
+    appUrl = obj.value("main_data").toObject().value("down_url").toString();
+    appPath = obj.value("main_data").toObject().value("install_path").toString();
+    cfgUrl = obj.value("conf_data").toObject().value("down_url").toString();
+    cfgPath = obj.value("conf_data").toObject().value("install_path").toString();
+    sceneUrl = obj.value("scene_data").toObject().value("down_url").toString();
+    scenePath = obj.value("scene_data").toObject().value("install_path").toString();
+
+    if (!appUrl.isEmpty()) {
+        ui->leAppUrl->setText(appUrl);
+    }
+
+    if (!appPath.isEmpty()) {
+        ui->lbAppPath->setText(appPath);
+    }
+
+    if (!cfgUrl.isEmpty()) {
+        ui->leCfgUrl->setText(cfgUrl);
+    }
+
+    if (!cfgPath.isEmpty()) {
+        ui->lbCfgPath->setText(cfgPath);
+    }
+
+    if (!sceneUrl.isEmpty()) {
+        ui->leSceneUrl->setText(sceneUrl);
+    }
+
+    if (!scenePath.isEmpty()) {
+        ui->lbScenePath->setText(scenePath);
+    }
+
+    //qDebug() << appUrl;
+    //qDebug() << appPath;
+    //qDebug() << cfgUrl;
+    //qDebug() << cfgPath;
+    //qDebug() << sceneUrl;
+    //qDebug() << scenePath;
 }
 
 MainWindow::~MainWindow() {
@@ -98,7 +151,7 @@ void MainWindow::on_btnDownload_clicked() {
         initTask(sceneUrl, scenePath);
 
     //未下载
-    if (tasks->isEmpty()){
+    if (tasks->isEmpty()) {
         return;
     }
 
@@ -142,14 +195,14 @@ void MainWindow::onTaskFinish() {
 }
 
 void MainWindow::doQuit() {
-    qDebug()<<"doQuit()";
+    qDebug() << "doQuit()";
     close();
 }
 
 void MainWindow::onAllTaskFinish() {
     showStatus("全部下载完成");
 
-    auto msgBox=new QMessageBox;
+    auto msgBox = new QMessageBox;
     msgBox->setText("全部任务下载完成，点击退出！");
     msgBox->exec();
 
@@ -214,6 +267,8 @@ void MainWindow::on_tbScenePath_clicked() {
 void MainWindow::showStatus(QString status) {
     statusBar()->showMessage(status);
 }
+
+
 
 
 
