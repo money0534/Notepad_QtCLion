@@ -15,7 +15,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 #src 1、当.h与.cpp不在同一路径中时，需要分别包含进来（在同一目录时可省略.h） 2、.ui文件（经测试，在CLion中.ui文件需要与对应的class在相同的路径内）
-set(SOURCE_FILES src/main.cpp src/maindialog.cpp src/maindialog.h src/maindialog.ui src/thread.h)
+set(SOURCE_FILES src/main.cpp src/thread.h
+        src/maindialog.cpp src/maindialog.h src/maindialog.ui
+        src/mainwindow.cpp src/mainwindow.h src/mainwindow.ui)
 #resources 1、.qrc文件 2、存放图片资源文件等
 set(RESOURCE_FILES resources/notepad.qrc resources/release.rc)
 
@@ -47,7 +49,7 @@ find_package(Qt5Network REQUIRED)
 include_directories(resources/images)
 
 # WIN32
-add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${RESOURCE_FILES} ${QUA_LIB})# ${PROJECT_NAME} WIN32 ${SOURCE_FILES}
+add_executable(${PROJECT_NAME}  ${SOURCE_FILES} ${RESOURCE_FILES} ${QUA_LIB})# ${PROJECT_NAME} WIN32 ${SOURCE_FILES}
 
 #Qt5::Core Qt5::Quick
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)

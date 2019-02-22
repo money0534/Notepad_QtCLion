@@ -3,6 +3,7 @@
 #include <iostream>
 #include <QtCore/QCommandLineParser>
 #include "maindialog.h"
+#include "mainwindow.h"
 #include <QDebug>
 
 using namespace std;
@@ -40,21 +41,19 @@ int main(int argc, char *argv[])
     QString appUrl = parser.value("a");
     QString appPath = parser.value("d");
 
-//    qDebug()<<"appPath is "<<appPath;
 
-
-//    QString appUrl = "http://www.qt.io/index.html";
-//    QString appUrl = "http://hhzn.img.exueche.com/robotcoach/哈哈智能驾校v2.0_20190214.zip";
-//    QString appPath= "D:\\";
-//    QString appPath= "D:\\Unity\\Projects\\哈哈智能驾校";
-
-    QPair<QString,QString> task(appUrl,appPath);
-    MainDialog dialog(task);
-    dialog.show();
 
     if(appUrl.isEmpty()||appPath.isEmpty()){
-        dialog.showMsg("无更新内容");
+//        dialog.showMsg("无更新内容");
+        //启动手动下载程序
+        MainWindow window;
+        window.show();
+        qDebug()<<"启动手动下载";
     } else{
+        //启动更新程序
+        QPair<QString,QString> task(appUrl,appPath);
+        MainDialog dialog(task);
+        dialog.show();
         dialog.startDownload();
     }
 
