@@ -26,6 +26,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+public:
+    bool isAppChecked;//App选中
+    bool isResChecked;//Res选中
 };
 
 #endif // MAINWINDOW_H
