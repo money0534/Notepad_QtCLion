@@ -50,16 +50,20 @@ void MainDialog::installFinish(){
 
     QStringList arguments;
     myProcess = new QProcess(QCoreApplication::instance());
-    myProcess->start(appDir, arguments);
+
+    //注意与start()区别，前者分离，二者无依赖关系
+    myProcess->startDetached(appDir, arguments);
 
     //最后延时退出
     QTimer::singleShot(500, this, SLOT(doQuit()));
+
 }
 
 
 void MainDialog::doQuit() {
+    qDebug()<<"doQuit()";
     this->close();
-//    QCoreApplication::instance()->quit();
+    QCoreApplication::instance()->quit();
 }
 
 void MainDialog::showMsg(QString content) {
