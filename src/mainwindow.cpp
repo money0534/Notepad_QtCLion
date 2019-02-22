@@ -72,6 +72,7 @@ void MainWindow::loadConfFromJsonFile() {
 }
 
 MainWindow::~MainWindow() {
+    qDebug()<<"~MainWindow";
     delete tasks;
     delete ui;
     delete fileDialog;
@@ -199,6 +200,7 @@ void MainWindow::onTaskFinish() {
 void MainWindow::doQuit() {
     qDebug() << "doQuit()";
     close();
+    deleteLater();
 }
 
 void MainWindow::onAllTaskFinish() {

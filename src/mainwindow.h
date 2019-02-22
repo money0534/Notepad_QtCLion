@@ -75,10 +75,10 @@ private:
 
     void loadConfFromJsonFile();
 public:
-    bool isAppChecked;//App选中
-    bool isCfgChecked;//Cfg选中
-    bool isSceneChecked;//Scene选中
-    QString appPath="C:/HahaRobot";
+    bool isAppChecked = false;//App选中
+    bool isCfgChecked = false;//Cfg选中
+    bool isSceneChecked = false;//Scene选中
+    QString appPath = "C:/HahaRobot";
     QString cfgPath;
     QString scenePath;
 

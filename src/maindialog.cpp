@@ -63,7 +63,8 @@ void MainDialog::installFinish(){
 void MainDialog::doQuit() {
     qDebug()<<"doQuit()";
     this->close();
-    QCoreApplication::instance()->quit();
+//    QCoreApplication::instance()->quit();
+    deleteLater();
 }
 
 void MainDialog::showMsg(QString content) {
