@@ -78,7 +78,8 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_btnCancel_clicked() {
-    currentTask->cancelDownload();
+    if (nullptr != currentTask)
+        currentTask->cancelDownload();
     doQuit();
 }
 
