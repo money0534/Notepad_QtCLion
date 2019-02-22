@@ -18,6 +18,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(SOURCE_FILES src/main.cpp
         src/thread.h
         src/Logger.cpp src/Logger.h
+        src/Task.cpp src/Task.h
         src/ProgressDialog.cpp src/ProgressDialog.h
         src/maindialog.cpp src/maindialog.h src/maindialog.ui
         src/mainwindow.cpp src/mainwindow.h src/mainwindow.ui)

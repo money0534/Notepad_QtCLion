@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QStatusBar>
+#include <QQueue>
+#include "Task.h";
 
 
 namespace Ui {
@@ -38,7 +40,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QFileDialog *fileDialog;
-
+    //下载任务队列
+    QQueue<Task> * tasks;
     //状态栏更新状态
     void showStatus(QString status);
 

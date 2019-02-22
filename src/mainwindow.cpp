@@ -14,10 +14,14 @@ MainWindow::MainWindow(QWidget *parent) :
     //文件选择窗口
     fileDialog = new QFileDialog(this);
     fileDialog->setFileMode(QFileDialog::Directory);
+
+    //下载任务
+    tasks = new QQueue<Task>;
 }
 
 MainWindow::~MainWindow()
 {
+    delete tasks;
     delete ui;
     delete fileDialog;
 }
@@ -32,19 +36,19 @@ void MainWindow::on_btnDownload_clicked()
 {
     qDebug()<<"Download click";
 
-    if(!isCfgChecked&&!isAppChecked){
-        //全都未选中
-        return;
-    }
-
     //app选中
     if(isAppChecked){
-
+        qDebug()<<"app选中";
     }
 
     //res选中
     if(isCfgChecked){
+        qDebug()<<"res选中";
+    }
 
+    //scene选中
+    if(isSceneChecked){
+        qDebug()<<"scene选中";
     }
 }
 
