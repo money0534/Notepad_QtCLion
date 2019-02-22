@@ -24,6 +24,10 @@ private slots:
 
     void on_cbRes_toggled(bool checked);
 
+    void on_tbAppPath_clicked();
+
+    void on_tbResPath_clicked();
+
 private:
     Ui::MainWindow *ui;
 

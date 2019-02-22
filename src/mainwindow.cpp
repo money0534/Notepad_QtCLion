@@ -20,7 +20,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_btnCancel_clicked()
 {
     qDebug()<<"Cancel click";
-
+    close();
 }
 
 void MainWindow::on_btnDownload_clicked()
@@ -39,5 +39,18 @@ void MainWindow::on_cbRes_toggled(bool checked)
 {
     isResChecked=checked;
     qDebug()<<"Res "<<checked;
+
+}
+
+
+void MainWindow::on_tbAppPath_clicked()
+{
+    qDebug()<<"AppPath clicked ";
+//    ui->lbAppPath->setText("D:/Unity/Projects/哈哈智能驾校");
+}
+
+void MainWindow::on_tbResPath_clicked()
+{
+    qDebug()<<"ResPath clicked ";
 
 }

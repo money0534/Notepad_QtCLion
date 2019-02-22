@@ -39,7 +39,7 @@ set(QUA_LIB
         lib/unzip.h
         lib/zconf.h
         lib/zip.h
-        lib/zlib.h)
+        lib/zlib.h src/Logger.cpp src/Logger.h)
 
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)

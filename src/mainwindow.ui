@@ -45,7 +45,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,8">
+        <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,7,1">
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
@@ -57,7 +57,30 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="leAppPath"/>
+          <widget class="QLabel" name="lbAppPath">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(100, 100, 100);</string>
+           </property>
+           <property name="text">
+            <string>（请点击右侧按钮选择安装路径）</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::AutoText</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="tbAppPath">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -109,7 +132,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="2,8">
+        <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="2,7,1">
          <item>
           <widget class="QLabel" name="label_5">
            <property name="text">
@@ -121,7 +144,27 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="leResPath"/>
+          <widget class="QLabel" name="lbResPath">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(100, 100, 100);</string>
+           </property>
+           <property name="text">
+            <string>（请点击右侧按钮选择下载路径）</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="tbResPath">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
