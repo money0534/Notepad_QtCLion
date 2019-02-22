@@ -59,7 +59,7 @@ private:
 
     QString saveFileName(const QUrl &url);
 
-private slots:
+public slots:
     void replyFinished(QNetworkReply *);
 
     bool isHttpRedirect(QNetworkReply *reply);

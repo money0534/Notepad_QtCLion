@@ -78,6 +78,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_btnCancel_clicked() {
+    currentTask->cancelDownload();
     doQuit();
 }
 
@@ -143,7 +144,7 @@ void MainWindow::on_btnDownload_clicked() {
             return;
         }
     }
-    if (isCfgChecked)
+    if (isAppChecked)
         initTask(appUrl, appPath);
     if (isCfgChecked)
         initTask(cfgUrl, cfgPath);
