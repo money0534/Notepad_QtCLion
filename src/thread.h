@@ -24,6 +24,13 @@ public:
         /* ... here is the expensive or blocking operation ... */
 
         if(saveToDisk()){
+            QDir dir(decpPath);
+            //清除目录
+            if(dir.removeRecursively()){
+                qDebug()<<"清除成功："<<decpPath;
+            } else{
+                qDebug()<<"清除失败："<<decpPath;
+            }
             JlCompress::extractDir(zipPath,decpPath);
             emit resultReady();
         }

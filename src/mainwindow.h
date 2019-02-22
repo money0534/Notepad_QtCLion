@@ -47,6 +47,8 @@ public slots:
     //取消任务
     void onTaskCanceled();
 
+    void doQuit();
+
 private:
     Ui::MainWindow *ui;
     QFileDialog *fileDialog;

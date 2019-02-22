@@ -25,8 +25,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_btnCancel_clicked() {
-    qDebug() << "Cancel click";
-    close();
+    doQuit();
 }
 
 void MainWindow::warn(QString msg) {
@@ -120,8 +119,7 @@ void MainWindow::startDownload() {
 }
 
 void MainWindow::onTaskCanceled() {
-    qDebug()<<"任务取消";
-    close();
+    doQuit();
 }
 
 void MainWindow::onDownloadFinish() {
@@ -143,10 +141,21 @@ void MainWindow::onTaskFinish() {
     }
 }
 
+void MainWindow::doQuit() {
+    qDebug()<<"doQuit()";
+    close();
+}
+
 void MainWindow::onAllTaskFinish() {
     showStatus("全部下载完成");
 
+    auto msgBox=new QMessageBox;
+    msgBox->setText("全部任务下载完成，点击退出！");
+    msgBox->exec();
+
     //提醒 和 退出
+    QTimer::singleShot(200, this, SLOT(doQuit()));
+
 }
 
 
