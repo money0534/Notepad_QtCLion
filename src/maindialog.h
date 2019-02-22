@@ -14,6 +14,7 @@
 #include <QTimer>
 #include "thread.h"
 #include "Task.h"
+#include "Logger.h"
 
 namespace Ui {
     class MainDialog;
@@ -43,6 +44,7 @@ private:
     //声明为nullptr 可安全delete
     QProcess *myProcess = nullptr;
     Task* task= nullptr;
+    Logger* logger= nullptr;
 
 
 

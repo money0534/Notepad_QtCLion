@@ -8,12 +8,14 @@ MainDialog::MainDialog(QWidget *parent) :
         QDialog(parent),
         ui(new Ui::MainDialog) {
     ui->setupUi(this);
+
+    logger = new Logger("yyyy-MM-dd HH:mm:ss");
 }
 
 MainDialog::~MainDialog() {
     delete ui;
     delete myProcess;
-//    delete task;
+    delete logger;
 }
 
 MainDialog::MainDialog(QString& url,QString& path, QWidget *parent) :
@@ -30,6 +32,8 @@ MainDialog::MainDialog(QString& url,QString& path, QWidget *parent) :
 
 void MainDialog::onDownloadFinish() {
     showMsg("正在安装更新包...");
+    logger->write("开始解压："+decompressPath);
+
 }
 
 
@@ -46,6 +50,7 @@ void MainDialog::installFinish(){
 
     QString appDir=input.append(program).append(".exe");
     qDebug()<<"启动程序："<<appDir;
+    logger->write("启动程序："+appDir);
 
 
     QStringList arguments;
@@ -73,5 +78,7 @@ void MainDialog::showMsg(QString content) {
 
 void MainDialog::startDownload() {
     showMsg("正在下载更新包...");
+    logger->write("开始下载："+downloadUrl);
+
     task->startDownload();
 }
