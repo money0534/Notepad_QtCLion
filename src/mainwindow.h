@@ -44,6 +44,9 @@ public slots:
     //下载完一个任务
     void onDownloadFinish();
 
+    //取消任务
+    void onTaskCanceled();
+
 private:
     Ui::MainWindow *ui;
     QFileDialog *fileDialog;

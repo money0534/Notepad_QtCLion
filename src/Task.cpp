@@ -115,6 +115,7 @@ void Task::cancelDownload() {
     qDebug() << "取消下载！";
     reply->abort();
     reply->deleteLater();
+    emit cancelTask();
 }
 
 void Task::decompressFinish() {

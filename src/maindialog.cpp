@@ -24,6 +24,7 @@ MainDialog::MainDialog(QString& url,QString& path, QWidget *parent) :
     task = new Task(downloadUrl,decompressPath);
 
     connect(task,&Task::taskFinish,this,&MainDialog::installFinish);
+    connect(task,&Task::cancelTask,this,&MainDialog::doQuit);
 }
 
 

@@ -42,6 +42,9 @@ public:
     //下载结束
     void downloadFinish();
 
+    //取消任务
+    void cancelTask();
+
 
 public:
     QString filename;

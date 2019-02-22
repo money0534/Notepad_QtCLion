@@ -38,6 +38,8 @@ void MainWindow::initTask(QString &url, QString &path) {
     //使用这种方式绑定，SIGNAL和SLOTS测试无效
     connect(task, &Task::downloadFinish, this, &MainWindow::onDownloadFinish);
     connect(task, &Task::taskFinish, this, &MainWindow::onTaskFinish);
+
+    connect(task, &Task::cancelTask, this, &MainWindow::onTaskCanceled);
     tasks->enqueue(task);
 }
 
@@ -115,6 +117,10 @@ void MainWindow::startDownload() {
         showStatus("正在下载 " + currentTask->downloadUrl);
         currentTask->startDownload();
     }
+}
+
+void MainWindow::onTaskCanceled() {
+    close();
 }
 
 void MainWindow::onDownloadFinish() {
