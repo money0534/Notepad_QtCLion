@@ -72,6 +72,10 @@ public:
     QString appPath;
     QString cfgPath;
     QString scenePath;
+
+    QString appUrl;
+    QString cfgUrl;
+    QString sceneUrl;
 };
 
 #endif // MAINWINDOW_H
