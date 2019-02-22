@@ -25,11 +25,18 @@ public:
 
         if(saveToDisk()){
             QDir dir(decpPath);
+
+#if 0   //检查清空目录
             //清除目录
             if(dir.removeRecursively()){
                 qDebug()<<"清除成功："<<decpPath;
             } else{
                 qDebug()<<"清除失败："<<decpPath;
+            }
+#endif
+            if(!dir.exists()){
+                qDebug()<<"创建目录："<<decpPath;
+                dir.mkpath(decpPath);
             }
             JlCompress::extractDir(zipPath,decpPath);
             emit resultReady();

@@ -74,7 +74,7 @@ public:
     bool isAppChecked;//App选中
     bool isCfgChecked;//Cfg选中
     bool isSceneChecked;//Scene选中
-    QString appPath;
+    QString appPath="C:/HahaRobot";
     QString cfgPath;
     QString scenePath;
 
