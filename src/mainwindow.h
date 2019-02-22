@@ -41,6 +41,8 @@ public slots:
 
     //结束完一个任务的回调
     void onTaskFinish();
+    //下载完一个任务
+    void onDownloadFinish();
 
 private:
     Ui::MainWindow *ui;

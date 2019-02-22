@@ -36,8 +36,11 @@ public:
     void doDecompress();
 
     signals:
-    //一个任务结束
+    //一个任务结束，下载和解压
     void taskFinish();
+
+    //下载结束
+    void downloadFinish();
 
 
 public:

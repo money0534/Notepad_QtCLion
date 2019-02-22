@@ -58,6 +58,7 @@ void MainWindow::on_btnDownload_clicked()
         }
         Task* task = new Task(appUrl,appPath);
         //使用这种方式绑定，SIGNAL和SLOTS测试无效
+        connect(task,&Task::downloadFinish,this,&MainWindow::onDownloadFinish);
         connect(task,&Task::taskFinish,this,&MainWindow::onTaskFinish);
         tasks->enqueue(task);
     }
@@ -84,11 +85,17 @@ void MainWindow::startDownload() {
     }
 }
 
-void MainWindow::onTaskFinish() {
+void MainWindow::onDownloadFinish() {
     qDebug()<<"下载结束："<<currentTask->downloadUrl;
+    showStatus("正在解压 "+currentTask->filename +" 到 "+currentTask->decompressPath);
+}
+
+
+void MainWindow::onTaskFinish() {
+    qDebug()<<"任务结束："<<currentTask->downloadUrl;
 
     //删除当前任务
-    delete currentTask;
+//    delete currentTask;
     //开始下一个
     if (!tasks->isEmpty()){
         startDownload();
@@ -98,7 +105,7 @@ void MainWindow::onTaskFinish() {
 }
 
 void MainWindow::onAllTaskFinish() {
-    qDebug()<<"全部下载结束";
+    showStatus("全部任务完成");
 
     //提醒 和 退出
 }

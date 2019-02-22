@@ -62,6 +62,8 @@ void Task::replyFinished(QNetworkReply *reply) {
             fputs("Request was redirected.\n", stderr);
         } else {
             filename = saveFileName(url);
+            emit downloadFinish();
+
             if (saveToDisk(filename, reply)) {
                 printf("Download of %s succeeded (saved to %s)\n",
                        url.toEncoded().constData(), qPrintable(filename));
