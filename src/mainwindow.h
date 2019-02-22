@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileDialog>
+
 
 namespace Ui {
 class MainWindow;
@@ -30,10 +32,12 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
+    QFileDialog *fileDialog;
 public:
     bool isAppChecked;//App选中
     bool isResChecked;//Res选中
+    QString appPath;
+    QString resPath;
 };
 
 #endif // MAINWINDOW_H

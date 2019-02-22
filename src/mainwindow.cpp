@@ -10,11 +10,16 @@ MainWindow::MainWindow(QWidget *parent) :
     //禁用窗口大小调节和最大化按钮
     setWindowFlags(windowFlags()& ~Qt::WindowMaximizeButtonHint);
     setFixedSize(this->width(), this->height());
+
+    //文件选择窗口
+    fileDialog = new QFileDialog(this);
+    fileDialog->setFileMode(QFileDialog::Directory);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete fileDialog;
 }
 
 void MainWindow::on_btnCancel_clicked()
@@ -45,12 +50,27 @@ void MainWindow::on_cbRes_toggled(bool checked)
 
 void MainWindow::on_tbAppPath_clicked()
 {
-    qDebug()<<"AppPath clicked ";
-//    ui->lbAppPath->setText("D:/Unity/Projects/哈哈智能驾校");
+//    qDebug()<<"AppPath clicked ";
+
+    fileDialog->show();
+
+    if(fileDialog->exec()){
+        appPath = fileDialog->selectedFiles()[0];
+            qDebug()<<appPath;
+            ui->lbAppPath->setText(appPath);
+        ui->lbAppPath->setStyleSheet("color: black;");
+    }
 }
 
 void MainWindow::on_tbResPath_clicked()
 {
-    qDebug()<<"ResPath clicked ";
+//    qDebug()<<"ResPath clicked ";
+    fileDialog->show();
 
+    if(fileDialog->exec()){
+        resPath = fileDialog->selectedFiles()[0];
+        qDebug()<<resPath;
+        ui->lbResPath->setText(resPath);
+        ui->lbResPath->setStyleSheet("color: black;");
+    }
 }
