@@ -15,7 +15,7 @@ Task::~Task() {
     delete thread;
 }
 
-Task::Task(QString url,QString path,QObject*parent) :
+Task::Task(QString &url,QString &path,QObject*parent) :
         QObject(parent),
          manager(new QNetworkAccessManager(this)), downloadUrl(url),
         decompressPath(path) {

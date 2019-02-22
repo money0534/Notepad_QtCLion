@@ -13,6 +13,7 @@
 #include <QProcess>
 #include <QTimer>
 #include "thread.h"
+#include "Task.h"
 
 namespace Ui {
     class MainDialog;
@@ -24,40 +25,29 @@ Q_OBJECT
 public:
     explicit MainDialog(QWidget *parent = nullptr);
 
-    explicit MainDialog(QString url,QString path, QWidget *parent = nullptr);
+    explicit MainDialog(QString& url,QString& path, QWidget *parent = nullptr);
 
     ~MainDialog();
 
-    void startDownload();
-
-    void doInstall();
-
     void showMsg(QString content);
+
+    //开始下载任务
+    void startDownload();
 
 
 private:
-    QString filename;
-//    QPair<QString, QString> taskEntity;
+    Ui::MainDialog *ui;
     QString downloadUrl;
     QString decompressPath;
-    Ui::MainDialog *ui;
-    //声明为nullptr 可安全delete
-    QNetworkAccessManager *manager = nullptr;
-    QNetworkReply* reply = nullptr;
-    QProcess *myProcess = nullptr;
-    WorkerThread* thread = nullptr;
 
-    QString saveFileName(const QUrl &url);
-    bool saveToDisk(const QString &filename, QIODevice *data);
+    //声明为nullptr 可安全delete
+    QProcess *myProcess = nullptr;
+    Task* task= nullptr;
+
 
 
 private slots:
 
-    void replyFinished(QNetworkReply *);
-
-    bool isHttpRedirect(QNetworkReply *reply);
-
-    void cancelDownload();
 
     void installFinish();
 

@@ -25,7 +25,7 @@ class Task : public QObject{
 
 public:
 
-    explicit Task(QString url,QString path,QObject *parent = nullptr);
+    explicit Task(QString &url,QString &path,QObject *parent = nullptr);
 
     ~Task();
 
