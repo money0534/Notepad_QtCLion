@@ -48,6 +48,7 @@ private:
 
 private slots:
 
+    void onDownloadFinish();
 
     void installFinish();
 

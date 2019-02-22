@@ -120,6 +120,7 @@ void MainWindow::startDownload() {
 }
 
 void MainWindow::onTaskCanceled() {
+    qDebug()<<"任务取消";
     close();
 }
 

@@ -23,13 +23,18 @@ MainDialog::MainDialog(QString& url,QString& path, QWidget *parent) :
 
     task = new Task(downloadUrl,decompressPath);
 
-    connect(task,&Task::taskFinish,this,&MainDialog::installFinish);
     connect(task,&Task::cancelTask,this,&MainDialog::doQuit);
+    connect(task, &Task::downloadFinish, this, &MainDialog::onDownloadFinish);
+    connect(task,&Task::taskFinish,this,&MainDialog::installFinish);
+}
+
+void MainDialog::onDownloadFinish() {
+    showMsg("正在安装更新包...");
 }
 
 
 void MainDialog::installFinish(){
-    qDebug() << "解压完成！";
+//    qDebug() << "解压完成！";
     showMsg("更新完成，即将启动");
 
     //启动Unity，如：D:/Unity/Projects/HahaRobot
@@ -54,8 +59,7 @@ void MainDialog::installFinish(){
 
 void MainDialog::doQuit() {
     this->close();
-    QCoreApplication::instance()->quit();
-    qDebug()<<"doQuit()";
+//    QCoreApplication::instance()->quit();
 }
 
 void MainDialog::showMsg(QString content) {
@@ -63,5 +67,6 @@ void MainDialog::showMsg(QString content) {
 }
 
 void MainDialog::startDownload() {
+    showMsg("正在下载更新包...");
     task->startDownload();
 }
