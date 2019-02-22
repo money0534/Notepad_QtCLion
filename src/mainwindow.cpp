@@ -61,6 +61,11 @@ void MainWindow::on_cbCfg_toggled(bool checked)
 
 }
 
+void MainWindow::on_cbScene_toggled(bool checked)
+{
+    isSceneChecked=checked;
+    qDebug()<<"Scene "<<checked;
+}
 
 void MainWindow::on_tbAppPath_clicked()
 {
@@ -88,3 +93,17 @@ void MainWindow::on_tbCfgPath_clicked()
         ui->lbCfgPath->setStyleSheet("color: black;");
     }
 }
+
+void MainWindow::on_tbScenePath_clicked()
+{
+    fileDialog->show();
+
+    if(fileDialog->exec()){
+        scenePath = fileDialog->selectedFiles()[0];
+        qDebug()<<scenePath;
+        ui->lbScenePath->setText(scenePath);
+        ui->lbScenePath->setStyleSheet("color: black;");
+    }
+}
+
+

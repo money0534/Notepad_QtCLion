@@ -30,14 +30,20 @@ private slots:
 
     void on_tbCfgPath_clicked();
 
+    void on_tbScenePath_clicked();
+
+    void on_cbScene_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
     QFileDialog *fileDialog;
 public:
     bool isAppChecked;//App选中
     bool isCfgChecked;//Cfg选中
+    bool isSceneChecked;//Scene选中
     QString appPath;
     QString cfgPath;
+    QString scenePath;
 };
 
 #endif // MAINWINDOW_H
