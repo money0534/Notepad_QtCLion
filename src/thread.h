@@ -12,6 +12,10 @@ class WorkerThread : public QThread
 {
 
 public:
+    ~WorkerThread(){
+
+    }
+
     WorkerThread(QObject *parent, const QString &zipPath, const QString &decpPath,QIODevice *d) : QThread(
             parent), zipPath(zipPath), decpPath(decpPath),data(d) {}
 
@@ -37,6 +41,9 @@ public:
 
         file.write(data->readAll());
         file.close();
+        //需放在此处 销毁对象
+        data->deleteLater();
+
         return true;
     }
 

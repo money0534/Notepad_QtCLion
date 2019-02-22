@@ -151,10 +151,10 @@ void MainDialog::doInstall() {
     showMsg("安装中，请稍后...");
     qDebug() << "开始解压："<<filename;
 
-    thread = new WorkerThread(this,filename,decompressPath);
-    connect(thread, &WorkerThread::resultReady, this, &MainDialog::installFinish);
-
-    thread->start();
+//    thread = new WorkerThread(this,filename,decompressPath);
+//    connect(thread, &WorkerThread::resultReady, this, &MainDialog::installFinish);
+//
+//    thread->start();
 
 }
 

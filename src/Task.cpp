@@ -68,7 +68,6 @@ void Task::replyFinished(QNetworkReply *reply) {
         }
     }
 
-    reply->deleteLater();
 
 }
 
