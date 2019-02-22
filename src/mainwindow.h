@@ -63,6 +63,8 @@ private:
 
     //所有任务结束
     void onAllTaskFinish();
+
+    void initTask(QString& url,QString& path);
 public:
     bool isAppChecked;//App选中
     bool isCfgChecked;//Cfg选中

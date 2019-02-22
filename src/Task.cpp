@@ -40,11 +40,11 @@ void Task::startDownload() {
     progressDialog->show();
 }
 
-void Task::doDecompress() {
+void Task::doDecompress(QNetworkReply *reply) {
 
     qDebug() << "开始解压："<<filename;
 
-    thread = new WorkerThread(this,filename,decompressPath);
+    thread = new WorkerThread(this,filename,decompressPath,reply);
     connect(thread, &WorkerThread::resultReady, this, &Task::decompressFinish);
 
     thread->start();
@@ -64,12 +64,7 @@ void Task::replyFinished(QNetworkReply *reply) {
             filename = saveFileName(url);
             emit downloadFinish();
 
-            if (saveToDisk(filename, reply)) {
-                printf("Download of %s succeeded (saved to %s)\n",
-                       url.toEncoded().constData(), qPrintable(filename));
-            }
-
-            doDecompress();
+            doDecompress(reply);
         }
     }
 

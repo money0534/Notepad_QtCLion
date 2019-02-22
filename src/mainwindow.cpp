@@ -36,6 +36,14 @@ void MainWindow::warn(QString msg){
     QMessageBox::warning(this,"警告",msg);
 }
 
+void MainWindow::initTask(QString& url,QString& path) {
+    Task* task = new Task(url,path);
+    //使用这种方式绑定，SIGNAL和SLOTS测试无效
+    connect(task,&Task::downloadFinish,this,&MainWindow::onDownloadFinish);
+    connect(task,&Task::taskFinish,this,&MainWindow::onTaskFinish);
+    tasks->enqueue(task);
+}
+
 void MainWindow::on_btnDownload_clicked()
 {
     //禁用下载按钮
@@ -53,24 +61,42 @@ void MainWindow::on_btnDownload_clicked()
         }
 
         if(appPath.isEmpty()){
-            warn("请输入应用安装路径！");
+            warn("请选择应用安装路径！");
             return;
         }
-        Task* task = new Task(appUrl,appPath);
-        //使用这种方式绑定，SIGNAL和SLOTS测试无效
-        connect(task,&Task::downloadFinish,this,&MainWindow::onDownloadFinish);
-        connect(task,&Task::taskFinish,this,&MainWindow::onTaskFinish);
-        tasks->enqueue(task);
+        initTask(appUrl,appPath);
     }
 
     //res选中
     if(isCfgChecked){
         qDebug()<<"res选中";
+        QString cfgUrl = ui->leCfgUrl->text().trimmed();
+        if(cfgUrl.isEmpty()){
+            warn("请输入配置文件下载地址！");
+            return;
+        }
+
+        if(cfgPath.isEmpty()){
+            warn("请选择配置文件解压路径！");
+            return;
+        }
+        initTask(cfgUrl,cfgPath);
     }
 
     //scene选中
     if(isSceneChecked){
         qDebug()<<"scene选中";
+        QString sceneUrl = ui->leSceneUrl->text().trimmed();
+        if(sceneUrl.isEmpty()){
+            warn("请输入场景文件下载地址！");
+            return;
+        }
+
+        if(scenePath.isEmpty()){
+            warn("请选择场景文件解压路径！");
+            return;
+        }
+        initTask(sceneUrl,scenePath);
     }
 
     startDownload();
@@ -173,6 +199,8 @@ void MainWindow::on_tbScenePath_clicked()
 void MainWindow::showStatus(QString status) {
     statusBar()->showMessage(status);
 }
+
+
 
 
 

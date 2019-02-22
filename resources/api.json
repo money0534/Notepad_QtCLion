@@ -1,18 +1,18 @@
 {
-    "code": 1, 
-    "msg": "查询成功", 
+    "code": 1,
+    "msg": "查询成功",
     "obj": {
         "main_data": {
-            "version_code": "v1.2_20190216", 
+            "version_code": "v1.2_20190216",
             "down_url": "http://www.jiaolianmishu.com/robot_mock_version/哈哈智能驾校_v1.2_20190216.zip"
-        }, 
+        },
         "conf_data": {
-            "update_time": "20190214142139", 
-            "down_url": "http://hhzn.img.exueche.com/robotcoach/conf_file.rar"
-        }, 
+            "update_time": "20190214142139",
+            "down_url": "http://www.jiaolianmishu.com/robot_mock_version/工作计划2019-02-22.zip"
+        },
         "scene_data": {
-            "update_time": "20190214142139", 
-            "down_url": "http://hhzn.img.exueche.com/robotcoach/scene_file.rar"
+            "update_time": "20190214142139",
+            "down_url": "http://www.jiaolianmishu.com/robot_mock_version/工作计划2019-02-22.zip"
         }
     }
 }

@@ -12,22 +12,36 @@ class WorkerThread : public QThread
 {
 
 public:
-    WorkerThread(QObject *parent, const QString &zipPath, const QString &decpPath) : QThread(
-            parent), zipPath(zipPath), decpPath(decpPath) {}
+    WorkerThread(QObject *parent, const QString &zipPath, const QString &decpPath,QIODevice *d) : QThread(
+            parent), zipPath(zipPath), decpPath(decpPath),data(d) {}
 
     Q_OBJECT
     void run() override {
-        QString result;
         /* ... here is the expensive or blocking operation ... */
 
-
+        saveToDisk();
         JlCompress::extractDir(zipPath,decpPath);
 
         emit resultReady();
     }
 
+    bool saveToDisk(){
+        QFile file(zipPath);
+        if (!file.open(QIODevice::WriteOnly)) {
+            fprintf(stderr, "Could not open %s for writing: %s\n",
+                    qPrintable(zipPath),
+                    qPrintable(file.errorString()));
+            return false;
+        }
+
+        file.write(data->readAll());
+        file.close();
+        return true;
+    }
+
     QString zipPath;
     QString decpPath;
+    QIODevice *data;
     signals:
             void resultReady();
 };

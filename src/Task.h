@@ -33,7 +33,7 @@ public:
     void startDownload();
 
     //解压
-    void doDecompress();
+    void doDecompress(QNetworkReply *reply);
 
     signals:
     //一个任务结束，下载和解压
