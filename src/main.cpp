@@ -43,18 +43,19 @@ int main(int argc, char *argv[])
 
 
 
+    //{}结束后MainWindow生命周期结束，这里通过new在堆上申请内存
     if(appUrl.isEmpty()||appPath.isEmpty()){
 //        dialog.showMsg("无更新内容");
         //启动手动下载程序
-        MainWindow window;
-        window.show();
+        MainWindow * window = new MainWindow;
+        window->show();
         qDebug()<<"启动手动下载";
     } else{
         //启动更新程序
         QPair<QString,QString> task(appUrl,appPath);
-        MainDialog dialog(task);
-        dialog.show();
-        dialog.startDownload();
+        MainDialog * dialog = new MainDialog(task);
+        dialog->show();
+        dialog->startDownload();
     }
 
     return app.exec();
