@@ -37,10 +37,10 @@ private slots:
 
     void on_cbScene_toggled(bool checked);
 
+public slots:
+
     //结束完一个任务的回调
     void onTaskFinish();
-    //所有任务结束
-    void onAllTaskFinish();
 
 private:
     Ui::MainWindow *ui;
@@ -59,6 +59,8 @@ private:
     //开始下载任务
     void startDownload();
 
+    //所有任务结束
+    void onAllTaskFinish();
 public:
     bool isAppChecked;//App选中
     bool isCfgChecked;//Cfg选中
