@@ -52,8 +52,7 @@ int main(int argc, char *argv[])
 //        qDebug()<<"启动手动下载";
     } else{
         //启动更新程序
-        QPair<QString,QString> task(appUrl,appPath);
-        MainDialog * dialog = new MainDialog(task);
+        MainDialog * dialog = new MainDialog(appUrl,appPath);
         dialog->show();
         dialog->startDownload();
     }

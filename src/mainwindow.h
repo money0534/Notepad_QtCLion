@@ -5,7 +5,7 @@
 #include <QFileDialog>
 #include <QStatusBar>
 #include <QQueue>
-#include "Task.h";
+#include "Task.h"
 
 
 namespace Ui {

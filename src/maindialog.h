@@ -24,7 +24,7 @@ Q_OBJECT
 public:
     explicit MainDialog(QWidget *parent = nullptr);
 
-    explicit MainDialog(QPair<QString, QString> taskEntity, QWidget *parent = nullptr);
+    explicit MainDialog(QString url,QString path, QWidget *parent = nullptr);
 
     ~MainDialog();
 
@@ -37,7 +37,9 @@ public:
 
 private:
     QString filename;
-    QPair<QString, QString> taskEntity;
+//    QPair<QString, QString> taskEntity;
+    QString downloadUrl;
+    QString decompressPath;
     Ui::MainDialog *ui;
     //声明为nullptr 可安全delete
     QNetworkAccessManager *manager = nullptr;

@@ -18,13 +18,14 @@ MainDialog::~MainDialog() {
     delete thread;
 }
 
-MainDialog::MainDialog(QPair<QString, QString> taskEntity, QWidget *parent) :
+MainDialog::MainDialog(QString url,QString path, QWidget *parent) :
         QDialog(parent),
-        ui(new Ui::MainDialog), manager(new QNetworkAccessManager(this)) {
+        ui(new Ui::MainDialog), manager(new QNetworkAccessManager(this)), downloadUrl(url),
+decompressPath(path) {
     ui->setupUi(this);
-    this->taskEntity = taskEntity;
 
-    qDebug() << taskEntity.first << "," << taskEntity.second;
+
+    qDebug() << downloadUrl << "," << decompressPath;
 
 }
 
@@ -33,7 +34,7 @@ void MainDialog::startDownload() {
 
     connect(manager, &QNetworkAccessManager::finished, this, &MainDialog::replyFinished);
 
-    QUrl url(taskEntity.first);
+    QUrl url(downloadUrl);
     reply = manager->get(QNetworkRequest(url));
     ProgressDialog *progressDialog = new ProgressDialog(url, this);
     progressDialog->setAttribute(Qt::WA_DeleteOnClose);
@@ -125,7 +126,7 @@ void MainDialog::installFinish(){
     showMsg("更新完成，即将启动");
 
     //启动Unity，如：D:/Unity/Projects/HahaRobot
-    QString input = taskEntity.second;
+    QString input = decompressPath;
 
     //截取后：/HahaRobot
     QString program = input.right(input.length()-input.lastIndexOf("/"));
@@ -144,36 +145,15 @@ void MainDialog::installFinish(){
 }
 
 
-//void MainDialog::installFinish(){
-//    qDebug() << "解压完成！";
-//    showMsg("更新完成，即将启动");
-//
-//    //启动Unity
-//    QStringList array = taskEntity.second.split("/");
-//
-//    QString program = taskEntity.second+"/"+array[array.length()-1]+".exe";
-//    qDebug()<<"启动程序："<<program;
-//
-//
-//    QStringList arguments;
-//    myProcess = new QProcess(QCoreApplication::instance());
-//    myProcess->start(program, arguments);
-//
-//    //最后延时退出
-//    QTimer::singleShot(500, this, SLOT(doQuit()));
-//}
-
 void MainDialog::doInstall() {
 
 //    filename = "D:/哈哈智能驾校.zip";
     showMsg("安装中，请稍后...");
     qDebug() << "开始解压："<<filename;
 
-    thread = new WorkerThread(this,filename,taskEntity.second);
+    thread = new WorkerThread(this,filename,decompressPath);
     connect(thread, &WorkerThread::resultReady, this, &MainDialog::installFinish);
 
-
-//    JlCompress::extractDir("D:\\哈哈.zip","D:\\111");//compressDir
     thread->start();
 
 }
