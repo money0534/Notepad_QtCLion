@@ -20,6 +20,7 @@ public:
         QString result;
         /* ... here is the expensive or blocking operation ... */
 
+
         JlCompress::extractDir(zipPath,decpPath);
 
         emit resultReady();

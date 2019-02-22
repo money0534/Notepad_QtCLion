@@ -57,8 +57,8 @@ void MainWindow::on_btnDownload_clicked()
             return;
         }
         Task* task = new Task(appUrl,appPath);
-        tasks->enqueue(task);
         connect(task,SIGNAL(taskFinish),this,SLOT(onTaskFinish));
+        tasks->enqueue(task);
     }
 
     //res选中
@@ -76,13 +76,19 @@ void MainWindow::on_btnDownload_clicked()
 
 void MainWindow::startDownload() {
     if (!tasks->isEmpty()){
-        Task * task = tasks->dequeue();
-        qDebug()<<"开始下载："<<task->downloadUrl;
-        task->startDownload();
+        currentTask = tasks->dequeue();
+        qDebug()<<"开始下载："<<currentTask->downloadUrl;
+        showStatus("正在下载："+currentTask->filename);
+        currentTask->startDownload();
     }
 }
 
 void MainWindow::onTaskFinish() {
+    qDebug()<<"下载结束："<<currentTask->downloadUrl;
+
+    //删除当前任务
+    delete currentTask;
+    //开始下一个
     if (!tasks->isEmpty()){
         startDownload();
     } else{

@@ -9,6 +9,7 @@
 using namespace std;
 
 Task::~Task() {
+    qDebug()<<"~Task()";
     delete reply;
     delete manager;
     delete thread;
@@ -122,4 +123,6 @@ void Task::cancelDownload() {
 
 void Task::decompressFinish() {
     qDebug()<<"解压完成："<<decompressPath;
+    emit taskFinish();
+
 }

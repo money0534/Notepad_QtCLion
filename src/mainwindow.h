@@ -47,6 +47,9 @@ private:
     QFileDialog *fileDialog;
     //下载任务队列
     QQueue<Task*> * tasks;
+    Task* currentTask = nullptr;//当前任务
+
+
     //状态栏更新状态
     void showStatus(QString status);
 
