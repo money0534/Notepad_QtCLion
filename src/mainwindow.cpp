@@ -15,3 +15,23 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_btnCancel_clicked()
+{
+
+}
+
+void MainWindow::on_btnDownload_clicked()
+{
+
+}
+
+void MainWindow::on_cbApp_toggled(bool checked)
+{
+
+}
+
+void MainWindow::on_cbRes_toggled(bool checked)
+{
+
+}
