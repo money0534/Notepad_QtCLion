@@ -131,7 +131,7 @@ void MainWindow::onTaskFinish() {
 }
 
 void MainWindow::onAllTaskFinish() {
-    showStatus("全部任务完成");
+    showStatus("全部下载完成");
 
     //提醒 和 退出
 }
