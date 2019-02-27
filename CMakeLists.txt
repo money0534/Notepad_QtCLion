@@ -22,7 +22,8 @@ set(SOURCE_FILES
         src/Task.cpp src/Task.h
         src/ProgressDialog.cpp src/ProgressDialog.h
         src/maindialog.cpp src/maindialog.h src/maindialog.ui
-        src/mainwindow.cpp src/mainwindow.h src/mainwindow.ui)
+        src/mainwindow.cpp src/mainwindow.h src/mainwindow.ui
+        )
 #resources 1、.qrc文件 2、存放图片资源文件等
 set(RESOURCE_FILES resources/notepad.qrc resources/release.rc)
 
@@ -70,15 +71,16 @@ target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)
 
 
 #confusing???
-#if dll name is quazip.dll then executable looks for quaziprelease.dll,
-#while if dll name is quazipd.dll then executable looks for quazip.dll
+#if dll name is quazipd.dll then executable looks for quaziprelease.dll,
+#while if dll name is quazipd.dll then executable looks for quazipd.dll
 #it depends on the dll name you compiled in QtCreator,so it explains the strange phenomenon above
 
 #dll debug https://cmake.org/cmake/help/v3.0/command/target_link_libraries.html
-target_link_libraries(${PROJECT_NAME} debug libzip/quazipd.dll)
+target_link_libraries(${PROJECT_NAME} debug ${PROJECT_SOURCE_DIR}/libzip/Debug/quazipd.dll)
 
-#dll builds except debug
-target_link_libraries(${PROJECT_NAME} optimized libzip/Release/quazip.dll)
+#-L声明路径？解决错误：x86_64-w64-mingw32/bin/ld.exe: cannot find -llibzip/Release/quazip.dll
+#general:for all configs;debug: debug;optimized: dll builds except debug
+target_link_libraries(${PROJECT_NAME} optimized ${PROJECT_SOURCE_DIR}/libzip/Release/quazip.dll)
 
 #讯飞语音
 target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/libmsc/msc_x64.dll)
@@ -96,11 +98,12 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD        # Adds a post-build 
         "${PROJECT_SOURCE_DIR}/libmsc/jets"      # <--this is in-file
         $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 
-#根据配置Debug/Release配置 拷贝quazip dll库
-#add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-#        COMMAND ${CMAKE_COMMAND} -E copy_directory
-#        "${PROJECT_SOURCE_DIR}/libzip/Debug"
-#        $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+#参考 https://cmake.org/cmake/help/v3.0/manual/cmake-generator-expressions.7.html
+#查看预定义变量<VAR>
+#根据配置Debug/Release配置 选择拷贝quazip dll库
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${PROJECT_SOURCE_DIR}/libzip/$<CONFIG>"
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 
-message("${PROJECT_NAME} build succeed")
-#message("$<CONFIGURATION>")
+message("${PROJECT_NAME} build succeed.")
