@@ -1,7 +1,7 @@
 /*
-* è¯­éŸ³åˆæˆï¼ˆText To Speechï¼ŒTTSï¼‰æŠ€æœ¯èƒ½å¤Ÿè‡ªåŠ¨å°†ä»»æ„æ–‡å­—å®æ—¶è½¬æ¢ä¸ºè¿ç»­çš„
-* è‡ªç„¶è¯­éŸ³ï¼Œæ˜¯ä¸€ç§èƒ½å¤Ÿåœ¨ä»»ä½•æ—¶é—´ã€ä»»ä½•åœ°ç‚¹ï¼Œå‘ä»»ä½•äººæä¾›è¯­éŸ³ä¿¡æ¯æœåŠ¡çš„
-* é«˜æ•ˆä¾¿æ·æ‰‹æ®µï¼Œéå¸¸ç¬¦åˆä¿¡æ¯æ—¶ä»£æµ·é‡æ•°æ®ã€åŠ¨æ€æ›´æ–°å’Œä¸ªæ€§åŒ–æŸ¥è¯¢çš„éœ€æ±‚ã€‚
+* ÓïÒôºÏ³É£¨Text To Speech£¬TTS£©¼¼ÊõÄÜ¹»×Ô¶¯½«ÈÎÒâÎÄ×ÖÊµÊ±×ª»»ÎªÁ¬ĞøµÄ
+* ×ÔÈ»ÓïÒô£¬ÊÇÒ»ÖÖÄÜ¹»ÔÚÈÎºÎÊ±¼ä¡¢ÈÎºÎµØµã£¬ÏòÈÎºÎÈËÌá¹©ÓïÒôĞÅÏ¢·şÎñµÄ
+* ¸ßĞ§±ã½İÊÖ¶Î£¬·Ç³£·ûºÏĞÅÏ¢Ê±´úº£Á¿Êı¾İ¡¢¶¯Ì¬¸üĞÂºÍ¸öĞÔ»¯²éÑ¯µÄĞèÇó¡£
 */
 
 //Console Input/Output
@@ -15,26 +15,26 @@
 #include <memory.h>
 #include <mem.h>
 
-/* wavéŸ³é¢‘å¤´éƒ¨æ ¼å¼ */
+/* wavÒôÆµÍ·²¿¸ñÊ½ */
 typedef struct _wave_pcm_hdr {
     char riff[4];                // = "RIFF"
     int size_8;                 // = FileSize - 8
     char wave[4];                // = "WAVE"
     char fmt[4];                 // = "fmt "
-    int fmt_size;                // = ä¸‹ä¸€ä¸ªç»“æ„ä½“çš„å¤§å° : 16
+    int fmt_size;                // = ÏÂÒ»¸ö½á¹¹ÌåµÄ´óĞ¡ : 16
 
     short int format_tag;             // = PCM : 1
-    short int channels;               // = é€šé“æ•° : 1
-    int samples_per_sec;        // = é‡‡æ ·ç‡ : 8000 | 6000 | 11025 | 16000
-    int avg_bytes_per_sec;      // = æ¯ç§’å­—èŠ‚æ•° : samples_per_sec * bits_per_sample / 8
-    short int block_align;            // = æ¯é‡‡æ ·ç‚¹å­—èŠ‚æ•° : wBitsPerSample / 8
-    short int bits_per_sample;        // = é‡åŒ–æ¯”ç‰¹æ•°: 8 | 16
+    short int channels;               // = Í¨µÀÊı : 1
+    int samples_per_sec;        // = ²ÉÑùÂÊ : 8000 | 6000 | 11025 | 16000
+    int avg_bytes_per_sec;      // = Ã¿Ãë×Ö½ÚÊı : samples_per_sec * bits_per_sample / 8
+    short int block_align;            // = Ã¿²ÉÑùµã×Ö½ÚÊı : wBitsPerSample / 8
+    short int bits_per_sample;        // = Á¿»¯±ÈÌØÊı: 8 | 16
 
     char data[4];                // = "data";
-    int data_size;              // = çº¯æ•°æ®é•¿åº¦ : FileSize - 44
+    int data_size;              // = ´¿Êı¾İ³¤¶È : FileSize - 44
 } wave_pcm_hdr;
 
-/* é»˜è®¤wavéŸ³é¢‘å¤´éƒ¨æ•°æ® */
+/* Ä¬ÈÏwavÒôÆµÍ·²¿Êı¾İ */
 wave_pcm_hdr default_wav_hdr =
         {
                 {'R', 'I', 'F', 'F'},
@@ -53,11 +53,11 @@ wave_pcm_hdr default_wav_hdr =
         };
 
 /**
- * æ–‡æœ¬åˆæˆ
- * @param src_text åˆæˆæ–‡æœ¬
- * @param des_path ä¿å­˜æ–‡ä»¶å
- * @param params åˆæˆå‚æ•°
- * @return ret åˆæˆç»“æœ 0æˆåŠŸï¼Œ-1å¤±è´¥
+ * ÎÄ±¾ºÏ³É
+ * @param src_text ºÏ³ÉÎÄ±¾
+ * @param des_path ±£´æÎÄ¼şÃû
+ * @param params ºÏ³É²ÎÊı
+ * @return ret ºÏ³É½á¹û 0³É¹¦£¬-1Ê§°Ü
  */
 int text_to_speech(const char *src_text, const char *des_path, const char *params) {
     int ret = -1;
@@ -72,13 +72,13 @@ int text_to_speech(const char *src_text, const char *des_path, const char *param
         return ret;
     }
 
-    //wå†™ï¼›bäºŒè¿›åˆ¶æ–‡ä»¶
+    //wĞ´£»b¶ş½øÖÆÎÄ¼ş
     fp = fopen(des_path, "wb");
     if (NULL == fp) {
         printf("open %s error.\n", des_path);
         return ret;
     }
-    /* å¼€å§‹åˆæˆ */
+    /* ¿ªÊ¼ºÏ³É */
     sessionID = QTTSSessionBegin(params, &ret);
     if (MSP_SUCCESS != ret) {
         printf("QTTSSessionBegin failed, error code: %d.\n", ret);
@@ -92,16 +92,16 @@ int text_to_speech(const char *src_text, const char *des_path, const char *param
         fclose(fp);
         return ret;
     }
-    printf("æ­£åœ¨åˆæˆ ...\n");
-    fwrite(&wav_hdr, sizeof(wav_hdr), 1, fp); //æ·»åŠ wavéŸ³é¢‘å¤´ï¼Œä½¿ç”¨é‡‡æ ·ç‡ä¸º16000
+    printf("ÕıÔÚºÏ³É ...\n");
+    fwrite(&wav_hdr, sizeof(wav_hdr), 1, fp); //Ìí¼ÓwavÒôÆµÍ·£¬Ê¹ÓÃ²ÉÑùÂÊÎª16000
     while (1) {
-        /* è·å–åˆæˆéŸ³é¢‘ */
+        /* »ñÈ¡ºÏ³ÉÒôÆµ */
         const void *data = QTTSAudioGet(sessionID, &audio_len, &synth_status, &ret);
         if (MSP_SUCCESS != ret)
             break;
         if (NULL != data) {
             fwrite(data, audio_len, 1, fp);
-            wav_hdr.data_size += audio_len; //è®¡ç®—data_sizeå¤§å°
+            wav_hdr.data_size += audio_len; //¼ÆËãdata_size´óĞ¡
         }
         if (MSP_TTS_FLAG_DATA_END == synth_status)
             break;
@@ -113,17 +113,17 @@ int text_to_speech(const char *src_text, const char *des_path, const char *param
         fclose(fp);
         return ret;
     }
-    /* ä¿®æ­£wavæ–‡ä»¶å¤´æ•°æ®çš„å¤§å° */
+    /* ĞŞÕıwavÎÄ¼şÍ·Êı¾İµÄ´óĞ¡ */
     wav_hdr.size_8 += wav_hdr.data_size + (sizeof(wav_hdr) - 8);
 
-    /* å°†ä¿®æ­£è¿‡çš„æ•°æ®å†™å›æ–‡ä»¶å¤´éƒ¨,éŸ³é¢‘æ–‡ä»¶ä¸ºwavæ ¼å¼ */
+    /* ½«ĞŞÕı¹ıµÄÊı¾İĞ´»ØÎÄ¼şÍ·²¿,ÒôÆµÎÄ¼şÎªwav¸ñÊ½ */
     fseek(fp, 4, 0);
-    fwrite(&wav_hdr.size_8, sizeof(wav_hdr.size_8), 1, fp); //å†™å…¥size_8çš„å€¼
-    fseek(fp, 40, 0); //å°†æ–‡ä»¶æŒ‡é’ˆåç§»åˆ°å­˜å‚¨data_sizeå€¼çš„ä½ç½®
-    fwrite(&wav_hdr.data_size, sizeof(wav_hdr.data_size), 1, fp); //å†™å…¥data_sizeçš„å€¼
+    fwrite(&wav_hdr.size_8, sizeof(wav_hdr.size_8), 1, fp); //Ğ´Èësize_8µÄÖµ
+    fseek(fp, 40, 0); //½«ÎÄ¼şÖ¸ÕëÆ«ÒÆµ½´æ´¢data_sizeÖµµÄÎ»ÖÃ
+    fwrite(&wav_hdr.data_size, sizeof(wav_hdr.data_size), 1, fp); //Ğ´Èëdata_sizeµÄÖµ
     fclose(fp);
     fp = NULL;
-    /* åˆæˆå®Œæ¯• */
+    /* ºÏ³ÉÍê±Ï */
     ret = QTTSSessionEnd(sessionID, "Normal");
     if (MSP_SUCCESS != ret) {
         printf("QTTSSessionEnd failed, error code: %d.\n", ret);
@@ -135,48 +135,48 @@ int text_to_speech(const char *src_text, const char *des_path, const char *param
 
 int main(int argc, char *argv[]) {
     int ret = MSP_SUCCESS;
-    const char *login_params = "appid = 5b9f21b7, work_dir = .";//ç™»å½•å‚æ•°,appidä¸mscåº“ç»‘å®š,è¯·å‹¿éšæ„æ”¹åŠ¨
+    const char *login_params = "appid = 5b9f21b7, work_dir = .";//µÇÂ¼²ÎÊı,appidÓëmsc¿â°ó¶¨,ÇëÎğËæÒâ¸Ä¶¯
     /*
-    * rdn:           åˆæˆéŸ³é¢‘æ•°å­—å‘éŸ³æ–¹å¼
-    * volume:        åˆæˆéŸ³é¢‘çš„éŸ³é‡
-    * pitch:         åˆæˆéŸ³é¢‘çš„éŸ³è°ƒ
-    * speed:         åˆæˆéŸ³é¢‘å¯¹åº”çš„è¯­é€Ÿ
-    * voice_name:    åˆæˆå‘éŸ³äºº
-    * sample_rate:   åˆæˆéŸ³é¢‘é‡‡æ ·ç‡
-    * text_encoding: åˆæˆæ–‡æœ¬ç¼–ç æ ¼å¼
+    * rdn:           ºÏ³ÉÒôÆµÊı×Ö·¢Òô·½Ê½
+    * volume:        ºÏ³ÉÒôÆµµÄÒôÁ¿
+    * pitch:         ºÏ³ÉÒôÆµµÄÒôµ÷
+    * speed:         ºÏ³ÉÒôÆµ¶ÔÓ¦µÄÓïËÙ
+    * voice_name:    ºÏ³É·¢ÒôÈË
+    * sample_rate:   ºÏ³ÉÒôÆµ²ÉÑùÂÊ
+    * text_encoding: ºÏ³ÉÎÄ±¾±àÂë¸ñÊ½
     *
     */
     const char *session_begin_params = "engine_type = local, voice_name = xiaoyan, text_encoding = utf-8, tts_res_path = fo|res\\tts\\xiaoyan.jet;fo|res\\tts\\common.jet, sample_rate = 16000, speed = 50, volume = 50, pitch = 50, rdn = 2";
-    const char *filename = "tts_sample.wav"; //åˆæˆçš„è¯­éŸ³æ–‡ä»¶åç§°
-    const char *text = "æ‚¨å¥½ï¼Œè¯·å…³å¥½è½¦é—¨"; //åˆæˆæ–‡æœ¬
-//    const char *text = "äº²çˆ±çš„ç”¨æˆ·ï¼Œæ‚¨å¥½ï¼Œè¿™æ˜¯ä¸€ä¸ªè¯­éŸ³åˆæˆç¤ºä¾‹ï¼Œæ„Ÿè°¢æ‚¨å¯¹ç§‘å¤§è®¯é£è¯­éŸ³æŠ€æœ¯çš„æ”¯æŒï¼ç§‘å¤§è®¯é£æ˜¯äºšå¤ªåœ°åŒºæœ€å¤§çš„è¯­éŸ³ä¸Šå¸‚å…¬å¸ï¼Œè‚¡ç¥¨ä»£ç ï¼š002230"; //åˆæˆæ–‡æœ¬
-    /* ç”¨æˆ·ç™»å½• */
+    const char *filename = "tts_sample.wav"; //ºÏ³ÉµÄÓïÒôÎÄ¼şÃû³Æ
+    const char *text = "ÄúºÃ£¬Çë¹ØºÃ³µÃÅ"; //ºÏ³ÉÎÄ±¾
+//    const char *text = "Ç×°®µÄÓÃ»§£¬ÄúºÃ£¬ÕâÊÇÒ»¸öÓïÒôºÏ³ÉÊ¾Àı£¬¸ĞĞ»Äú¶Ô¿Æ´óÑ¶·ÉÓïÒô¼¼ÊõµÄÖ§³Ö£¡¿Æ´óÑ¶·ÉÊÇÑÇÌ«µØÇø×î´óµÄÓïÒôÉÏÊĞ¹«Ë¾£¬¹ÉÆ±´úÂë£º002230"; //ºÏ³ÉÎÄ±¾
+    /* ÓÃ»§µÇÂ¼ */
     ret = MSPLogin(NULL, NULL,
-                   login_params); //ç¬¬ä¸€ä¸ªå‚æ•°æ˜¯ç”¨æˆ·åï¼Œç¬¬äºŒä¸ªå‚æ•°æ˜¯å¯†ç ï¼Œç¬¬ä¸‰ä¸ªå‚æ•°æ˜¯ç™»å½•å‚æ•°ï¼Œç”¨æˆ·åå’Œå¯†ç å¯åœ¨http://www.xfyun.cnæ³¨å†Œè·å–
+                   login_params); //µÚÒ»¸ö²ÎÊıÊÇÓÃ»§Ãû£¬µÚ¶ş¸ö²ÎÊıÊÇÃÜÂë£¬µÚÈı¸ö²ÎÊıÊÇµÇÂ¼²ÎÊı£¬ÓÃ»§ÃûºÍÃÜÂë¿ÉÔÚhttp://www.xfyun.cn×¢²á»ñÈ¡
     if (MSP_SUCCESS != ret) {
         printf("MSPLogin failed, error code: %d.\n", ret);
-        goto exit;//ç™»å½•å¤±è´¥ï¼Œé€€å‡ºç™»å½•
+        goto exit;//µÇÂ¼Ê§°Ü£¬ÍË³öµÇÂ¼
     }
 
     printf("\n###########################################################################\n");
-    printf("## è¯­éŸ³åˆæˆï¼ˆText To Speechï¼ŒTTSï¼‰æŠ€æœ¯èƒ½å¤Ÿè‡ªåŠ¨å°†ä»»æ„æ–‡å­—å®æ—¶è½¬æ¢ä¸ºè¿ç»­çš„ ##\n");
-    printf("## è‡ªç„¶è¯­éŸ³ï¼Œæ˜¯ä¸€ç§èƒ½å¤Ÿåœ¨ä»»ä½•æ—¶é—´ã€ä»»ä½•åœ°ç‚¹ï¼Œå‘ä»»ä½•äººæä¾›è¯­éŸ³ä¿¡æ¯æœåŠ¡çš„  ##\n");
-    printf("## é«˜æ•ˆä¾¿æ·æ‰‹æ®µï¼Œéå¸¸ç¬¦åˆä¿¡æ¯æ—¶ä»£æµ·é‡æ•°æ®ã€åŠ¨æ€æ›´æ–°å’Œä¸ªæ€§åŒ–æŸ¥è¯¢çš„éœ€æ±‚ã€‚  ##\n");
+    printf("## ÓïÒôºÏ³É£¨Text To Speech£¬TTS£©¼¼ÊõÄÜ¹»×Ô¶¯½«ÈÎÒâÎÄ×ÖÊµÊ±×ª»»ÎªÁ¬ĞøµÄ ##\n");
+    printf("## ×ÔÈ»ÓïÒô£¬ÊÇÒ»ÖÖÄÜ¹»ÔÚÈÎºÎÊ±¼ä¡¢ÈÎºÎµØµã£¬ÏòÈÎºÎÈËÌá¹©ÓïÒôĞÅÏ¢·şÎñµÄ  ##\n");
+    printf("## ¸ßĞ§±ã½İÊÖ¶Î£¬·Ç³£·ûºÏĞÅÏ¢Ê±´úº£Á¿Êı¾İ¡¢¶¯Ì¬¸üĞÂºÍ¸öĞÔ»¯²éÑ¯µÄĞèÇó¡£  ##\n");
     printf("###########################################################################\n\n");
 
-    /* æ–‡æœ¬åˆæˆ */
-    printf("å¼€å§‹åˆæˆ ...\n");
+    /* ÎÄ±¾ºÏ³É */
+    printf("¿ªÊ¼ºÏ³É ...\n");
     ret = text_to_speech(text, filename, session_begin_params);
     if (MSP_SUCCESS != ret) {
         printf("text_to_speech failed, error code: %d.\n", ret);
     }
-    printf("åˆæˆå®Œæ¯•\n");
+    printf("ºÏ³ÉÍê±Ï\n");
 
     exit:
-    printf("æŒ‰ä»»æ„é”®é€€å‡º ...\n");
+    printf("°´ÈÎÒâ¼üÍË³ö ...\n");
 //    _getch();
     getchar();
-    MSPLogout(); //é€€å‡ºç™»å½•
+    MSPLogout(); //ÍË³öµÇÂ¼
 
     return 0;
 }

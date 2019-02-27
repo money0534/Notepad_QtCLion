@@ -63,7 +63,7 @@ include_directories(resources/images)
 
 # WIN32
 # 增加下载失败提示
-add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${RESOURCE_FILES} ${QUA_LIB} ${MSC_LIB})# ${PROJECT_NAME} WIN32 ${SOURCE_FILES}
+add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES} ${QUA_LIB} ${MSC_LIB})# ${PROJECT_NAME} WIN32 ${SOURCE_FILES}
 
 #Qt5::Core Qt5::Quick
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)
