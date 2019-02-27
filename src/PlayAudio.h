@@ -21,12 +21,13 @@ void play_audio(){
 
         QAudioFormat format;
         // Set up the format, eg.
-        format.setSampleRate(32000);
+        format.setSampleRate(16000);
         format.setChannelCount(1);
-        format.setSampleSize(8);
-        format.setCodec("audio/pcm");
+        format.setSampleSize(16);
+        format.setCodec("audio/pcm");//不添加wav头？
         format.setByteOrder(QAudioFormat::LittleEndian);
         format.setSampleType(QAudioFormat::UnSignedInt);
+
 
         QAudioDeviceInfo info(QAudioDeviceInfo::defaultOutputDevice());
         if (!info.isFormatSupported(format)) {
