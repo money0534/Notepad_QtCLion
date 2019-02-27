@@ -4,9 +4,6 @@
 * 高效便捷手段，非常符合信息时代海量数据、动态更新和个性化查询的需求。
 */
 
-//Console Input/Output
-//#include <conio.h>
-
 #include <stdio.h>
 #include "qtts.h"
 #include "msp_types.h"
