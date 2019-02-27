@@ -75,15 +75,32 @@ target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)
 #it depends on the dll name you compiled in QtCreator,so it explains the strange phenomenon above
 
 #dll debug https://cmake.org/cmake/help/v3.0/command/target_link_libraries.html
-target_link_libraries(${PROJECT_NAME} debug ${PROJECT_SOURCE_DIR}/libzip/quazipd.dll)
+target_link_libraries(${PROJECT_NAME} debug libzip/quazipd.dll)
 
 #dll builds except debug
-target_link_libraries(${PROJECT_NAME} optimized ${PROJECT_SOURCE_DIR}/libzip/quazip.dll)
+target_link_libraries(${PROJECT_NAME} optimized libzip/Release/quazip.dll)
 
-#todo 增加cmake命令，自动copy dll库到build dir
 #讯飞语音
 target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/libmsc/msc_x64.dll)
 
 
-#static libzip debug
-#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/libzip/libquazip.a)
+#拷贝讯飞dll库
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD        # Adds a post-build event to ${PROJECT_NAME}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different  # which executes "cmake - E copy_if_different..."
+        "${PROJECT_SOURCE_DIR}/libmsc/msc_x64.dll"      # <--this is in-file
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>)                 # <--this is out-file path
+
+#拷贝 /libmsc/msc文件夹到可执行文件路径（输出路径）
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD        # Adds a post-build event to ${PROJECT_NAME}
+        COMMAND ${CMAKE_COMMAND} -E copy_directory  # which executes "cmake - E copy_if_different..."
+        "${PROJECT_SOURCE_DIR}/libmsc/jets"      # <--this is in-file
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+
+#根据配置Debug/Release配置 拷贝quazip dll库
+#add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#        COMMAND ${CMAKE_COMMAND} -E copy_directory
+#        "${PROJECT_SOURCE_DIR}/libzip/Debug"
+#        $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+
+message("${PROJECT_NAME} build succeed")
+#message("$<CONFIGURATION>")
