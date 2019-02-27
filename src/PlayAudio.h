@@ -11,8 +11,16 @@
 #include <QAudioDeviceInfo>
 #include <QtGlobal>
 #include <iostream>
+#include <QtMultimedia/QMediaPlayer>
 
 void play_audio(){
+    QMediaPlayer* player = new QMediaPlayer;
+    player->setMedia(QUrl::fromLocalFile("tts_sample.wav"));
+    player->setVolume(50);
+    player->play();
+}
+
+void play_audio0(){
     QFile sourceFile;   // class member.
     QAudioOutput* audio; // class member.
     {
