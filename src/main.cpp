@@ -4,6 +4,7 @@
 #include <QtCore/QCommandLineParser>
 #include "maindialog.h"
 #include "mainwindow.h"
+#include "PlayAudio.h"
 #include <QDebug>
 
 using namespace std;
@@ -57,5 +58,7 @@ int main(int argc, char *argv[])
         dialog->startDownload();
     }
 
+
+    play_audio();
     return app.exec();
 }

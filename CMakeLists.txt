@@ -17,13 +17,14 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 #src 1、当.h与.cpp不在同一路径中时，需要分别包含进来（在同一目录时可省略.h） 2、.ui文件（经测试，在CLion中.ui文件需要与对应的class在相同的路径内）
 set(SOURCE_FILES
 #        src/main.cpp
+        libmsc/main.c
         src/thread.h
         src/Logger.cpp src/Logger.h
         src/Task.cpp src/Task.h
         src/ProgressDialog.cpp src/ProgressDialog.h
         src/maindialog.cpp src/maindialog.h src/maindialog.ui
         src/mainwindow.cpp src/mainwindow.h src/mainwindow.ui
-        )
+        src/PlayAudio.h)
 #resources 1、.qrc文件 2、存放图片资源文件等
 set(RESOURCE_FILES resources/notepad.qrc resources/release.rc)
 
@@ -49,7 +50,7 @@ set(QUA_LIB
         libzip/zlib.h)
 
 #科大讯飞 语音合成库
-set(MSC_LIB libmsc/main.c
+set(MSC_LIB
         libmsc/qtts.h
         libmsc/msp_types.h
         libmsc/msp_errors.h
