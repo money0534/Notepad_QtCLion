@@ -3,7 +3,7 @@
 //
 
 #include <QThread>
-#include <lib/JlCompress.h>
+#include <libzip/JlCompress.h>
 
 
 #ifndef MAINTENANCETOOL_THREAD_H

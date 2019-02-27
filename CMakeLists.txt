@@ -15,7 +15,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 #src 1、当.h与.cpp不在同一路径中时，需要分别包含进来（在同一目录时可省略.h） 2、.ui文件（经测试，在CLion中.ui文件需要与对应的class在相同的路径内）
-set(SOURCE_FILES src/main.cpp
+set(SOURCE_FILES
+#        src/main.cpp
         src/thread.h
         src/Logger.cpp src/Logger.h
         src/Task.cpp src/Task.h
@@ -25,25 +26,33 @@ set(SOURCE_FILES src/main.cpp
 #resources 1、.qrc文件 2、存放图片资源文件等
 set(RESOURCE_FILES resources/notepad.qrc resources/release.rc)
 
+#quazip lib
 set(QUA_LIB
-        lib/crypt.h
-        lib/ioapi.h
-        lib/JlCompress.h
-        lib/quaadler32.h
-        lib/quachecksum32.h
-        lib/quacrc32.h
-        lib/quagzipfile.h
-        lib/quaziodevice.h
-        lib/quazip.h
-        lib/quazip_global.h
-        lib/quazipdir.h
-        lib/quazipfile.h
-        lib/quazipfileinfo.h
-        lib/quazipnewinfo.h
-        lib/unzip.h
-        lib/zconf.h
-        lib/zip.h
-        lib/zlib.h)
+        libzip/crypt.h
+        libzip/ioapi.h
+        libzip/JlCompress.h
+        libzip/quaadler32.h
+        libzip/quachecksum32.h
+        libzip/quacrc32.h
+        libzip/quagzipfile.h
+        libzip/quaziodevice.h
+        libzip/quazip.h
+        libzip/quazip_global.h
+        libzip/quazipdir.h
+        libzip/quazipfile.h
+        libzip/quazipfileinfo.h
+        libzip/quazipnewinfo.h
+        libzip/unzip.h
+        libzip/zconf.h
+        libzip/zip.h
+        libzip/zlib.h)
+
+#科大讯飞 语音合成库
+set(MSC_LIB libmsc/main.c
+        libmsc/qtts.h
+        libmsc/msp_types.h
+        libmsc/msp_errors.h
+        libmsc/msp_cmn.h)
 
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
@@ -53,7 +62,8 @@ find_package(Qt5Network REQUIRED)
 include_directories(resources/images)
 
 # WIN32
-add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${RESOURCE_FILES} ${QUA_LIB})# ${PROJECT_NAME} WIN32 ${SOURCE_FILES}
+# 增加下载失败提示
+add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${RESOURCE_FILES} ${QUA_LIB} ${MSC_LIB})# ${PROJECT_NAME} WIN32 ${SOURCE_FILES}
 
 #Qt5::Core Qt5::Quick
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)
@@ -65,10 +75,15 @@ target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network)
 #it depends on the dll name you compiled in QtCreator,so it explains the strange phenomenon above
 
 #dll debug https://cmake.org/cmake/help/v3.0/command/target_link_libraries.html
-target_link_libraries(${PROJECT_NAME} debug ${PROJECT_SOURCE_DIR}/lib/quazipd.dll)
+target_link_libraries(${PROJECT_NAME} debug ${PROJECT_SOURCE_DIR}/libzip/quazipd.dll)
 
 #dll builds except debug
-target_link_libraries(${PROJECT_NAME} optimized ${PROJECT_SOURCE_DIR}/lib/quazip.dll)
+target_link_libraries(${PROJECT_NAME} optimized ${PROJECT_SOURCE_DIR}/libzip/quazip.dll)
 
-#static lib debug
-#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/libquazip.a)
+#todo 增加cmake命令，自动copy dll库到build dir
+#讯飞语音
+target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/libmsc/msc_x64.dll)
+
+
+#static libzip debug
+#target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/libzip/libquazip.a)
