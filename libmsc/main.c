@@ -102,7 +102,14 @@ int text_to_speech(const char *src_text, const char *des_path, const char *param
         if (MSP_SUCCESS != ret)
             break;
         if (NULL != data) {
+            /*
+            buffer	-	pointer to the first object in the array to be written
+            size	-	size of each object
+            count	-	the number of the objects to be written
+            stream	-	pointer to the output stream
+             */
             fwrite(data, audio_len, 1, fp);
+            //纯数据大小
             wav_hdr.data_size += audio_len; //计算data_size大小
         }
         if (MSP_TTS_FLAG_DATA_END == synth_status)
