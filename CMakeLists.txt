@@ -17,7 +17,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 #src 1、当.h与.cpp不在同一路径中时，需要分别包含进来（在同一目录时可省略.h） 2、.ui文件（经测试，在CLion中.ui文件需要与对应的class在相同的路径内）
 set(SOURCE_FILES
 #        src/main.cpp
-        libmsc/main.c
+#        libmsc/main.c
         src/thread.h
         src/Logger.cpp src/Logger.h
         src/Task.cpp src/Task.h
@@ -56,6 +56,16 @@ set(MSC_LIB
         libmsc/msp_errors.h
         libmsc/msp_cmn.h)
 
+
+#WAVE lib
+set(WAVE_LIB
+        ref/wave/WAVE.cpp
+        ref/wave/WAVE.h
+        ref/wave/RIFFFile.cpp
+        ref/wave/rifffile.h
+        ref/wave/WaveTest.cpp
+        )
+
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Network REQUIRED)
@@ -66,7 +76,7 @@ include_directories(resources/images)
 
 # WIN32
 # 增加下载失败提示
-add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES} ${QUA_LIB} ${MSC_LIB})# ${PROJECT_NAME} WIN32 ${SOURCE_FILES}
+add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES} ${QUA_LIB} ${MSC_LIB} ${WAVE_LIB})# ${PROJECT_NAME} WIN32 ${SOURCE_FILES}
 
 #Qt5::Core Qt5::Quick
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network Qt5::Multimedia)

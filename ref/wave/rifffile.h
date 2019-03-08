@@ -9,6 +9,7 @@
 #include <vector>
 
 #include <stdio.h>
+#include <cstring>
 
 /***************************************************************************
 	macros, constants, and enums
