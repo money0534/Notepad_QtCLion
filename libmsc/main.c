@@ -19,19 +19,22 @@
  */
 /* wav音频头部格式 44 bytes in total*/
 typedef struct _wave_pcm_hdr {
+    // RIFF Header
     char riff[4];//4                // = "RIFF"
     int size_8;//4                 // = FileSize - 8
     char wave[4];//4                // = "WAVE"
+
+    // Format Header
     char fmt[4];//4                 // = "fmt "
     int fmt_size;//4                // = 下一个结构体的大小 : 16
-
-    short int format_tag;//2             // = PCM : 1
+    short int format_tag;//2             // = PCM : 1；其他值非PCM http://www.lightlink.com/tjweber/StripWav/WAVE.html
     short int channels;//2               // = 通道数 : 1
     int samples_per_sec;//4        // = 采样率 : 8000 | 6000 | 11025 | 16000
     int avg_bytes_per_sec;//4      // = 每秒字节数 : samples_per_sec * bits_per_sample / 8
     short int block_align;//2            // = 每采样点字节数 : wBitsPerSample / 8
     short int bits_per_sample;//2        // = 量化比特数: 8 | 16
 
+    // Data
     char data[4];//4                // = "data";
     int data_size;//4              // = 纯数据长度 : FileSize - 44
 } wave_pcm_hdr;
@@ -123,8 +126,11 @@ int text_to_speech(const char *src_text, const char *des_path, const char *param
         return ret;
     }
     /* 修正wav文件头数据的大小 */
-    /*这里结构体大小-8? 本身占用4 bytes，跳过8 bytes之后所有数据的大小。
-     Size of the wav portion of the file, which follows the first 8 bytes*/
+    /*
+     这里结构体大小-8? 本身占用4 bytes，跳过8 bytes之后所有数据的大小。
+     Size of the wav portion of the file, which follows the first 8 bytes
+     参考 http://www.lightlink.com/tjweber/StripWav/Canon.html
+     */
     wav_hdr.size_8 += wav_hdr.data_size + (sizeof(wav_hdr) - 8);
     /* 将修正过的数据写回文件头部,音频文件为wav格式 */
     /*4 bytes offset，跳过后写入文件大小*/

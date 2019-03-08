@@ -2,6 +2,7 @@
 //https://web.archive.org/web/20140327141505/https://ccrma.stanford.edu/courses/422/projects/WaveFormat/
 //http://www.topherlee.com/software/pcm-tut-wavformat.html
 
+/*canonical format:标准格式*/
 typedef struct wav_header {
     // RIFF Header
     char riff_header[4]; // Contains "RIFF"
