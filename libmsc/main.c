@@ -109,7 +109,7 @@ int text_to_speech(const char *src_text, const char *des_path, const char *param
             stream	-	pointer to the output stream
              */
             fwrite(data, audio_len, 1, fp);
-            //纯数据大小
+            //纯数据大小，每次返回的数据 累加到大小
             wav_hdr.data_size += audio_len; //计算data_size大小
         }
         if (MSP_TTS_FLAG_DATA_END == synth_status)
@@ -123,12 +123,15 @@ int text_to_speech(const char *src_text, const char *des_path, const char *param
         return ret;
     }
     /* 修正wav文件头数据的大小 */
+    /*这里结构体大小-8? 本身占用4 bytes，跳过8 bytes之后所有数据的大小。
+     Size of the wav portion of the file, which follows the first 8 bytes*/
     wav_hdr.size_8 += wav_hdr.data_size + (sizeof(wav_hdr) - 8);
-
     /* 将修正过的数据写回文件头部,音频文件为wav格式 */
+    /*4 bytes offset，跳过后写入文件大小*/
     fseek(fp, 4, 0);
     fwrite(&wav_hdr.size_8, sizeof(wav_hdr.size_8), 1, fp); //写入size_8的值
     fseek(fp, 40, 0); //将文件指针偏移到存储data_size值的位置
+    /*40 bytes offset，跳过后写入纯数据大小*/
     fwrite(&wav_hdr.data_size, sizeof(wav_hdr.data_size), 1, fp); //写入data_size的值
     fclose(fp);
     fp = NULL;
