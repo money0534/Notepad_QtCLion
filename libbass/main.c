@@ -22,7 +22,8 @@ int main(int argc, char** argv){
 
 //    BASS_SetVolume(1);//0~1 之间的值
 
-    HSTREAM hstream =  BASS_StreamCreateFile(FALSE,"tts_sample.wav",0,0,BASS_SAMPLE_LOOP);
+    DWORD flags=BASS_SAMPLE_LOOP;//0不重复
+    HSTREAM hstream =  BASS_StreamCreateFile(FALSE,"tts_sample.wav",0,0,flags);
 
 //    HSTREAM hstream=BASS_StreamCreateFile(FALSE, "beat it.mp3", 0, 0,BASS_SAMPLE_LOOP);
 
