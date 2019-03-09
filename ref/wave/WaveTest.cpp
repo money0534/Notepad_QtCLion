@@ -65,7 +65,7 @@ static void ShowFormat(WaveFile &wave) {
     pause();
 }
 
-int main(int argc, const char *argv[]) {
+int main_2(int argc, const char *argv[]) {
 
     WaveFile From, To;
 

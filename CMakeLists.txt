@@ -66,6 +66,11 @@ set(WAVE_LIB
         ref/wave/WaveTest.cpp
         )
 
+set(BASS_LIB
+        libbass/bass.h
+        libbass/main.c
+        )
+
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Network REQUIRED)
@@ -76,7 +81,7 @@ include_directories(resources/images)
 
 # WIN32
 # 增加下载失败提示
-add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES} ${QUA_LIB} ${MSC_LIB} ${WAVE_LIB})# ${PROJECT_NAME} WIN32 ${SOURCE_FILES}
+add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES} ${QUA_LIB} ${MSC_LIB} ${WAVE_LIB} ${BASS_LIB})# ${PROJECT_NAME} WIN32 ${SOURCE_FILES}
 
 #Qt5::Core Qt5::Quick
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network Qt5::Multimedia)
@@ -97,6 +102,14 @@ target_link_libraries(${PROJECT_NAME} optimized ${PROJECT_SOURCE_DIR}/libzip/Rel
 #讯飞语音
 target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/libmsc/msc_x64.dll)
 
+
+#bass lib
+target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/libbass/bass.dll)
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD        # Adds a post-build event to ${PROJECT_NAME}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different  # which executes "cmake - E copy_if_different..."
+        "${PROJECT_SOURCE_DIR}/libbass/bass.dll"      # <--this is in-file
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 
 #拷贝讯飞dll库
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD        # Adds a post-build event to ${PROJECT_NAME}
