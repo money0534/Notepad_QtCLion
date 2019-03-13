@@ -18,6 +18,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(SOURCE_FILES
 #        src/main.cpp
 #        libmsc/main.c
+        libmsc/main_without_file.c
         src/thread.h
         src/Logger.cpp src/Logger.h
         src/Task.cpp src/Task.h
@@ -68,7 +69,7 @@ set(WAVE_LIB
 
 set(BASS_LIB
         libbass/bass.h
-        libbass/main.c
+#        libbass/main.c
         )
 
 find_package(Qt5Core REQUIRED)
