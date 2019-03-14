@@ -59,6 +59,6 @@ int main(int argc, char *argv[])
     }
 
     //todo 播放音频
-    play_audio();
+//    play_audio();
     return app.exec();
 }

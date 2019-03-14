@@ -12,6 +12,7 @@
 #include <memory.h>
 #include <mem.h>
 #include <stdlib.h>
+#include "libbass/bass.h"
 
 /*
  https://en.wikipedia.org/wiki/WAV
@@ -101,6 +102,50 @@ int main_char_ptr(){
 }
 
 
+//msc 采样率16000
+DWORD freq=16000;
+//通道数量
+DWORD chans=1;
+HWND win=0;
+char * fp;
+
+DWORD CALLBACK MyStreamProc(HSTREAM handle, void *buf, DWORD len, void *user)
+{
+    // read the file into the buffer
+    buf = fp;
+//    memcpy(buf,fp,total_len);
+    print_header(buf);
+
+    return BASS_STREAMPROC_END;
+}
+
+
+int bass_play(){
+
+    printf(">>> BASS test >>>\n");
+
+    //init
+    if(!BASS_Init(-1,freq,0,win,NULL)){
+        int ret = BASS_ErrorGetCode();
+        printf("init failed,error code:%d",ret);
+    }
+
+    HSTREAM stream=BASS_StreamCreate(freq, chans, 0, MyStreamProc, 0); // create the stream
+
+    int ret = BASS_ChannelPlay(stream,FALSE);
+
+    if(!ret)
+        printf("play,error code:%d\n",ret);//play,error code:1 BASS_ERROR_MEM ?
+
+    system("pause");
+
+    //release
+    if(!BASS_Free()){
+        int ret = BASS_ErrorGetCode();
+        printf("release failed,error code:%d",ret);
+    }
+}
+
 /**
  * 文本合成
  * @param src_text 合成文本
@@ -110,7 +155,7 @@ int main_char_ptr(){
 int text_to_speech(const char *src_text, const char *params) {
     int ret = -1;
     //todo 先开辟WAV头文件的大小
-    char * fp = malloc(HEADER_SIZE);
+    fp = malloc(HEADER_SIZE);
     const char *sessionID = NULL;
     unsigned int audio_len = 0;
     wave_pcm_hdr wav_hdr = default_wav_hdr;
@@ -130,23 +175,14 @@ int text_to_speech(const char *src_text, const char *params) {
         free(fp);
         return ret;
     }
-    printf("正在合成 ...\n");
-//    fwrite(&wav_hdr, sizeof(wav_hdr), 1, fp); //添加wav音频头，使用采样率为16000
     while (1) {
         /* 获取合成音频 */
         const void *data = QTTSAudioGet(sessionID, &audio_len, &synth_status, &ret);
         if (MSP_SUCCESS != ret)
             break;
         if (NULL != data) {
+            printf("audio_len->%d\n",audio_len);
             fp = realloc(fp,total_len+audio_len);
-            /*
-            buffer	-	pointer to the first object in the array to be written
-            size	-	size of each object
-            count	-	the number of the objects to be written
-            stream	-	pointer to the output stream
-             */
-//            fwrite(data, audio_len, 1, fp);
-//            memcpy(data,fp,)
             //纯数据大小，每次返回的数据 累加到大小
             wav_hdr.data_size += audio_len; //计算data_size大小
             fp[total_len] = *((char*)data);
@@ -156,7 +192,8 @@ int text_to_speech(const char *src_text, const char *params) {
         if (MSP_TTS_FLAG_DATA_END == synth_status)
             break;
     }
-    printf("\n");
+    printf("wav_hdr.data_size=%d\n",wav_hdr.data_size);
+//    printf("total_len=%d\n",total_len);
     if (MSP_SUCCESS != ret) {
         printf("QTTSAudioGet failed, error code: %d.\n", ret);
         QTTSSessionEnd(sessionID, "AudioGetError");
@@ -171,11 +208,9 @@ int text_to_speech(const char *src_text, const char *params) {
      */
     wav_hdr.size_8 += wav_hdr.data_size + (sizeof(wav_hdr) - 8);
 
-    char * header=(char *)&wav_hdr;
-    memcpy(fp,header,HEADER_SIZE);
-    print_header(fp);
+    memcpy(fp,&wav_hdr,HEADER_SIZE);
 
-
+    bass_play();
 
     //释放
     free(fp);
