@@ -1,11 +1,12 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.12)
+set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 project(XmlConverter)
 
 set(CMAKE_CXX_STANDARD 11)
 
 # Qt
 # Set this to your Qt installation
-set(CMAKE_PREFIX_PATH C:\\Qt\\Qt5.12.0\\5.12.0\\mingw73_64)
+#set(CMAKE_PREFIX_PATH C:/Qt/Qt5.12.0/5.12.0/msvc2017_64)
 
 
 set(CMAKE_AUTOMOC ON)
