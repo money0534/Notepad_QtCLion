@@ -6,7 +6,8 @@ set(CMAKE_CXX_STANDARD 11)
 
 # Qt
 # Set this to your Qt installation
-set(CMAKE_PREFIX_PATH C:\\Qt\\Qt5.12.0\\5.12.0\\mingw73_64)
+#set(CMAKE_PREFIX_PATH C:/Qt/Qt5.12.0/5.12.0/mingw73_64)# home only
+set(CMAKE_PREFIX_PATH C:/MyApps/Qt/Qt5.12.0/5.12.0/msvc2017_64)# office only
 
 
 set(CMAKE_AUTOMOC ON)
