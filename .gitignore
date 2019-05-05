@@ -2,6 +2,7 @@
 /.idea
 /build
 /release
+/cmake-build-debug
 
 # Prerequisites
 *.d
